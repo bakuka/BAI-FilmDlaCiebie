@@ -50,9 +50,9 @@ const   firebase = {
     AngularFireAuthModule,
     RouterModule.forRoot([
     { path:'', component: RegisterComponent},
-  //   { path: 'filter' ,component: FilterComponent,
-  //   canActivate: [AuthGuard]
-  // }
+    { path: 'filter' ,component: FilterComponent,
+    canActivate: [AuthGuard]
+  }
     // { path: 'selected', component: SelectedComponent}
 
     ]),
