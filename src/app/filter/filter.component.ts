@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FilmService } from '../services/film.service';
+import { Film } from '../models/Films';
 
 @Component({
   selector: 'app-filter',
@@ -7,16 +9,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FilterComponent implements OnInit {
 
-  constructor() { }
+  films: Film[];
+
+  constructor(private filmService: FilmService) { }
 
   ngOnInit() {
+    console.log('ngOnInit run');
+    this.filmService.getFilms().subscribe(films =>{
+      this.films = films;
+    });
   }
 
-  clickGetAllGenres() {
-    window.alert("wlazlo");
-    
-  }
+  clickGetAllGenres(){
 
+    for (var i=0; i<this.films.length; i++) {
+        document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + this.films[i].tittle +'\n';
+    }
+  }
 }
 
 
