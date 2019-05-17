@@ -20,12 +20,41 @@ export class FilterComponent implements OnInit {
     });
   }
 
-  clickGetAllGenres(){
+  clickGetAllTittles(){
 
     for (var i=0; i<this.films.length; i++) {
-        document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + this.films[i].tittle +'\n';
+        document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + this.films[i].tittle+ ' - ' + this.films[i].time +' - ';
+        for (var j=0; j<this.films[i].genres.length; j++){
+          document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + this.films[i].genres[j] +', ';
+        }
+        document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + '\n';
     }
   }
+
+  getAllGenres(){
+    var genresArray :string[];   
+    genresArray = [""];
+    genresArray.pop();
+
+    for (var i=0; i<this.films.length; i++) {
+      for (var j=0; j<this.films[i].genres.length; j++){
+        genresArray.push(this.films[i].genres[j]);
+      }
+    }
+
+    /*remove duplicate*/
+    genresArray = genresArray.filter((el, i, a) => i === a.indexOf(el))
+    genresArray.sort();
+
+    for (var i=0; i<genresArray.length; i++){
+      document.getElementById("genresTA").innerHTML = document.getElementById("genresTA").innerHTML + genresArray[i] +'\n';
+    }
+  }
+
+  clickGetAllGenres(){
+    this.getAllGenres();
+  }
+
 }
 
 
