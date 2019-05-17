@@ -55,6 +55,30 @@ export class FilterComponent implements OnInit {
     this.getAllGenres();
   }
 
+  getAllCountries(){
+    var countriesArray :string[];   
+    countriesArray = [""];
+    countriesArray.pop();
+
+    for (var i=0; i<this.films.length; i++) {
+      for (var j=0; j<this.films[i].countries.length; j++){
+        countriesArray.push(this.films[i].countries[j]);
+      }
+    }
+
+    /*remove duplicate*/
+    countriesArray = countriesArray.filter((el, i, a) => i === a.indexOf(el))
+    countriesArray.sort();
+
+    for (var i=0; i<countriesArray.length; i++){
+      document.getElementById("countriesTA").innerHTML = document.getElementById("countriesTA").innerHTML + countriesArray[i] +'\n';
+    }
+  }
+
+  clickGetAllCountries(){
+    this.getAllCountries();
+  }
+
 }
 
 
