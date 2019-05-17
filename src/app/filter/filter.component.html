@@ -2,35 +2,13 @@
 
 </head>
 <body>
-  <p>
-    filter works!
-  </p>
 
+  <div class="container">
+    <h1>FILTER PAGE</h1>
+    <textarea id="mainText" ></textarea>
+    <!-- <button onclick="clickGetAllGenres()"> pobierz gatunki filmów </button> -->
+    <button (click)="clickGetAllGenres()"> pobierz gatunki filmów </button>
+ </div>
 
-    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
-
-    <!-- Add Firebase products that you want to use -->
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.1.0/firebase-database.js"></script>
-
-    <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyDWtXkgm0x-k8HWWI6Vc-3rllRDx_dwK7s",
-        authDomain: "filmsbase-e4d63.firebaseapp.com",
-        databaseURL: "https://filmsbase-e4d63.firebaseio.com",
-        projectId: "filmsbase-e4d63",
-        storageBucket: "filmsbase-e4d63.appspot.com",
-        messagingSenderId: "905255718932",
-        appId: "1:905255718932:web:2c35ef9e3f22debc"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-    </script>
-
-    <script src="filter.js"></script>
 </body>
 

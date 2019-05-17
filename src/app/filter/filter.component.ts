@@ -12,4 +12,11 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
   }
 
+  clickGetAllGenres() {
+    window.alert("wlazlo");
+    
+  }
+
 }
+
+
