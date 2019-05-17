@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material';
 import { AuthGuard } from './register/auth.guard';
 import {MatButtonModule} from '@angular/material/button';
 import { AuthService } from './register/auth.service';
+import { FilterComponent } from './filter/filter.component';
 
 
 
@@ -36,6 +37,7 @@ const   firebase = {
   declarations: [
     AppComponent,
     RegisterComponent,
+    FilterComponent,
     
 
   ],
