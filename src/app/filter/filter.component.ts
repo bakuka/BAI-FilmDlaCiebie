@@ -103,6 +103,16 @@ export class FilterComponent implements OnInit {
     }
   }
 
+  randomFilm(films :Film[]){
+    var random = Math.floor(Math.random()*(films.length-1)+1);
+    return films[random];
+  }
+
+  clickRandomFilm(){
+    var chooseFilm: Film;
+    chooseFilm =  this.randomFilm(this.filterFilms(this.films));
+    document.getElementById("randomTA").innerHTML = chooseFilm.tittle;
+  }
 }
 
 
