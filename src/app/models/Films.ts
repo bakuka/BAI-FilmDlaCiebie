@@ -3,9 +3,9 @@ export interface Film {
     imgURL?:string;
     tittle?:string;
     originalTittle?:string;
-    score?:string;
+    score?:number;
     time?:string;
-    year?:string;
+    year?:number;
     genres?:string[];
     countries?:string[];
   }

@@ -79,6 +79,30 @@ export class FilterComponent implements OnInit {
     this.getAllCountries();
   }
 
+  filterData(films :Film) {
+    return films.year >= 2000 && films.year <=2018
+            && films.score >=8 && films.score <=10;
+  }
+
+  filterFilms(films){
+    var filteredFilms :Film[];   
+    filteredFilms = [];
+    filteredFilms.pop();
+    return filteredFilms = films.filter(this.filterData);
+  }
+
+  clickFilterFilms(){
+    var filteredFilms :Film[];   
+    filteredFilms = [];
+    filteredFilms.pop();
+
+    filteredFilms = this.filterFilms(this.films);
+    for (var i=0; i<filteredFilms.length; i++){
+      document.getElementById("filterFilmsTA").innerHTML = document.getElementById("filterFilmsTA").innerHTML + filteredFilms[i].tittle +' - '
+      + filteredFilms[i].score +' - '+ filteredFilms[i].year +'\n';
+    }
+  }
+
 }
 
 

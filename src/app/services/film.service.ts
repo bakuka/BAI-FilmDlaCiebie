@@ -12,7 +12,6 @@ export class FilmService {
   films: Observable<Film[]>;
 
   constructor(public afs: AngularFireDatabase) { 
-    // this.films = this.afs.collection('/films').valueChanges();
     this.films = this.afs.list('/films').valueChanges();
   }
 
