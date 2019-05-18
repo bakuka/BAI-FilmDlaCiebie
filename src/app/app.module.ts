@@ -18,6 +18,7 @@ import { AuthGuard } from './register/auth.guard';
 import {MatButtonModule} from '@angular/material/button';
 import { AuthService } from './register/auth.service';
 import { FilterComponent } from './filter/filter.component';
+import { LoginComponent } from './login/login.component';
 
 import { FilmService } from './services/film.service';
 import { AngularFirestore } from 'angularfire2/firestore';
@@ -45,6 +46,11 @@ const   firebase = {
     AppComponent,
     RegisterComponent,
     FilterComponent,
+<<<<<<< HEAD
+=======
+    LoginComponent
+    
+>>>>>>> RegisterPage
 
   ],
   
@@ -58,7 +64,12 @@ const   firebase = {
     { path:'', component: RegisterComponent},
     { path: 'filter' ,component: FilterComponent,
     canActivate: [AuthGuard]
+<<<<<<< HEAD
   }
+=======
+  },
+  { path: 'login', component:LoginComponent}
+>>>>>>> RegisterPage
     // { path: 'selected', component: SelectedComponent}
 
     ]),

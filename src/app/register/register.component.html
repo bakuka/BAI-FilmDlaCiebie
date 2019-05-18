@@ -1,12 +1,15 @@
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
 
-<body class="registerBody">
-  <p class='register1'>
-    Witaj
-  </p>
-  <p class='register2'>
-    Utwórz konto za darmo
-  </p>
+
+
+
+
+
+<body class = "text-center">
+
+  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <main role="main" class="inner cover">
+          <h1 class="cover-heading">Witaj</h1>
+          <p class="lead">Utwórz konto za darmo</p>
 
 
   <form [formGroup]="frmSignup" (submit)="submit()">
@@ -103,5 +106,13 @@
       Login with Facebook
     </button>
   </div>
+  
+  <button type="button" class="btn btn-link" (click)="haveAccount()">Mam już konto</button>
+
+
+</main>
+</div>
+
+
 
 </body>

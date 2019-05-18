@@ -69,6 +69,10 @@ export class RegisterComponent {
       .catch(err => this.errorMessage = err.message);
   }
 
+  haveAccount(){
+    this.router.navigate(['/login'])
+  }
+
   createSignupForm(): FormGroup {
     return this.fb.group(
       {
