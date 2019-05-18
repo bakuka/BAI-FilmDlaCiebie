@@ -1,13 +1,16 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 /* 19327054 */
 
-body {
-  position: absolute;
-  left: 0%;
+
+
+.ground {
+  /* position: absolute; */
+  /* left: 0%;
   right: 0%;
   top: 0%;
-  bottom: 0%;
+  bottom: 0%; */
   background: linear-gradient(0deg, rgba(53, 0, 125, 0.7) 2.6%, rgba(149, 117, 205, 0.22) 123.21%), url(picture/19327054.jpg);
+  background-size: cover;
 }
 
 .blue{
