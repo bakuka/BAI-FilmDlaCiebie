@@ -31,13 +31,13 @@ import 'firebase/database';
 
 
 const   firebase = {
-  apiKey: "AIzaSyDWtXkgm0x-k8HWWI6Vc-3rllRDx_dwK7s",
-  authDomain: "filmsbase-e4d63.firebaseapp.com",
-  databaseURL: "https://filmsbase-e4d63.firebaseio.com",
-  projectId: "filmsbase-e4d63",
-  storageBucket: "filmsbase-e4d63.appspot.com",
-  messagingSenderId: "905255718932",
-  appId: "1:905255718932:web:2c35ef9e3f22debc"
+  apiKey: "AIzaSyB4q0xgUAIQYkEZKP3ktUJU3Uom4ddEhZg",
+  authDomain: "filmdlaciebie-e34b6.firebaseapp.com",
+  databaseURL: "https://filmdlaciebie-e34b6.firebaseio.com",
+  projectId: "filmdlaciebie-e34b6",
+  storageBucket: "filmdlaciebie-e34b6.appspot.com",
+  messagingSenderId: "153529790154",
+  appId: "1:153529790154:web:292e36456aefd43b"
 }
 
 
@@ -46,11 +46,8 @@ const   firebase = {
     AppComponent,
     RegisterComponent,
     FilterComponent,
-<<<<<<< HEAD
-=======
     LoginComponent
     
->>>>>>> RegisterPage
 
   ],
   
@@ -64,12 +61,8 @@ const   firebase = {
     { path:'', component: RegisterComponent},
     { path: 'filter' ,component: FilterComponent,
     canActivate: [AuthGuard]
-<<<<<<< HEAD
-  }
-=======
   },
   { path: 'login', component:LoginComponent}
->>>>>>> RegisterPage
     // { path: 'selected', component: SelectedComponent}
 
     ]),
