@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "153529790154",
+    "firebase_url": "https://filmdlaciebie-e34b6.firebaseio.com",
+    "project_id": "filmdlaciebie-e34b6",
+    "storage_bucket": "filmdlaciebie-e34b6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:153529790154:android:82bdda9819f61d18",
+        "android_client_info": {
+          "package_name": "com.example.filmwebdownloader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "153529790154-3c6mlj3o3hp34g8krin7c8dqvvmvj337.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBZRvfLShO3COegoOv-iFl2XuAuw3LQ5jM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "153529790154-3c6mlj3o3hp34g8krin7c8dqvvmvj337.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
