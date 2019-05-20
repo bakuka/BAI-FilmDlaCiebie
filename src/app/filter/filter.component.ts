@@ -39,19 +39,15 @@ export class FilterComponent implements OnInit {
 
   //End - Production Year
 
-  //Choose gatunek
-
+  //START genres LOV initialization
   movieGenre = new FormControl();
-  movieGenreList: string[] = ['Komedia', 'Dramat', 'Krymnał', 'Thriller', 'Horror'];
+  movieGenreList: string[] = [""]; 
+  //END genres LOV
 
-  //End - choose gatunek
-
-    //Choose gatunek
-
-    filmCountry = new FormControl();
-    filmCountryList: string[] = ['Polska', 'Niemcy', 'Czechy', 'Hiszpania', 'Anglia'];
-  
-    //End - choose gatunek
+  //START countries LOV initialization
+  filmCountry = new FormControl();
+  filmCountryList: string[] = [""];
+  //End - countries LOV
 
   constructor(private filmService: FilmService) { }
 
@@ -59,16 +55,18 @@ export class FilterComponent implements OnInit {
     console.log('ngOnInit run');
     this.filmService.getFilms().subscribe(films => {
       this.films = films;
+      this.movieGenreList = this.getAllGenres();
+      this.filmCountryList = this.getAllCountries();
     });
 
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
-    );
+    );     
+    
   }
 
   clickGetAllTittles() {
-
     for (var i = 0; i < this.films.length; i++) {
       document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + this.films[i].tittle + ' - ' + this.films[i].time + ' - ';
       for (var j = 0; j < this.films[i].genres.length; j++) {
@@ -76,30 +74,6 @@ export class FilterComponent implements OnInit {
       }
       document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + '\n';
     }
-  }
-
-  getAllGenres() {
-    var genresArray: string[];
-    genresArray = [""];
-    genresArray.pop();
-
-    for (var i = 0; i < this.films.length; i++) {
-      for (var j = 0; j < this.films[i].genres.length; j++) {
-        genresArray.push(this.films[i].genres[j]);
-      }
-    }
-
-    /*remove duplicate*/
-    genresArray = genresArray.filter((el, i, a) => i === a.indexOf(el))
-    genresArray.sort();
-
-    for (var i = 0; i < genresArray.length; i++) {
-      document.getElementById("genresTA").innerHTML = document.getElementById("genresTA").innerHTML + genresArray[i] + '\n';
-    }
-  }
-
-  clickGetAllGenres() {
-    this.getAllGenres();
   }
 
   getAllCountries() {
@@ -117,13 +91,7 @@ export class FilterComponent implements OnInit {
     countriesArray = countriesArray.filter((el, i, a) => i === a.indexOf(el))
     countriesArray.sort();
 
-    for (var i = 0; i < countriesArray.length; i++) {
-      document.getElementById("countriesTA").innerHTML = document.getElementById("countriesTA").innerHTML + countriesArray[i] + '\n';
-    }
-  }
-
-  clickGetAllCountries() {
-    this.getAllCountries();
+    return countriesArray;
   }
 
   filterData(films: Film) {
@@ -162,7 +130,23 @@ export class FilterComponent implements OnInit {
   }
 
 
+  getAllGenres() :string[] {
+    var genresArray: string[];
+    genresArray = [""];
+    genresArray.pop();
 
+    for (var i = 0; i < this.films.length; i++) {
+      for (var j = 0; j < this.films[i].genres.length; j++) {
+        genresArray.push(this.films[i].genres[j]);
+      }
+    }
+
+    /*remove duplicate*/
+    genresArray = genresArray.filter((el, i, a) => i === a.indexOf(el))
+    genresArray.sort();
+
+    return genresArray;
+  }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
