@@ -46,10 +46,18 @@
     </p>
     <mat-form-field>
       <mat-label>Wybierz gatunek</mat-label>
-      <mat-select [formControl]="toppings" multiple>
-        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+      <mat-select [formControl]="movieGenre" multiple>
+        <mat-option *ngFor="let movieGenre of movieGenreList" [value]="movieGenre">{{movieGenre}}</mat-option>
       </mat-select>
     </mat-form-field>
+    <p>
+    <mat-form-field>
+        <mat-label>Wybierz kraj produkcji</mat-label>
+        <mat-select [formControl]="filmCountry" multiple>
+          <mat-option *ngFor="let filmCountry of filmCountryList" [value]="filmCountry">{{filmCountry}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
   </form>
 
 

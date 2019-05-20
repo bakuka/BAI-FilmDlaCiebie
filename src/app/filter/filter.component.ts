@@ -41,10 +41,17 @@ export class FilterComponent implements OnInit {
 
   //Choose gatunek
 
-  toppings = new FormControl();
-  toppingList: string[] = ['Komedia', 'Dramat', 'Krymnał', 'Thriller', 'Horror'];
+  movieGenre = new FormControl();
+  movieGenreList: string[] = ['Komedia', 'Dramat', 'Krymnał', 'Thriller', 'Horror'];
 
   //End - choose gatunek
+
+    //Choose gatunek
+
+    filmCountry = new FormControl();
+    filmCountryList: string[] = ['Polska', 'Niemcy', 'Czechy', 'Hiszpania', 'Anglia'];
+  
+    //End - choose gatunek
 
   constructor(private filmService: FilmService) { }
 
