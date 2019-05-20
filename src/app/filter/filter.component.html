@@ -3,6 +3,41 @@
 </head>
 <body>
 
+
+      
+      <mat-card class="result">
+        <mat-card-content>
+          <h2 class="example-h2">Ocena FilmWeb:</h2>
+          
+      
+          <mat-slider
+              class="slider-margin"
+              [disabled]="disabled"
+              [invert]="invert"
+              [max]="max"
+              [min]="min"
+              [step]="step"
+              [thumbLabel]="thumbLabel"
+              [tickInterval]="tickInterval"
+              [(ngModel)]="value"
+              [vertical]="vertical">
+          </mat-slider>
+        </mat-card-content>
+      </mat-card>
+
+      <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        
+      
+
   <!-- <div class="container">
     <h1>FILTER PAGE</h1>
     <textarea id="mainText" ></textarea>

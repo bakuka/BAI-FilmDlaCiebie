@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FilmService } from '../services/film.service';
 import { Film } from '../models/Films';
+import {coerceNumberProperty} from '@angular/cdk/coercion';
+import {FormControl} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-filter',
@@ -11,6 +16,30 @@ export class FilterComponent implements OnInit {
 
   films: Film[];
 
+  myControl = new FormControl();
+  options: string[] = ["1990","1995"];
+  filteredOptions: Observable<string[]>;
+
+
+
+  //SliderConf
+
+  autoTicks = false;
+  disabled = false;
+  invert = true;
+  max = 10;
+  min = 0;
+  showTicks = false;
+  step = 0.5;
+  thumbLabel = false;
+  value = 0;
+  vertical = false;
+
+
+
+  //SliderConf
+
+
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
@@ -18,6 +47,11 @@ export class FilterComponent implements OnInit {
     this.filmService.getFilms().subscribe(films =>{
       this.films = films;
     });
+
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
   }
 
   clickGetAllTittles(){
@@ -113,6 +147,24 @@ export class FilterComponent implements OnInit {
     chooseFilm =  this.randomFilm(this.filterFilms(this.films));
     document.getElementById("randomTA").innerHTML = chooseFilm.tittle;
   }
+
+
+  //Slider
+  get tickInterval(): number | 'auto' {
+    return this.showTicks ? (this.autoTicks ? 'auto' : this._tickInterval) : 0;
+  }
+  set tickInterval(value) {
+    this._tickInterval = coerceNumberProperty(value);
+  }
+  private _tickInterval = 1;
+//Slider
+
+private _filter(value: string): string[] {
+  const filterValue = value.toLowerCase();
+
+  return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+}
+
 }
 
 
