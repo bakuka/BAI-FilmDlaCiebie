@@ -1,37 +1,42 @@
-#mainText{
-    width: 50%;
-    height: 200px;
-}
-#genresTA{
-    width: 50%;
-    height: 300px;
-}
-#countriesTA{
-    width: 50%;
-    height: 300px;
-}
-#filterFilmsTA{
-    width: 50%;
-    height: 300px;
+#mainText {
+  width: 50%;
+  height: 200px;
 }
 
+#genresTA {
+  width: 50%;
+  height: 300px;
+}
+
+#countriesTA {
+  width: 50%;
+  height: 300px;
+}
+
+#filterFilmsTA {
+  width: 50%;
+  height: 300px;
+}
 
 .example-h2 {
-    margin: 10px;
-  }
-  
-  .example-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
-  
-  .slider-margin {
-    margin: 10px;
-  }
-  
-  .mat-slider-horizontal {
-    width: 300px;
-  }
-  
+  margin: 10px;
+}
+
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+.slider-margin {
+  margin: 10px;
+}
+
+.mat-slider-horizontal {
+  width: 300px;
+}
+
+.example-full-width {
+  width: 20%;
+}
