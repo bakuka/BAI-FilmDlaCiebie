@@ -31,6 +31,9 @@
         </mat-autocomplete>
       </mat-form-field>
 
+
+
+
       <mat-form-field class="example-full-width">
         <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="myControl"
           [matAutocomplete]="auto">
@@ -41,6 +44,12 @@
         </mat-autocomplete>
       </mat-form-field>
     </p>
+    <mat-form-field>
+      <mat-label>Wybierz gatunek</mat-label>
+      <mat-select [formControl]="toppings" multiple>
+        <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </form>
 
 

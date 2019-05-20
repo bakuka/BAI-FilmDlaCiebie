@@ -39,6 +39,13 @@ export class FilterComponent implements OnInit {
 
   //End - Production Year
 
+  //Choose gatunek
+
+  toppings = new FormControl();
+  toppingList: string[] = ['Komedia', 'Dramat', 'Krymnał', 'Thriller', 'Horror'];
+
+  //End - choose gatunek
+
   constructor(private filmService: FilmService) { }
 
   ngOnInit() {
