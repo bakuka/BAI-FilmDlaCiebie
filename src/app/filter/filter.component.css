@@ -34,9 +34,30 @@
 }
 
 .mat-slider-horizontal {
-  width: 300px;
+  width: 320px;
 }
 
 .example-full-width {
-  width: 20%;
+  width: 15%;
 }
+
+span{
+  margin:10px;
+}
+
+.random{
+width: 318px;
+height: 69px;
+}
+
+.chooseField{
+width: 318px;
+height: 51px;
+}
+
+.yearChoose{
+width: 150px;
+height: 51px;
+}
+
+

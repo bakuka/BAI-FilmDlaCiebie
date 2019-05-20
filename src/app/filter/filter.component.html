@@ -2,26 +2,47 @@
 
 </head>
 
-<body class="text-center">
+<body>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>reorder</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>list_alt</mat-icon>
+          <span>Filtry</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>import_export</mat-icon>
+          <span>Losowanie</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>movie</mat-icon>
+          <span>Moje filmy</span>
+        </button>
+        <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Wyloguj</span>
+          </button>
+      </mat-menu>
+      
+
+  <div class="text-center">
+      <p class="lead ">Wylosuj film na dzisiaj</p>
+      <P >Dopasuj swoje filtry</P>
+      
 
 
 
-  <mat-card class="result">
-    <mat-card-content>
-      <p class="lead">Wylosuj film na dzisiaj</p>
-      <P>Dopasuj swoje filtry</P>
-      <p>Ocena Filmweb</p>
 
-
-      <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" [(ngModel)]="value">
-      </mat-slider>
-    </mat-card-content>
-  </mat-card>
 
   <form class="example-form">
-    <p>Lata produkcji</p>
-    <p>
-      <mat-form-field class="example-full-width">
+      <p>Ocena Filmweb</p>
+      <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="value">
+        </mat-slider>
+    <p class="white">Lata produkcji</p>
+    <p><span>
+      <mat-form-field class="yearChoose">
         <input type="text" placeholder="Od roku" aria-label="Number" matInput [formControl]="myControl"
           [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -30,11 +51,12 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+    </span>
 
 
 
-
-      <mat-form-field class="example-full-width">
+<span>
+      <mat-form-field class="yearChoose">
         <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="myControl"
           [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
@@ -43,21 +65,23 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
+    </span>
     </p>
-    <mat-form-field>
+    <mat-form-field class="chooseField">
       <mat-label>Wybierz gatunek</mat-label>
       <mat-select [formControl]="movieGenre" multiple>
         <mat-option *ngFor="let movieGenre of movieGenreList" [value]="movieGenre">{{movieGenre}}</mat-option>
       </mat-select>
     </mat-form-field>
     <p>
-    <mat-form-field>
-        <mat-label>Wybierz kraj produkcji</mat-label>
-        <mat-select [formControl]="filmCountry" multiple>
+    <mat-form-field class="chooseField">
+        <mat-label >Wybierz kraj produkcji</mat-label>
+        <mat-select  [formControl]="filmCountry" multiple>
           <mat-option *ngFor="let filmCountry of filmCountryList" [value]="filmCountry">{{filmCountry}}</mat-option>
         </mat-select>
       </mat-form-field>
     </p>
+    <button mat-raised-button color="warn" class="random">Losuj</button>
   </form>
 
 
@@ -83,4 +107,5 @@
       <textarea id="randomTA"></textarea>
       <button (click)="clickRandomFilm()"> wylosuj film </button>
     </div> -->
+  </div>
 </body>
