@@ -6,9 +6,9 @@
 <body>
 
     
-        <mat-toolbar color="#240056" class="example-toolbar">
+        <mat-toolbar class="menu-toolbar">
           <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-          <h1 class="example-app-name">Responsive App</h1>
+          <h1 class="example-app-name">Film Dla Ciebie</h1>
         </mat-toolbar>
   
   <div class="cover-container">   
@@ -54,8 +54,9 @@
 
     <form class="example-form">
       <p>Ocena Filmweb</p>
-      <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="value">
+      <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="valueOfSlider" name="valueOfSlider">
       </mat-slider>
+      <h1>You entered: {{valueOfSlider}}</h1>
       <p>Lata produkcji</p>
       <p>
 

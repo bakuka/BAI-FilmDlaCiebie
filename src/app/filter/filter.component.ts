@@ -7,12 +7,15 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 
+
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit {
+
+  valueOfSlider=0;
 
   films: Film[];
   filteredOptionsMin: Observable<string[]>;
