@@ -1,13 +1,26 @@
+
 <head>
 
 </head>
 
 <body>
-  <div class="cover-container">
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>reorder</mat-icon>
+
+    
+        <mat-toolbar color="#240056" class="example-toolbar">
+          <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+          <h1 class="example-app-name">Responsive App</h1>
+        </mat-toolbar>
+  
+  <div class="cover-container">   
+    <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+        <div >
+          <span>
+      <mat-icon class="icon">reorder</mat-icon>
+    </span>
       <span>Film Dla Ciebie</span>
+    </div>
     </button>
+   -->
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>list_alt</mat-icon>
@@ -85,4 +98,5 @@
       <button mat-raised-button color="warn" class="random">Losuj</button>
     </form>
   </div>
+ 
 </body>

@@ -32,12 +32,15 @@ export class FilterComponent implements OnInit {
   movieGenreList: string[] = [""]; 
   //END genres LOV
 
+  
+
   //START countries LOV initialization
   filmCountry = new FormControl();
   filmCountryList: string[] = [""];
   //End - countries LOV
 
-  constructor(private filmService: FilmService) { }
+  constructor(private filmService: FilmService,) { }
+  
 
   ngOnInit() {
     console.log('ngOnInit run');
@@ -46,6 +49,8 @@ export class FilterComponent implements OnInit {
       this.movieGenreList = this.getAllGenres();
       this.filmCountryList = this.getAllCountries();
     });
+
+    
 
     this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
       startWith(''),
@@ -160,5 +165,7 @@ export class FilterComponent implements OnInit {
     return years;
   }
 }
+
+
 
 
