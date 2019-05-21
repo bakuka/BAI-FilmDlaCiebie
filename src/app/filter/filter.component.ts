@@ -62,16 +62,6 @@ export class FilterComponent implements OnInit {
     );
   }
 
-  clickGetAllTittles() {
-    for (var i = 0; i < this.films.length; i++) {
-      document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + this.films[i].tittle + ' - ' + this.films[i].time + ' - ';
-      for (var j = 0; j < this.films[i].genres.length; j++) {
-        document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + this.films[i].genres[j] + ', ';
-      }
-      document.getElementById("mainText").innerHTML = document.getElementById("mainText").innerHTML + '\n';
-    }
-  }
-
   getAllCountries() {
     var countriesArray: string[];
     countriesArray = [""];
@@ -90,61 +80,6 @@ export class FilterComponent implements OnInit {
     return countriesArray;
   }
 
-  clickRandomFilm() {
-    var chooseFilm: Film;
-    var minYearFilter :string = this.yearsMinForm.value;
-    var maxYearFilter :string = this.yearsMaxForm.value;
-
-    if (minYearFilter == null){
-      minYearFilter = "1850";
-    }
-    if (maxYearFilter == null){
-      maxYearFilter = "2050";
-    }    
-
-    this.genresTab = this.movieGenre.value.length;
-    window.alert("this.genresTab: "+this.getGenres());
-
-    var filteredFilms: Film[];
-    filteredFilms = [];
-    filteredFilms.pop();  
-    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, this.movieGenre.value );
-
-    chooseFilm = this.randomFilm(filteredFilms);
-    window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres );
-  }
-
-  filterFilms(films,minYar,maxYear, genresTab) {
-    var filteredFilms: Film[];
-    filteredFilms = [];
-    filteredFilms.pop();
-
-    var filteredFilms2: Film[];
-    filteredFilms2 = [];
-    filteredFilms2.pop();
-
-    return filteredFilms = films.filter(filterData => { 
-                                                        var checkFilm :Boolean = false;
-                                                        for (var i = 0; i < filterData.genres.length; i++){ 
-                                                          for (var j = 0; j < genresTab.length; j++){
-                                                            if (filterData.genres[i] == genresTab[j]){
-                                                              checkFilm = true;
-                                                            }
-                                                          }
-                                                        }
-                                                        if (checkFilm == false ){
-                                                          return null;
-                                                        }
-                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear);
-                                                      }
-                                        );
-  }
-  
-  randomFilm(films: Film[]) {
-    var random = Math.floor(Math.random() * (films.length - 1) + 1);
-    return films[random];
-  }
-
   getAllGenres() :string[] {
     var genresArray: string[];
     genresArray = [""];
@@ -161,6 +96,80 @@ export class FilterComponent implements OnInit {
     genresArray.sort();
 
     return genresArray;
+  }
+
+  clickRandomFilm() {
+    var chooseFilm: Film;
+    var minYearFilter :string = this.yearsMinForm.value;
+    var maxYearFilter :string = this.yearsMaxForm.value;
+
+    if (minYearFilter == null){
+      minYearFilter = "1850";
+    }
+    if (maxYearFilter == null){
+      maxYearFilter = "2050";
+    }    
+
+    var filteredFilms: Film[];
+    filteredFilms = [];
+    filteredFilms.pop();  
+    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, this.movieGenre.value, this.filmCountry.value );
+
+    if (filteredFilms.length == 0  ){
+      window.alert("brak filmu z podanymi kryteriami");
+    }else if( filteredFilms.length == 1){
+      chooseFilm = filteredFilms[0];
+      window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
+    }else{
+      chooseFilm = this.randomFilm(filteredFilms);
+      window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
+    }
+  }
+
+  filterFilms(films,minYar,maxYear, genresTab, countriesTab) {
+    var filteredFilms: Film[];
+    filteredFilms = [];
+    filteredFilms.pop();
+
+    var filteredFilms2: Film[];
+    filteredFilms2 = [];
+    filteredFilms2.pop();
+
+    return filteredFilms = films.filter(filterData => { 
+                                                        if (genresTab != null){
+                                                          var checkFilmGenre :Boolean = false;
+                                                          for (var i = 0; i < filterData.genres.length; i++){ 
+                                                            for (var j = 0; j < genresTab.length; j++){
+                                                              if (filterData.genres[i] == genresTab[j]){
+                                                                checkFilmGenre = true;
+                                                              }
+                                                            }
+                                                          }
+                                                          if (checkFilmGenre == false ){
+                                                            return null;
+                                                          }
+                                                        }
+                                                        if (countriesTab != null ){
+                                                          var checkFilmCountries :Boolean = false;
+                                                          for (var i = 0; i < filterData.countries.length; i++){ 
+                                                            for (var j = 0; j < countriesTab.length; j++){
+                                                              if (filterData.countries[i] == countriesTab[j]){
+                                                                checkFilmCountries = true;
+                                                              }
+                                                            }
+                                                          }
+                                                          if (checkFilmCountries == false ){
+                                                            return null;
+                                                          }
+                                                        }
+                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear);
+                                                      }
+                                        );
+  }
+  
+  randomFilm(films: Film[]) {
+    var random = Math.floor(Math.random() * (films.length - 1) + 1);
+    return films[random];
   }
 
   private _filterMin(value: string): string[] {
