@@ -74,6 +74,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
@@ -94,7 +96,8 @@ const   firebase = {
     AppComponent,
     RegisterComponent,
     FilterComponent,
-    LoginComponent
+    LoginComponent,
+    MainNavComponent
     
 
   ],
@@ -108,7 +111,8 @@ const   firebase = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule.forRoot([
-    { path:'', component: RegisterComponent},
+    { path: '', redirectTo: '/register', pathMatch: 'full'},
+    { path:'register', component: RegisterComponent},
     { path: 'filter' ,component: FilterComponent,
     canActivate: [AuthGuard]
   },
@@ -160,7 +164,8 @@ const   firebase = {
   MatAutocompleteModule,
   MatBadgeModule,
   MatBottomSheetModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  LayoutModule
   
   ],
   
