@@ -15,11 +15,16 @@ import { map, startWith } from 'rxjs/operators';
 export class FilterComponent implements OnInit {
 
   films: Film[];
-  filteredOptions: Observable<string[]>;
+  filteredOptionsMin: Observable<string[]>;
+  filteredOptionsMax: Observable<string[]>;
+  
 
   //START years LOV initialization
-  myControl = new FormControl();
-  options: string[] = this.getYears();
+  yearsMinForm = new FormControl();
+  yearsMinTable: string[] = this.getYears();
+
+  yearsMaxForm = new FormControl();
+  yearsMaxTable: string[] = this.getYears();
   //END years LOV
 
   //START genres LOV initialization
@@ -42,10 +47,15 @@ export class FilterComponent implements OnInit {
       this.filmCountryList = this.getAllCountries();
     });
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value))
-    );     
+      map(value => this._filterMin(value))
+    );  
+
+    this.filteredOptionsMax = this.yearsMaxForm.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterMax(value))
+    );
   }
 
   clickGetAllTittles() {
@@ -130,10 +140,16 @@ export class FilterComponent implements OnInit {
     return genresArray;
   }
 
-  private _filter(value: string): string[] {
+  private _filterMin(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+    return this.yearsMinTable.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
+  }
+
+  private _filterMax(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.yearsMaxTable.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
   getYears() :string[] {

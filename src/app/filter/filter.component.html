@@ -3,85 +3,86 @@
 </head>
 
 <body>
-    <div class="cover-container">
+  <div class="cover-container">
     <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>reorder</mat-icon>
-        <span>Film Dla Ciebie</span>
+      <mat-icon>reorder</mat-icon>
+      <span>Film Dla Ciebie</span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>list_alt</mat-icon>
+        <span>Filtry</span>
       </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>list_alt</mat-icon>
-          <span>Filtry</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>import_export</mat-icon>
-          <span>Losowanie</span>
-        </button>
-        <button mat-menu-item>
-          <mat-icon>movie</mat-icon>
-          <span>Moje filmy</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>exit_to_app</mat-icon>
-            <span>Wyloguj</span>
-          </button>
-      </mat-menu>
-    </div>
-      
-      
+      <button mat-menu-item>
+        <mat-icon>import_export</mat-icon>
+        <span>Losowanie</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>movie</mat-icon>
+        <span>Moje filmy</span>
+      </button>
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Wyloguj</span>
+      </button>
+    </mat-menu>
+  </div>
+
+
 
   <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-      <p>Wylosuj film na dzisiaj</p>
-      <P >Dopasuj swoje filtry</P>
-      
+    <p>Wylosuj film na dzisiaj</p>
+    <P>Dopasuj swoje filtry</P>
 
 
 
 
 
-  <form class="example-form">
+
+    <form class="example-form">
       <p>Ocena Filmweb</p>
       <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="value">
-        </mat-slider>
-    <p>Lata produkcji</p>
-    <p>
-      
-      <mat-form-field class="yearChoose">
-        <input type="text" placeholder="Od roku" aria-label="Number" matInput [formControl]="myControl"
-          [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    
-<span>
-      <mat-form-field class="yearChoose">
-        <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="myControl"
-          [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </span>
-    </p>
-    <mat-form-field class="chooseField">
-      <mat-label>Wybierz gatunek</mat-label>
-      <mat-select [formControl]="movieGenre" multiple>
-        <mat-option *ngFor="let movieGenre of movieGenreList" [value]="movieGenre">{{movieGenre}}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <p>
-    <mat-form-field class="chooseField">
-        <mat-label >Wybierz kraj produkcji</mat-label>
-        <mat-select  [formControl]="filmCountry" multiple>
-          <mat-option *ngFor="let filmCountry of filmCountryList" [value]="filmCountry">{{filmCountry}}</mat-option>
+      </mat-slider>
+      <p>Lata produkcji</p>
+      <p>
+
+        <mat-form-field class="yearChoose">
+          <input type="text" placeholder="Od roku" aria-label="Number" matInput [formControl]="yearsMinForm"
+            [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+            <mat-option *ngFor="let option of filteredOptionsMin | async" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <span>
+          <mat-form-field class="yearChoose">
+            <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="yearsMaxForm"
+              [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptionsMax | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </span>
+      </p>
+      <mat-form-field class="chooseField">
+        <mat-label>Wybierz gatunek</mat-label>
+        <mat-select [formControl]="movieGenre" multiple>
+          <mat-option *ngFor="let movieGenre of movieGenreList" [value]="movieGenre">{{movieGenre}}</mat-option>
         </mat-select>
       </mat-form-field>
-    </p>
-    <button mat-raised-button color="warn" class="random">Losuj</button>
-  </form>
+      <p>
+        <mat-form-field class="chooseField">
+          <mat-label>Wybierz kraj produkcji</mat-label>
+          <mat-select [formControl]="filmCountry" multiple>
+            <mat-option *ngFor="let filmCountry of filmCountryList" [value]="filmCountry">{{filmCountry}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <button mat-raised-button color="warn" class="random">Losuj</button>
+    </form>
+  </div>
 </body>
