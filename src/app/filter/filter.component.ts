@@ -17,6 +17,11 @@ export class FilterComponent implements OnInit {
   films: Film[];
   filteredOptionsMin: Observable<string[]>;
   filteredOptionsMax: Observable<string[]>;
+  public genresTab :string[];
+
+  getGenres(){
+    return this.genresTab;
+  }
 
   //START years LOV initialization
   yearsMinForm = new FormControl();
@@ -89,27 +94,50 @@ export class FilterComponent implements OnInit {
     var chooseFilm: Film;
     var minYearFilter :string = this.yearsMinForm.value;
     var maxYearFilter :string = this.yearsMaxForm.value;
+
     if (minYearFilter == null){
       minYearFilter = "1850";
     }
     if (maxYearFilter == null){
       maxYearFilter = "2050";
-    }
+    }    
+
+    this.genresTab = this.movieGenre.value.length;
+    window.alert("this.genresTab: "+this.getGenres());
 
     var filteredFilms: Film[];
     filteredFilms = [];
     filteredFilms.pop();  
-    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter );
+    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, this.movieGenre.value );
 
     chooseFilm = this.randomFilm(filteredFilms);
-    window.alert(chooseFilm.tittle);
+    window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres );
   }
 
-  filterFilms(films,minYar,maxYear) {
+  filterFilms(films,minYar,maxYear, genresTab) {
     var filteredFilms: Film[];
     filteredFilms = [];
     filteredFilms.pop();
-    return filteredFilms = films.filter(filterData => filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear));
+
+    var filteredFilms2: Film[];
+    filteredFilms2 = [];
+    filteredFilms2.pop();
+
+    return filteredFilms = films.filter(filterData => { 
+                                                        var checkFilm :Boolean = false;
+                                                        for (var i = 0; i < filterData.genres.length; i++){ 
+                                                          for (var j = 0; j < genresTab.length; j++){
+                                                            if (filterData.genres[i] == genresTab[j]){
+                                                              checkFilm = true;
+                                                            }
+                                                          }
+                                                        }
+                                                        if (checkFilm == false ){
+                                                          return null;
+                                                        }
+                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear);
+                                                      }
+                                        );
   }
   
   randomFilm(films: Film[]) {
