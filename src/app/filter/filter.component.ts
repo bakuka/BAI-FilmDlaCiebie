@@ -195,7 +195,7 @@ export class FilterComponent implements OnInit {
 
   getYears() :string[] {
     var years :string[] = [];
-    for (var i = 1839; i < 2050; i++) {
+    for (var i = 1950; i < 2030; i++) {
       years.push(i.toString());
     }
     return years;
