@@ -48,18 +48,24 @@ span{
 }
 
 .random{
-width: 100%;
-height: 20%;
+width: 90%;
+height: 70%;
+margin-left: 5%;
+margin-top: 4%;
 }
 
 .chooseField{
 width: 100%;
-height: 15%;
+height: 10%;
+background: #240056;
+margin-bottom:5%;
 }
 
 .yearChoose{
 width: 45%;
-height: 15%;
+height: 10%;
+background: #240056;
+margin-bottom:5%;
 }
 
 .icon {
@@ -78,5 +84,21 @@ body{
 
 .menu-toolbar{
   background-color: #240056;
+}
+
+.text1{
+  margin-bottom:-1%;
+  font-size: 120%;
+}
+
+.text3{
+  margin-left: 45%;
+  font-size: 150%;
+  margin-bottom: -1%;
+}
+
+.downBackground{
+height:100px;
+background-color: #240056;
 }
 
