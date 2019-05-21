@@ -111,10 +111,10 @@ const   firebase = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule.forRoot([
-    { path: '', redirectTo: '/register', pathMatch: 'full'},
+    { path: '', redirectTo: 'register', pathMatch: 'full'},
     { path:'register', component: RegisterComponent},
-    { path: 'filter' ,component: FilterComponent,
-    canActivate: [AuthGuard]
+    { path: 'filter' ,component: FilterComponent
+    // canActivate: [AuthGuard]
   },
   { path: 'login', component:LoginComponent}
     // { path: 'selected', component: SelectedComponent}

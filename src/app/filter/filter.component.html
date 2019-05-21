@@ -1,111 +1,65 @@
 <main-nav>
 
-<body>
-  
-<div>
-    
-        <!-- <mat-toolbar class="menu-toolbar">
-          <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
-          <h1 class="example-app-name">Film Dla Ciebie</h1>
-        </mat-toolbar> -->
+  <body>
+
+    <div>
+      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <p class="text1">Wylosuj film na dzisiaj</p>
+        <P>Dopasuj swoje filtry</P>
+        <form class="example-form">
+          <p>Ocena Filmweb:</p>
+          <p class="text3">{{valueOfSlider}}-10</p>
+          <mat-slider class="slider-margin" [invert]="false" [max]="10" [min]="1" [step]="0.5" value="5"
+            [(ngModel)]="valueOfSlider" name="valueOfSlider">
+          </mat-slider>
+
+          <p>Lata produkcji:</p>
 
 
-
-<!--   
-  <div class="cover-container">    -->
-    <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
-        <div >
-          <span>
-      <mat-icon class="icon">reorder</mat-icon>
-    </span>
-      <span>Film Dla Ciebie</span>
-    </div>
-    </button>
-   -->
-    <!-- <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>list_alt</mat-icon>
-        <span>Filtry</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>import_export</mat-icon>
-        <span>Losowanie</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>movie</mat-icon>
-        <span>Moje filmy</span>
-      </button>
-      <button mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Wyloguj</span>
-      </button>
-    </mat-menu>
-  </div> -->
-
-
-
-  <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-    <p class="text1">Wylosuj film na dzisiaj</p>
-    <P>Dopasuj swoje filtry</P>
-
-
-
-
-
-
-    <form class="example-form">
-      <p>Ocena Filmweb:</p>
-      <p class="text3">{{valueOfSlider}}-10</p>
-      <mat-slider class="slider-margin" [invert]="false" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="valueOfSlider" name="valueOfSlider">
-      </mat-slider>
-      
-      <p>Lata produkcji:</p>
-      
-
-        <mat-form-field class="yearChoose">
-          <input type="text" placeholder="Od roku" aria-label="Number" matInput [formControl]="yearsMinForm"
-            [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptionsMin | async" [value]="option">
-              {{option}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-
-        <span>
           <mat-form-field class="yearChoose">
-            <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="yearsMaxForm"
+            <input type="text" placeholder="Od roku" aria-label="Number" matInput [formControl]="yearsMinForm"
               [matAutocomplete]="auto">
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-              <mat-option *ngFor="let option of filteredOptionsMax | async" [value]="option">
+              <mat-option *ngFor="let option of filteredOptionsMin | async" [value]="option">
                 {{option}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-        </span>
-      
-      <mat-form-field class="chooseField">
-        <mat-label>Wybierz gatunek</mat-label>
-        <mat-select [formControl]="movieGenre" multiple>
-          <mat-option *ngFor="let movieGenre of movieGenreList" [value]="movieGenre">{{movieGenre}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      
-        <mat-form-field class="chooseField">
-          <mat-label>Wybierz kraj produkcji</mat-label>
-          <mat-select [formControl]="filmCountry" multiple>
-            <mat-option *ngFor="let filmCountry of filmCountryList" [value]="filmCountry">{{filmCountry}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-      <p>
-      </p>
 
-    </form>
-  </div>
-  <mat-toolbar class="menu-toolbar downBackground">
-    <button (click)="clickRandomFilm()" mat-raised-button color="warn" class="random">Losuj</button>
-  </mat-toolbar>
-  
-</div>
-</body>
+          <span>
+            <mat-form-field class="yearChoose">
+              <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="yearsMaxForm"
+                [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptionsMax | async" [value]="option">
+                  {{option}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </span>
+
+          <mat-form-field class="chooseField">
+            <mat-label>Wybierz gatunek</mat-label>
+            <mat-select [formControl]="movieGenre" multiple>
+              <mat-option *ngFor="let movieGenre of movieGenreList" [value]="movieGenre">{{movieGenre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="chooseField">
+            <mat-label>Wybierz kraj produkcji</mat-label>
+            <mat-select [formControl]="filmCountry" multiple>
+              <mat-option *ngFor="let filmCountry of filmCountryList" [value]="filmCountry">{{filmCountry}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>
+          </p>
+
+        </form>
+      </div>
+      <mat-toolbar class="menu-toolbar downBackground">
+        <button (click)="clickRandomFilm()" mat-raised-button color="warn" class="random">Losuj</button>
+      </mat-toolbar>
+
+    </div>
+  </body>
 </main-nav>

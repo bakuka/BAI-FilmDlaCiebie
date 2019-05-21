@@ -9,7 +9,7 @@ import { map, startWith } from 'rxjs/operators';
 
 
 @Component({
-  selector: 'app-filter',
+  selector: 'filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })

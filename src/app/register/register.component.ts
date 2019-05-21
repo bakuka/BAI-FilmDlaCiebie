@@ -13,7 +13,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @Component({
-  selector: 'app-register',
+  selector: 'register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
@@ -57,7 +57,11 @@ export class RegisterComponent {
   }
 
   facebookLogin() {
-    this.afAuth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
+    this.authService.facebookLogin()
+    .then((res) => {
+      this.router.navigate(['/filter'])
+    })
+    .catch((err) => console.log(err));
   }
 
   errorMessage: string;
@@ -71,6 +75,10 @@ export class RegisterComponent {
 
   haveAccount(){
     this.router.navigate(['/login'])
+  }
+
+  abort(){
+    this.router.navigate(['/filter'])
   }
 
   createSignupForm(): FormGroup {
