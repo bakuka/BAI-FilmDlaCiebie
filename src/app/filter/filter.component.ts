@@ -18,6 +18,7 @@ export class FilterComponent implements OnInit {
   valueOfSlider=0;
 
   films: Film[];
+  filteredSkippedFilms: Film[] = []; /*the list of film after filtering, which has been skipped by user*/
   filteredOptionsMin: Observable<string[]>;
   filteredOptionsMax: Observable<string[]>;
   public genresTab :string[];
@@ -110,18 +111,26 @@ export class FilterComponent implements OnInit {
     var chooseFilm: Film;
     var minYearFilter :string = this.yearsMinForm.value;
     var maxYearFilter :string = this.yearsMaxForm.value;
+    var movieGenres :string[] = this.movieGenre.value;
+    var movieCountries :string[] = this.filmCountry.value;
 
-    if (minYearFilter == null){
+    /* if fields are null, this is the support of it*/
+    if (minYearFilter == null || minYearFilter == ""){
       minYearFilter = "1850";
     }
-    if (maxYearFilter == null){
+    if (maxYearFilter == null || minYearFilter == ""){
       maxYearFilter = "2050";
-    }    
+    }   
+    if (this.movieGenre.value == ""){
+      movieGenres = null;
+    }
+    if (this.filmCountry.value == ""){
+      movieCountries = null;
+    }
+    /*****/
 
-    var filteredFilms: Film[];
-    filteredFilms = [];
-    filteredFilms.pop();  
-    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, this.movieGenre.value, this.filmCountry.value, this.valueOfSlider );
+    var filteredFilms: Film[] =[];
+    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, movieGenres, movieCountries, this.valueOfSlider );
 
     if (filteredFilms.length == 0  ){
       window.alert("brak filmu z podanymi kryteriami");
@@ -139,12 +148,8 @@ export class FilterComponent implements OnInit {
     filteredFilms = [];
     filteredFilms.pop();
 
-    var filteredFilms2: Film[];
-    filteredFilms2 = [];
-    filteredFilms2.pop();
-
     return filteredFilms = films.filter(filterData => { 
-                                                        if (genresTab != null){
+                                                        if (genresTab != null ){
                                                           var checkFilmGenre :Boolean = false;
                                                           for (var i = 0; i < filterData.genres.length; i++){ 
                                                             for (var j = 0; j < genresTab.length; j++){
@@ -170,6 +175,15 @@ export class FilterComponent implements OnInit {
                                                             return null;
                                                           }
                                                         }
+                                                        
+                                                        // if (this.filteredSkippedFilms != null){
+                                                        //   for (var i = 0; i < this.filteredSkippedFilms.length; i++){ 
+                                                        //     if ( this.filteredSkippedFilms[i].id = filterData.id){
+                                                        //       return null;
+                                                        //     }
+                                                        //   }
+                                                        // }
+
                                                         return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear) 
                                                                 && filterData.score >= minScore;
                                                       }
@@ -178,6 +192,8 @@ export class FilterComponent implements OnInit {
   
   randomFilm(films: Film[]) {
     var random = Math.floor(Math.random() * (films.length - 1) + 1);
+    this.filteredSkippedFilms.push(films[random]); /* adding to skipped list*/
+    window.alert("rozmiar skipu: "+this.filteredSkippedFilms.length);
     return films[random];
   }
 
