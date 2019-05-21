@@ -129,7 +129,7 @@ export class FilterComponent implements OnInit {
     }
     /*****/
 
-    var filteredFilms: Film[] =[];
+    var filteredFilms: Film[] = [];
     filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, movieGenres, movieCountries, this.valueOfSlider );
 
     if (filteredFilms.length == 0  ){
@@ -137,9 +137,13 @@ export class FilterComponent implements OnInit {
     }else if( filteredFilms.length == 1){
       chooseFilm = filteredFilms[0];
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
+
+      this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
     }else{
       chooseFilm = this.randomFilm(filteredFilms);
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
+
+      this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
     }
   }
 
@@ -176,13 +180,13 @@ export class FilterComponent implements OnInit {
                                                           }
                                                         }
                                                         
-                                                        // if (this.filteredSkippedFilms != null){
-                                                        //   for (var i = 0; i < this.filteredSkippedFilms.length; i++){ 
-                                                        //     if ( this.filteredSkippedFilms[i].id = filterData.id){
-                                                        //       return null;
-                                                        //     }
-                                                        //   }
-                                                        // }
+                                                        /* checking if the film has been choosen before, if yes, it cannot be choosen*/
+                                                        for (var i = 0; i < this.filteredSkippedFilms.length; i++){ 
+                                                          if ( this.filteredSkippedFilms[i].id == filterData.id){
+                                                            return null;
+                                                          }
+                                                        }
+                                                        /********* */
 
                                                         return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear) 
                                                                 && filterData.score >= minScore;
@@ -192,8 +196,6 @@ export class FilterComponent implements OnInit {
   
   randomFilm(films: Film[]) {
     var random = Math.floor(Math.random() * (films.length - 1) + 1);
-    this.filteredSkippedFilms.push(films[random]); /* adding to skipped list*/
-    window.alert("rozmiar skipu: "+this.filteredSkippedFilms.length);
     return films[random];
   }
 
