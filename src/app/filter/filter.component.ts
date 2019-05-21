@@ -40,15 +40,25 @@ export class FilterComponent implements OnInit {
   movieGenreList: string[] = [""]; 
   //END genres LOV
 
-  
-
   //START countries LOV initialization
   filmCountry = new FormControl();
   filmCountryList: string[] = [""];
   //End - countries LOV
 
   constructor(private filmService: FilmService,) { }
-  
+
+  /*YT*/
+  player: YT.Player;
+  private id: string = 'kRPhuj8f_3U';
+
+  savePlayer (player){
+    this.player = player;
+    console.log('player instance', player);
+  }
+  onStateChange(event){
+    console.log('player state',event.data);
+  }
+  /*****/
 
   ngOnInit() {
     console.log('ngOnInit run');

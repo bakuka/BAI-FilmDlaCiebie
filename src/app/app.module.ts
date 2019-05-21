@@ -13,6 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthGuard } from './register/auth.guard';
+import {YoutubePlayerModule} from 'ng2-youtube-player';
 
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -160,7 +161,8 @@ const   firebase = {
   MatAutocompleteModule,
   MatBadgeModule,
   MatBottomSheetModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  YoutubePlayerModule
   
   ],
   
