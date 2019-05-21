@@ -17,7 +17,6 @@ export class FilterComponent implements OnInit {
   films: Film[];
   filteredOptionsMin: Observable<string[]>;
   filteredOptionsMax: Observable<string[]>;
-  
 
   //START years LOV initialization
   yearsMinForm = new FormControl();
@@ -86,41 +85,37 @@ export class FilterComponent implements OnInit {
     return countriesArray;
   }
 
-  filterData(films: Film) {
-    return films.year >= 2000 && films.year <= 2018
-      && films.score >= 8 && films.score <= 10;
-  }
-
-  filterFilms(films) {
-    var filteredFilms: Film[];
-    filteredFilms = [];
-    filteredFilms.pop();
-    return filteredFilms = films.filter(this.filterData);
-  }
-
-  clickFilterFilms() {
-    var filteredFilms: Film[];
-    filteredFilms = [];
-    filteredFilms.pop();
-
-    filteredFilms = this.filterFilms(this.films);
-    for (var i = 0; i < filteredFilms.length; i++) {
-      document.getElementById("filterFilmsTA").innerHTML = document.getElementById("filterFilmsTA").innerHTML + filteredFilms[i].tittle + ' - '
-        + filteredFilms[i].score + ' - ' + filteredFilms[i].year + '\n';
+  clickRandomFilm() {
+    var chooseFilm: Film;
+    var minYearFilter :string = this.yearsMinForm.value;
+    var maxYearFilter :string = this.yearsMaxForm.value;
+    if (minYearFilter == null){
+      minYearFilter = "1850";
     }
+    if (maxYearFilter == null){
+      maxYearFilter = "2050";
+    }
+
+    var filteredFilms: Film[];
+    filteredFilms = [];
+    filteredFilms.pop();  
+    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter );
+
+    chooseFilm = this.randomFilm(filteredFilms);
+    window.alert(chooseFilm.tittle);
   }
 
+  filterFilms(films,minYar,maxYear) {
+    var filteredFilms: Film[];
+    filteredFilms = [];
+    filteredFilms.pop();
+    return filteredFilms = films.filter(filterData => filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear));
+  }
+  
   randomFilm(films: Film[]) {
     var random = Math.floor(Math.random() * (films.length - 1) + 1);
     return films[random];
   }
-
-  clickRandomFilm() {
-    var chooseFilm: Film;
-    chooseFilm = this.randomFilm(this.filterFilms(this.films));
-    document.getElementById("randomTA").innerHTML = chooseFilm.tittle;
-  }
-
 
   getAllGenres() :string[] {
     var genresArray: string[];
