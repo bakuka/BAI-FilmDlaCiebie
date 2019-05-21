@@ -121,7 +121,7 @@ export class FilterComponent implements OnInit {
     var filteredFilms: Film[];
     filteredFilms = [];
     filteredFilms.pop();  
-    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, this.movieGenre.value, this.filmCountry.value );
+    filteredFilms = this.filterFilms(this.films, minYearFilter, maxYearFilter, this.movieGenre.value, this.filmCountry.value, this.valueOfSlider );
 
     if (filteredFilms.length == 0  ){
       window.alert("brak filmu z podanymi kryteriami");
@@ -134,7 +134,7 @@ export class FilterComponent implements OnInit {
     }
   }
 
-  filterFilms(films,minYar,maxYear, genresTab, countriesTab) {
+  filterFilms(films,minYar,maxYear, genresTab, countriesTab, minScore) {
     var filteredFilms: Film[];
     filteredFilms = [];
     filteredFilms.pop();
@@ -170,7 +170,8 @@ export class FilterComponent implements OnInit {
                                                             return null;
                                                           }
                                                         }
-                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear);
+                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear) 
+                                                                && filterData.score >= minScore;
                                                       }
                                         );
   }
