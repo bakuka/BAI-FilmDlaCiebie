@@ -54,9 +54,10 @@
 
     <form class="example-form">
       <p>Ocena Filmweb</p>
-      <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="valueOfSlider" name="valueOfSlider">
+      <p class="text-centered">{{valueOfSlider}}-10</p>
+      <mat-slider class="slider-margin" [invert]="false" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="valueOfSlider" name="valueOfSlider">
       </mat-slider>
-      <h1>You entered: {{valueOfSlider}}</h1>
+      
       <p>Lata produkcji</p>
       <p>
 
