@@ -1,13 +1,26 @@
+
 <head>
 
 </head>
 
 <body>
-  <div class="cover-container">
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>reorder</mat-icon>
+
+    
+        <mat-toolbar class="menu-toolbar">
+          <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+          <h1 class="example-app-name">Film Dla Ciebie</h1>
+        </mat-toolbar>
+  
+  <div class="cover-container">   
+    <!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+        <div >
+          <span>
+      <mat-icon class="icon">reorder</mat-icon>
+    </span>
       <span>Film Dla Ciebie</span>
+    </div>
     </button>
+   -->
     <mat-menu #menu="matMenu">
       <button mat-menu-item>
         <mat-icon>list_alt</mat-icon>
@@ -41,8 +54,9 @@
 
     <form class="example-form">
       <p>Ocena Filmweb</p>
-      <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="value">
+      <mat-slider class="slider-margin" [invert]="true" [max]="10" [min]="1" [step]="0.5" value="5" [(ngModel)]="valueOfSlider" name="valueOfSlider">
       </mat-slider>
+      <h1>You entered: {{valueOfSlider}}</h1>
       <p>Lata produkcji</p>
       <p>
 
@@ -85,4 +99,5 @@
       <button (click)="clickRandomFilm()" mat-raised-button color="warn" class="random">Losuj</button>
     </form>
   </div>
+ 
 </body>

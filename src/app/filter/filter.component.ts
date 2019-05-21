@@ -7,12 +7,15 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 
+
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit {
+
+  valueOfSlider=0;
 
   films: Film[];
   filteredOptionsMin: Observable<string[]>;
@@ -36,12 +39,15 @@ export class FilterComponent implements OnInit {
   movieGenreList: string[] = [""]; 
   //END genres LOV
 
+  
+
   //START countries LOV initialization
   filmCountry = new FormControl();
   filmCountryList: string[] = [""];
   //End - countries LOV
 
-  constructor(private filmService: FilmService) { }
+  constructor(private filmService: FilmService,) { }
+  
 
   ngOnInit() {
     console.log('ngOnInit run');
@@ -50,6 +56,8 @@ export class FilterComponent implements OnInit {
       this.movieGenreList = this.getAllGenres();
       this.filmCountryList = this.getAllCountries();
     });
+
+    
 
     this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
       startWith(''),
@@ -192,5 +200,7 @@ export class FilterComponent implements OnInit {
     return years;
   }
 }
+
+
 
 

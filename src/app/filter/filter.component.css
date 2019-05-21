@@ -1,3 +1,5 @@
+
+
 #mainText {
   width: 50%;
   height: 200px;
@@ -34,7 +36,7 @@
 } */
 
 .mat-slider-horizontal {
-  width: 320px;
+  width: 100%;
 }
 
 .example-full-width {
@@ -42,22 +44,39 @@
 }
 
 span{
-  margin:25px;
+  margin:10%;
 }
 
 .random{
-width: 318px;
-height: 69px;
+width: 100%;
+height: 20%;
 }
 
 .chooseField{
-width: 318px;
-height: 51px;
+width: 100%;
+height: 15%;
 }
 
 .yearChoose{
-width: 145px;
-height: 51px;
+width: 45%;
+height: 15%;
 }
 
+.icon {
+  font-size: 400%;
+}
+
+::ng-deep .mat-menu-panel {
+  max-width: none!important;
+  min-width: 300px!important;
+}
+
+body{
+  background-color: #311B92; 
+  color: white;
+}
+
+.menu-toolbar{
+  background-color: #240056;
+}
 
