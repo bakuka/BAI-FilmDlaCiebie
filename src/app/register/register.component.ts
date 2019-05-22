@@ -38,6 +38,7 @@ export class RegisterComponent {
     private authService: AuthService) {
     this.frmSignup = this.createSignupForm();
   }
+  
 
   login() {
     this.authService.login(this.credentials)
@@ -58,10 +59,10 @@ export class RegisterComponent {
 
   facebookLogin() {
     this.authService.facebookLogin()
-    .then((res) => {
+    .then((res) =>{    
       this.router.navigate(['/filter'])
-    })
-    .catch((err) => console.log(err));
+   })
+   .catch((err) => console.log(err));;   
   }
 
   errorMessage: string;
