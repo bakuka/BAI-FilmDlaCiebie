@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/FilmDlaCiebie/",
+    "public": "dist/FilmDlaCiebie",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -9,7 +9,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "index.html"
+        "destination": "/index.html"
       }
     ]
   }

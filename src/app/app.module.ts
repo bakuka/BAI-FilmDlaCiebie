@@ -74,19 +74,13 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
+import { MainNavComponent } from './main-nav/main-nav.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 
 
 
-const   firebase = {
-  apiKey: "AIzaSyB4q0xgUAIQYkEZKP3ktUJU3Uom4ddEhZg",
-  authDomain: "filmdlaciebie-e34b6.firebaseapp.com",
-  databaseURL: "https://filmdlaciebie-e34b6.firebaseio.com",
-  projectId: "filmdlaciebie-e34b6",
-  storageBucket: "filmdlaciebie-e34b6.appspot.com",
-  messagingSenderId: "153529790154",
-  appId: "1:153529790154:web:292e36456aefd43b"
-}
+
 
 
 @NgModule({
@@ -94,7 +88,8 @@ const   firebase = {
     AppComponent,
     RegisterComponent,
     FilterComponent,
-    LoginComponent
+    LoginComponent,
+    MainNavComponent
     
 
   ],
@@ -108,9 +103,10 @@ const   firebase = {
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule.forRoot([
-    { path:'', component: RegisterComponent},
-    { path: 'filter' ,component: FilterComponent,
-    canActivate: [AuthGuard]
+    { path: '', redirectTo: 'register', pathMatch: 'full'},
+    { path:'register', component: RegisterComponent},
+    { path: 'filter' ,component: FilterComponent
+    // canActivate: [AuthGuard]
   },
   { path: 'login', component:LoginComponent}
     // { path: 'selected', component: SelectedComponent}
@@ -160,7 +156,8 @@ const   firebase = {
   MatAutocompleteModule,
   MatBadgeModule,
   MatBottomSheetModule,
-  MatButtonToggleModule
+  MatButtonToggleModule,
+  LayoutModule
   
   ],
   
@@ -172,4 +169,4 @@ const   firebase = {
   
 })
 export class AppModule { }
-platformBrowserDynamic().bootstrapModule(AppModule);
+// platformBrowserDynamic().bootstrapModule(AppModule);

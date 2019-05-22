@@ -39,4 +39,10 @@ export class AuthService {
         )
     }
 
+    facebookLogin(){
+        return this.fireAuth.auth.signInWithPopup(
+            new firebase.auth.FacebookAuthProvider()
+        )
+    }
+
 }
