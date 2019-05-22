@@ -1,0 +1,62 @@
+body{
+    background-color: #311B92; 
+    color: white;
+  }
+
+.login1{
+    position: absolute;
+    left: 20%;
+right: 20%;
+top: 10%;
+bottom: 85%;
+}
+
+.login2{
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    top: 25%;
+    bottom: 65%;
+    
+
+}
+
+.myemail{
+    position: absolute;
+left: 15%;
+right: 15%;
+top: 45%;
+bottom: 45%;
+}
+
+.mypassword{
+    position: absolute;
+left: 15%;
+right: 15%;
+top: 55%;
+bottom: 35%;
+}
+
+.loginButton{
+    position: absolute;
+left: 15%;
+right: 15%;
+top: 65%;
+bottom: 30%;
+}
+
+.login3{
+    position: absolute;
+top: 90%;
+left: 40%;
+right: 40%;
+bottom: 10%;
+}
+
+.login4{
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    top: 55%;
+    bottom: 35%;
+}

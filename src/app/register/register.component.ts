@@ -39,16 +39,6 @@ export class RegisterComponent {
     this.frmSignup = this.createSignupForm();
   }
   
-
-  login() {
-    this.authService.login(this.credentials)
-      .then(() => this.router.navigate(['/filter']))
-      .catch(err => console.log(err.message));
-  }
-
-  // googleLogin(){
-  //   this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
-  // }
   googleLogin() {
     this.authService.googleLogin()
       .then((res) => {
@@ -71,8 +61,13 @@ export class RegisterComponent {
     this.authService.register(this.credentials)
       .then(() => this.registerInfo = 'ACCOUNT CREATED, PLZ LOGIN IN!')
       // .catch(err => console.log(err.message))
-      .catch(err => this.errorMessage = err.message);
-  }
+      .catch(err => {if (err.message=="The email address is already in use by another account."){
+        err.message="Ten adres email jest już w użyciu";
+        this.errorMessage=err.message;
+      }
+      else 
+      this.errorMessage=err.message;
+  })}
 
   haveAccount(){
     this.router.navigate(['/login'])
