@@ -5,6 +5,8 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { Router } from '@angular/router';
+
 
 
 
@@ -47,7 +49,7 @@ export class FilterComponent implements OnInit {
   filmCountryList: string[] = [""];
   //End - countries LOV
 
-  constructor(private filmService: FilmService,) { }
+  constructor(private filmService: FilmService,private router: Router,) { }
   
 
   ngOnInit() {
@@ -113,6 +115,7 @@ export class FilterComponent implements OnInit {
     var maxYearFilter :string = this.yearsMaxForm.value;
     var movieGenres :string[] = this.movieGenre.value;
     var movieCountries :string[] = this.filmCountry.value;
+    this.router.navigate(['/movie']);
 
     /* if fields are null, this is the support of it*/
     if (minYearFilter == null || minYearFilter == ""){

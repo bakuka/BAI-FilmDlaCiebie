@@ -107,6 +107,7 @@ import { MovieComponent } from './movie/movie.component';
     RouterModule.forRoot([
     { path: '', redirectTo: 'register', pathMatch: 'full'},
     { path:'register', component: RegisterComponent},
+    { path:'movie', component: MovieComponent},
     { path: 'filter' ,component: FilterComponent
     // canActivate: [AuthGuard]
   },

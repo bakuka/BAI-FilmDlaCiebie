@@ -1,21 +1,22 @@
 <main-nav>
 
-  <body>
+  <body class=text-center>
 
     <div>
-      <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-        <p class="text1">Wylosuj film na dzisiaj</p>
-        <P>Dopasuj swoje filtry</P>
+      <div class="container">
+        <h3>Wylosuj film na dzisiaj</h3>
+        <P class="h4">Dopasuj swoje filtry</P>
         <form class="example-form">
           <p>Ocena Filmweb:</p>
-          <p class="text3">{{valueOfSlider}}-10</p>
+          <p class="h5">{{valueOfSlider}}-10</p>
           <mat-slider class="slider-margin" [invert]="false" [max]="10" [min]="1" [step]="0.5" value="5"
             [(ngModel)]="valueOfSlider" name="valueOfSlider">
           </mat-slider>
 
-          <p>Lata produkcji:</p>
+          <p class="text-center">Lata produkcji:</p>
 
-
+<div class="row">
+  <div class="col">
           <mat-form-field class="yearChoose">
             <input type="text" placeholder="Od roku" aria-label="Number" matInput [formControl]="yearsMinForm"
               [matAutocomplete]="auto">
@@ -25,8 +26,9 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
+        </div>
 
-          <span>
+          <div class="col">
             <mat-form-field class="yearChoose">
               <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="yearsMaxForm"
                 [matAutocomplete]="auto">
@@ -36,7 +38,9 @@
                 </mat-option>
               </mat-autocomplete>
             </mat-form-field>
-          </span>
+          </div>
+          </div>
+       
 
           <mat-form-field class="chooseField">
             <mat-label>Wybierz gatunek</mat-label>
@@ -56,9 +60,10 @@
 
         </form>
       </div>
-      <mat-toolbar class="menu-toolbar downBackground">
+      <div>
         <button (click)="clickRandomFilm()" mat-raised-button color="warn" class="random">Losuj</button>
-      </mat-toolbar>
+      </div>
+      
 
     </div>
   </body>
