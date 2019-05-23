@@ -76,6 +76,7 @@ import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
+import { MovieComponent } from './movie/movie.component';
 
 
 
@@ -89,7 +90,8 @@ import { LayoutModule } from '@angular/cdk/layout';
     RegisterComponent,
     FilterComponent,
     LoginComponent,
-    MainNavComponent
+    MainNavComponent,
+    MovieComponent
     
 
   ],
