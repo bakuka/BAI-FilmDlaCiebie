@@ -65,19 +65,6 @@
       </div>
       
 
-    </form>
-  </div>
-  <mat-toolbar class="menu-toolbar downBackground">
-    <button (click)="clickRandomFilm()" mat-raised-button color="warn" class="random">Losuj</button>
-  </mat-toolbar>
-  
-</div>
-
-<div> 
-      <youtube-player [videoId]="idRadomFIlmYT" 
-                      (ready)="savePlayer($event)"
-                      (change)="onStateChange($event)">
-      </youtube-player> 
-</div>
-<button (click)="openTrailer()" >Otwórz trailer</button>
-</body>
+    </div>
+  </body>
+</main-nav>
