@@ -1,14 +1,11 @@
 import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { FilmService } from '../services/film.service';
 import { Film } from '../models/Films';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service'
 import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
-import { youTubeSearchInjectables } from '../youtube-search/youtube-search-injectables';
-import { Http,Response } from '@angular/http';
 
 export const YOUTUBE_API_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
 export const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
@@ -57,21 +54,20 @@ export class FilterComponent implements OnInit {
   //End - countries LOV
 
   constructor(private filmService: FilmService,
-    private http: Http,
     private youtube: YouTubeSearchService,
     private el: ElementRef
     ) { }
 
   /*YT*/
   player: YT.Player;
-  private id: string = 'kRPhuj8f_3U';
+  private idRadomFIlmYT :string;
 
   savePlayer (player){
     this.player = player;
     console.log('player instance', player);
   }
+
   onStateChange(event){
-    console.log('player state',event.data);
   }
   /*****/
 
@@ -92,39 +88,6 @@ export class FilterComponent implements OnInit {
       startWith(''),
       map(value => this._filterMax(value))
     );
-
-    Observable.fromEvent(this.el.nativeElement, 'keyup')
-      // extract the value of input
-      .map((e: any) => e.target.value)
-      // filter out if empty
-      .filter((text: string) => text.length > 1)
-      // discard events that take less than 250ms
-      .debounceTime(250)
-      // enable loading
-      .do(() => this.loading.emit(true))
-      // search
-      .map((query: string) => this.youtube.search(query))
-      // discarding old events if new input comes in
-      .switch()
-      // acts on returned search results
-      .subscribe(
-        // on success
-        (results: YouTubeSearchResult[]) => {
-          this.loading.emit(false);
-          this.results.emit(results);
-        },
-        // on error
-        (err: any) => {
-          console.log(err);
-          this.loading.emit(false);
-        },
-        // on completion
-        () => {
-          this.loading.emit(false);
-        }
-      );  
-
-
   }
 
   getAllCountries() {
@@ -173,7 +136,7 @@ export class FilterComponent implements OnInit {
 
     /* if fields are null, this is the support of it*/
     if (minYearFilter == null || minYearFilter == ""){
-      minYearFilter = "1850";
+      minYearFilter = "1950";
     }
     if (maxYearFilter == null || minYearFilter == ""){
       maxYearFilter = "2050";
@@ -196,11 +159,15 @@ export class FilterComponent implements OnInit {
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
+
+      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); /* load trailer in YT */
     }else{
       chooseFilm = this.randomFilm(filteredFilms);
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
+
+      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); /* load trailer in YT */
     }
   }
 
@@ -274,6 +241,9 @@ export class FilterComponent implements OnInit {
       years.push(i.toString());
     }
     return years;
+  }
+  openTrailer(){
+    this.player.loadVideoById(String(this.youtube.getFilmId()));
   }
 }
 

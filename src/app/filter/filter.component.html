@@ -107,15 +107,11 @@
   
 </div>
 
-<div>
-  <youtube-player
-  [videoId]="id"
-  (ready)="savePlayer($event)"
-  (change)="onStateChange($event)"></youtube-player>
+<div> 
+      <youtube-player [videoId]="idRadomFIlmYT" 
+                      (ready)="savePlayer($event)"
+                      (change)="onStateChange($event)">
+      </youtube-player> 
 </div>
-
-<div>
-  <input type="text" placeholder="Try typing 'cats'" autofocus>
-</div>
-
+<button (click)="openTrailer()" >Otwórz trailer</button>
 </body>
