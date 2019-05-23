@@ -13,6 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthGuard } from './register/auth.guard';
+import {YoutubePlayerModule} from 'ng2-youtube-player';
 
 
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
@@ -79,6 +80,12 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MovieComponent } from './movie/movie.component';
 
 
+import { youTubeSearchInjectables } from './youtube-search/youtube-search-injectables';
+import { YouTubeSearchBoxComponent } from './youtube-search/youtube-search-box.component';
+import { YouTubeSearchResultComponent } from './youtube-search/youtube-search-result.component';
+import { YouTubeSearchComponent } from './youtube-search/youtube-search.component';
+import { HttpModule } from '@angular/http';
+
 
 
 
@@ -91,9 +98,10 @@ import { MovieComponent } from './movie/movie.component';
     FilterComponent,
     LoginComponent,
     MainNavComponent,
-    MovieComponent
-    
-
+    MovieComponent,    
+    YouTubeSearchBoxComponent,
+    YouTubeSearchResultComponent,
+    YouTubeSearchComponent   
   ],
   
   imports: [
@@ -160,13 +168,15 @@ import { MovieComponent } from './movie/movie.component';
   MatBadgeModule,
   MatBottomSheetModule,
   MatButtonToggleModule,
-  LayoutModule
+  LayoutModule,
+  YoutubePlayerModule,
+  HttpModule
   
   ],
   
 
 
-  providers: [AuthService,FilmService,AngularFirestore],
+  providers: [AuthService,FilmService,AngularFirestore,youTubeSearchInjectables],
   bootstrap: [AppComponent,FilterComponent],
   entryComponents:[FilterComponent]
   
