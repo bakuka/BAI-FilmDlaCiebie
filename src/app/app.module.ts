@@ -76,6 +76,12 @@ import {CdkStepperModule} from '@angular/cdk/stepper';
 import {CdkTableModule} from '@angular/cdk/table';
 import {CdkTreeModule} from '@angular/cdk/tree';
 
+import { youTubeSearchInjectables } from './youtube-search/youtube-search-injectables';
+import { YouTubeSearchBoxComponent } from './youtube-search/youtube-search-box.component';
+import { YouTubeSearchResultComponent } from './youtube-search/youtube-search-result.component';
+import { YouTubeSearchComponent } from './youtube-search/youtube-search.component';
+import { HttpModule } from '@angular/http';
+
 
 
 
@@ -95,9 +101,10 @@ const   firebase = {
     AppComponent,
     RegisterComponent,
     FilterComponent,
-    LoginComponent
-    
-
+    LoginComponent,
+    YouTubeSearchBoxComponent,
+    YouTubeSearchResultComponent,
+    YouTubeSearchComponent   
   ],
   
   imports: [
@@ -162,13 +169,14 @@ const   firebase = {
   MatBadgeModule,
   MatBottomSheetModule,
   MatButtonToggleModule,
-  YoutubePlayerModule
+  YoutubePlayerModule,
+  HttpModule
   
   ],
   
 
 
-  providers: [AuthService,FilmService,AngularFirestore],
+  providers: [AuthService,FilmService,AngularFirestore,youTubeSearchInjectables],
   bootstrap: [AppComponent,FilterComponent],
   entryComponents:[FilterComponent]
   

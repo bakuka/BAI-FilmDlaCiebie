@@ -1,11 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { FilmService } from '../services/film.service';
 import { Film } from '../models/Films';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { YouTubeSearchService } from '../youtube-search/youtube-search.service'
+import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
+import { youTubeSearchInjectables } from '../youtube-search/youtube-search-injectables';
+import { Http,Response } from '@angular/http';
 
+export const YOUTUBE_API_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
+export const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 
 @Component({
@@ -13,9 +19,14 @@ import { map, startWith } from 'rxjs/operators';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
+
 export class FilterComponent implements OnInit {
 
+  @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() results: EventEmitter<YouTubeSearchResult[]> = new EventEmitter<YouTubeSearchResult[]>();
+
   valueOfSlider=0;
+
 
   films: Film[];
   filteredSkippedFilms: Film[] = []; /*the list of film after filtering, which has been skipped by user*/
@@ -45,7 +56,11 @@ export class FilterComponent implements OnInit {
   filmCountryList: string[] = [""];
   //End - countries LOV
 
-  constructor(private filmService: FilmService,) { }
+  constructor(private filmService: FilmService,
+    private http: Http,
+    private youtube: YouTubeSearchService,
+    private el: ElementRef
+    ) { }
 
   /*YT*/
   player: YT.Player;
@@ -68,8 +83,6 @@ export class FilterComponent implements OnInit {
       this.filmCountryList = this.getAllCountries();
     });
 
-    
-
     this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
       startWith(''),
       map(value => this._filterMin(value))
@@ -79,6 +92,39 @@ export class FilterComponent implements OnInit {
       startWith(''),
       map(value => this._filterMax(value))
     );
+
+    Observable.fromEvent(this.el.nativeElement, 'keyup')
+      // extract the value of input
+      .map((e: any) => e.target.value)
+      // filter out if empty
+      .filter((text: string) => text.length > 1)
+      // discard events that take less than 250ms
+      .debounceTime(250)
+      // enable loading
+      .do(() => this.loading.emit(true))
+      // search
+      .map((query: string) => this.youtube.search(query))
+      // discarding old events if new input comes in
+      .switch()
+      // acts on returned search results
+      .subscribe(
+        // on success
+        (results: YouTubeSearchResult[]) => {
+          this.loading.emit(false);
+          this.results.emit(results);
+        },
+        // on error
+        (err: any) => {
+          console.log(err);
+          this.loading.emit(false);
+        },
+        // on completion
+        () => {
+          this.loading.emit(false);
+        }
+      );  
+
+
   }
 
   getAllCountries() {
@@ -118,6 +164,7 @@ export class FilterComponent implements OnInit {
   }
 
   clickRandomFilm() {
+
     var chooseFilm: Film;
     var minYearFilter :string = this.yearsMinForm.value;
     var maxYearFilter :string = this.yearsMaxForm.value;
