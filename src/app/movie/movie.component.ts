@@ -15,18 +15,34 @@ export class MovieComponent implements OnInit {
   filmsList = {} as Film[];
   filterProperty = {} as Filter;
 
+  /*page binds*/
+  pageFilmTitle :string;
+  pageFilmYear :number;
+  pagefilmScore :number;
+  pageFilmGenres: string[];
+  pageFilmCountries: string[];
+  pageimgURL: string;
+  /*******/
+
   constructor(private router: Router) {
-    this.initializeObjPrvPage();
+    this.initializePage();
   }
 
   ngOnInit() {
   }
 
-  initializeObjPrvPage(){
+  initializePage(){
     this.choosedFilm = this.router.getCurrentNavigation().extras.state.filmObj;
     this.skippedFilms = this.router.getCurrentNavigation().extras.state.skippedFilms;
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
+
+    this.pageFilmTitle = this.choosedFilm.tittle;
+    this.pageFilmYear = this.choosedFilm.year;
+    this.pagefilmScore = this.choosedFilm.score;
+    this.pageFilmGenres = this.choosedFilm.genres;
+    this.pageFilmCountries = this.choosedFilm.countries;
+    this.pageimgURL = this.choosedFilm.imgURL;
   }
 
 }

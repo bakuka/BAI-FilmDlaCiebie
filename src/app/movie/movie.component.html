@@ -2,19 +2,19 @@
 <div class="container">
     <div class="row">
             <div class="col-12 movie-title">
-                    <h2>Nazwa filmu</h2>
+                    <h2>{{pageFilmTitle}}</h2>
             </div>
             <div class="col-6">
-                    <img class="fit-image" src="https://ssl-gfx.filmweb.pl/po/08/62/862/7517878.6.jpg">
+                    <img class="fit-image" [src]='pageimgURL'>
             </div>
             <div class="col-6">
-                    <h1><mat-icon class='mark-star'>star</mat-icon>6.0</h1>
+                    <h1><mat-icon class='mark-star'>star</mat-icon>{{pagefilmScore}}</h1>
                     <a>Rok produkcji</a>
-                    <strong><p>2006</p></strong>
-                    <a>Rok produkcji</a>
-                    <strong><p>2006</p></strong>
-                    <a>Rok produkcji</a>
-                    <strong><p>2006</p></strong>
+                    <strong><p>{{pageFilmYear}}</p></strong>
+                    <a>Gatunek</a>
+                    <strong><p>{{pageFilmGenres}}</p></strong>
+                    <a>Kraj produkcji</a>
+                    <strong><p>{{pageFilmCountries}}</p></strong>
             </div>
     </div>
     <div class="row">

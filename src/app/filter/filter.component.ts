@@ -157,14 +157,12 @@ export class FilterComponent implements OnInit {
       window.alert("brak filmu z podanymi kryteriami");
     }else if( filteredFilms.length == 1){
       chooseFilm = filteredFilms[0];
-      window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
 
       this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }else{
       chooseFilm = this.randomFilm(filteredFilms);
-      window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
 
