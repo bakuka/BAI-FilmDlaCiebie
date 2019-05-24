@@ -6,10 +6,9 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
-
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
-
+import { Filter } from '../models/Filters';
 export const YOUTUBE_API_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
 export const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
 
@@ -26,6 +25,7 @@ export class FilterComponent implements OnInit {
   valueOfSlider=0;
 
   films: Film[];
+  chooseFilmFilter: Filter;
   filteredSkippedFilms: Film[] = []; /*the list of film after filtering, which has been skipped by user*/
   filteredOptionsMin: Observable<string[]>;
   filteredOptionsMax: Observable<string[]>;
@@ -138,7 +138,6 @@ export class FilterComponent implements OnInit {
     var maxYearFilter :string = this.yearsMaxForm.value;
     var movieGenres :string[] = this.movieGenre.value;
     var movieCountries :string[] = this.filmCountry.value;
-    // this.router.navigate(['/movie'], { state: { example: "dupa" } });
     
     /* if fields are null, this is the support of it*/
     if (minYearFilter == null || minYearFilter == ""){
@@ -177,7 +176,8 @@ export class FilterComponent implements OnInit {
     }
 
     /*open new site with film parameters*/
-    this.router.navigate(['/movie'], { state: { filmObj: chooseFilm
+    this.router.navigate(['/movie'], { state: { filmObj: chooseFilm,
+
                                               }});
     /*****/
 
