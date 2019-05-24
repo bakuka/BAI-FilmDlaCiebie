@@ -138,8 +138,8 @@ export class FilterComponent implements OnInit {
     var maxYearFilter :string = this.yearsMaxForm.value;
     var movieGenres :string[] = this.movieGenre.value;
     var movieCountries :string[] = this.filmCountry.value;
-    // this.router.navigate(['/movie']);
-
+    // this.router.navigate(['/movie'], { state: { example: "dupa" } });
+    
     /* if fields are null, this is the support of it*/
     if (minYearFilter == null || minYearFilter == ""){
       minYearFilter = "1850";
@@ -175,6 +175,12 @@ export class FilterComponent implements OnInit {
 
       this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }
+
+    /*open new site with film parameters*/
+    this.router.navigate(['/movie'], { state: { filmObj: chooseFilm
+                                              }});
+    /*****/
+
   }
 
   filterFilms(films,minYar,maxYear, genresTab, countriesTab, minScore) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MovieComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) {
+    this.showFilm();
+  }
 
   ngOnInit() {
+  }
+
+  showFilm(){
+    console.log(this.router.getCurrentNavigation().extras.state.filmObj.tittle);
   }
 
 }
