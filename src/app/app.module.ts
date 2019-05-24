@@ -91,9 +91,14 @@ import { MovieComponent } from './movie/movie.component';
     FilterComponent,
     LoginComponent,
     MainNavComponent,
-    MovieComponent
+    MovieComponent,
     
 
+    
+
+    YouTubeSearchBoxComponent,
+    YouTubeSearchResultComponent,
+    YouTubeSearchComponent   
   ],
   
   imports: [
@@ -160,7 +165,9 @@ import { MovieComponent } from './movie/movie.component';
   MatBadgeModule,
   MatBottomSheetModule,
   MatButtonToggleModule,
-  LayoutModule
+  LayoutModule,
+  YoutubePlayerModule,
+  HttpModule
   
   ],
   

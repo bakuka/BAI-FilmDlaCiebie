@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
+import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
 
 
 
