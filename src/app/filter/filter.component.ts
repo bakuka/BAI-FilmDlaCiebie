@@ -4,7 +4,7 @@ import { Film } from '../models/Films';
 import { FormControl } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { YouTubeSearchService } from '../youtube-search/youtube-search.service'
+import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
 
 export const YOUTUBE_API_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
