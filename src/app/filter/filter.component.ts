@@ -1,16 +1,15 @@
 import { Component, OnInit,Output, EventEmitter, ElementRef } from '@angular/core';
 import { FilmService } from '../services/film.service';
 import { Film } from '../models/Films';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
-import { Filter } from '../models/Filters';
 export const YOUTUBE_API_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
 export const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
+import { Filter } from '../models/Filters';
 
 @Component({
   selector: 'filter',
@@ -25,11 +24,11 @@ export class FilterComponent implements OnInit {
   valueOfSlider=0;
 
   films: Film[];
-  chooseFilmFilter: Filter;
   filteredSkippedFilms: Film[] = []; /*the list of film after filtering, which has been skipped by user*/
   filteredOptionsMin: Observable<string[]>;
   filteredOptionsMax: Observable<string[]>;
-  public genresTab :string[];
+  genresTab :string[];
+  filterProperty = {} as Filter;
 
   getGenres(){
     return this.genresTab;
@@ -80,10 +79,7 @@ export class FilterComponent implements OnInit {
       this.films = films;
       this.movieGenreList = this.getAllGenres();
       this.filmCountryList = this.getAllCountries();
-
-    });
-
-    
+    });   
 
     this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
       startWith(''),
@@ -175,9 +171,18 @@ export class FilterComponent implements OnInit {
       this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }
 
+    this.filterProperty.countries = movieCountries;
+    this.filterProperty.genres = movieGenres;
+    this.filterProperty.score = this.valueOfSlider;
+    this.filterProperty.minYear = Number.parseInt(minYearFilter);
+    this.filterProperty.maxYear = Number.parseInt(maxYearFilter);
+
+
     /*open new site with film parameters*/
     this.router.navigate(['/movie'], { state: { filmObj: chooseFilm,
-
+                                                filterObj: this.filterProperty,
+                                                skippedFilms: this.filteredSkippedFilms,
+                                                filmsList: this.films
                                               }});
     /*****/
 
