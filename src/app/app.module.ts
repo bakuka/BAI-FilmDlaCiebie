@@ -13,21 +13,14 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { AuthGuard } from './register/auth.guard';
-
-
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import 'hammerjs';
-
-
-
 import { AuthService } from './register/auth.service';
 import { FilterComponent } from './filter/filter.component';
 import { LoginComponent } from './login/login.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
-
 import { FilmService } from './services/film.service';
 import { AngularFirestore } from 'angularfire2/firestore';
-
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/database';
@@ -77,6 +70,13 @@ import {CdkTreeModule} from '@angular/cdk/tree';
 import { MainNavComponent } from './main-nav/main-nav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MovieComponent } from './movie/movie.component';
+import { youTubeSearchInjectables } from './youtube-search/youtube-search-injectables';
+import { YouTubeSearchBoxComponent } from './youtube-search/youtube-search-box.component';
+import { YouTubeSearchResultComponent } from './youtube-search/youtube-search-result.component';
+import { YouTubeSearchComponent } from './youtube-search/youtube-search.component';
+import { HttpModule } from '@angular/http';
+import {YoutubePlayerModule} from 'ng2-youtube-player';
+
 
 
 
@@ -173,9 +173,10 @@ import { MovieComponent } from './movie/movie.component';
   
 
 
-  providers: [AuthService,FilmService,AngularFirestore],
+  providers: [AuthService,FilmService,AngularFirestore,youTubeSearchInjectables],
   bootstrap: [AppComponent,FilterComponent],
-  entryComponents:[FilterComponent]
+  entryComponents:[FilterComponent],
+ 
   
 })
 export class AppModule { }

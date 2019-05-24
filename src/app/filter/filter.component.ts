@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,Output, EventEmitter, ElementRef } from '@angular/core';
 import { FilmService } from '../services/film.service';
 import { Film } from '../models/Films';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
 
-
+export const YOUTUBE_API_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
+export const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 @Component({
   selector: 'filter',
@@ -18,6 +19,9 @@ import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
   styleUrls: ['./filter.component.css']
 })
 export class FilterComponent implements OnInit {
+
+  @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() results: EventEmitter<YouTubeSearchResult[]> = new EventEmitter<YouTubeSearchResult[]>();
 
   valueOfSlider=0;
 
@@ -51,8 +55,24 @@ export class FilterComponent implements OnInit {
   filmCountryList: string[] = [""];
   //End - countries LOV
 
-  constructor(private filmService: FilmService,private router: Router,) { }
+  constructor(private filmService: FilmService,
+    private router: Router,
+    private youtube: YouTubeSearchService,
+    private el: ElementRef
+    ) { }
   
+  /*YT*/
+  player: YT.Player;
+  private idRadomFIlmYT :string;
+
+  savePlayer (player){
+    this.player = player;
+    console.log('player instance', player);
+  }
+
+  onStateChange(event){
+  }
+  /*****/
 
   ngOnInit() {
     console.log('ngOnInit run');
@@ -60,6 +80,7 @@ export class FilterComponent implements OnInit {
       this.films = films;
       this.movieGenreList = this.getAllGenres();
       this.filmCountryList = this.getAllCountries();
+
     });
 
     
@@ -117,7 +138,7 @@ export class FilterComponent implements OnInit {
     var maxYearFilter :string = this.yearsMaxForm.value;
     var movieGenres :string[] = this.movieGenre.value;
     var movieCountries :string[] = this.filmCountry.value;
-    this.router.navigate(['/movie']);
+    // this.router.navigate(['/movie']);
 
     /* if fields are null, this is the support of it*/
     if (minYearFilter == null || minYearFilter == ""){
@@ -144,11 +165,15 @@ export class FilterComponent implements OnInit {
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
+
+      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }else{
       chooseFilm = this.randomFilm(filteredFilms);
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
+
+      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }
   }
 
@@ -223,6 +248,11 @@ export class FilterComponent implements OnInit {
     }
     return years;
   }
+
+  openTrailer(){
+    this.player.loadVideoById(String(this.youtube.getFilmId()));
+  }
+
 }
 
 
