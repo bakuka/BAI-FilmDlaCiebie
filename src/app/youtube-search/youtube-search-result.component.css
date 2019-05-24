@@ -1,0 +1,35 @@
+:host(.thumbnail) {
+    max-width: 230px;
+    display: inline-block;
+    margin: 0 30px 30px 0;
+    vertical-align: top;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    overflow: hidden;
+    min-height: 550px;
+    position: relative;
+  }
+  
+  .caption {
+    padding: 15px;
+  }
+  
+  h3 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  
+  img {
+    max-width: 100%;
+  }
+  
+  p {
+    font-size: 1.4rem;
+  }
+  
+  .button {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+  }

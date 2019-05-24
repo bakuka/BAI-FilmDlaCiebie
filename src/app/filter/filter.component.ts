@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ElementRef } from '@angular/core';
 import { FilmService } from '../services/film.service';
 import { Film } from '../models/Films';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { YouTubeSearchService } from '../youtube-search/youtube-search.service'
+import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
 
+export const YOUTUBE_API_KEY = 'AIzaSyDOfT_BO81aEZScosfTYMruJobmpjqNeEk';
+export const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search';
 
 
 @Component({
@@ -13,9 +16,14 @@ import { map, startWith } from 'rxjs/operators';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
+
 export class FilterComponent implements OnInit {
 
+  @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
+  @Output() results: EventEmitter<YouTubeSearchResult[]> = new EventEmitter<YouTubeSearchResult[]>();
+
   valueOfSlider=0;
+
 
   films: Film[];
   filteredSkippedFilms: Film[] = []; /*the list of film after filtering, which has been skipped by user*/
@@ -40,15 +48,28 @@ export class FilterComponent implements OnInit {
   movieGenreList: string[] = [""]; 
   //END genres LOV
 
-  
-
   //START countries LOV initialization
   filmCountry = new FormControl();
   filmCountryList: string[] = [""];
   //End - countries LOV
 
-  constructor(private filmService: FilmService,) { }
-  
+  constructor(private filmService: FilmService,
+    private youtube: YouTubeSearchService,
+    private el: ElementRef
+    ) { }
+
+  /*YT*/
+  player: YT.Player;
+  private idRadomFIlmYT :string;
+
+  savePlayer (player){
+    this.player = player;
+    console.log('player instance', player);
+  }
+
+  onStateChange(event){
+  }
+  /*****/
 
   ngOnInit() {
     console.log('ngOnInit run');
@@ -57,8 +78,6 @@ export class FilterComponent implements OnInit {
       this.movieGenreList = this.getAllGenres();
       this.filmCountryList = this.getAllCountries();
     });
-
-    
 
     this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
       startWith(''),
@@ -108,6 +127,7 @@ export class FilterComponent implements OnInit {
   }
 
   clickRandomFilm() {
+
     var chooseFilm: Film;
     var minYearFilter :string = this.yearsMinForm.value;
     var maxYearFilter :string = this.yearsMaxForm.value;
@@ -116,7 +136,7 @@ export class FilterComponent implements OnInit {
 
     /* if fields are null, this is the support of it*/
     if (minYearFilter == null || minYearFilter == ""){
-      minYearFilter = "1850";
+      minYearFilter = "1950";
     }
     if (maxYearFilter == null || minYearFilter == ""){
       maxYearFilter = "2050";
@@ -139,11 +159,15 @@ export class FilterComponent implements OnInit {
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
+
+      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); /* load trailer in YT */
     }else{
       chooseFilm = this.randomFilm(filteredFilms);
       window.alert(chooseFilm.tittle +" - " +chooseFilm.score + " - " + chooseFilm.year+ " - " + chooseFilm.genres + " - " + chooseFilm.countries );
 
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
+
+      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); /* load trailer in YT */
     }
   }
 
@@ -217,6 +241,9 @@ export class FilterComponent implements OnInit {
       years.push(i.toString());
     }
     return years;
+  }
+  openTrailer(){
+    this.player.loadVideoById(String(this.youtube.getFilmId()));
   }
 }
 
