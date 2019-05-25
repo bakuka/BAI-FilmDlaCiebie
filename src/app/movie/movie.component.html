@@ -5,12 +5,13 @@
                     <h2>{{pageFilmTitle}}</h2>
             </div>
             <div class="col-6">
-                    <img class="fit-image" [src]='pageimgURL'>
+                    <img class="fit-image" [(src)]='pageimgURL'> <!--property binding-->
+
             </div>
             <div class="col-6">
-                    <h1><mat-icon class='mark-star'>star</mat-icon>{{pagefilmScore}}</h1>
+                    <h1><mat-icon class='mark-star'>star</mat-icon>{{pagefilmScore}}</h1> <!--interpolation-->
                     <a>Rok produkcji</a>
-                    <strong><p>{{pageFilmYear}}</p></strong>
+                    <strong><p>{{pageFilmYear}}</p></strong> 
                     <a>Gatunek</a>
                     <strong><p>{{pageFilmGenres}}</p></strong>
                     <a>Kraj produkcji</a>
@@ -22,7 +23,7 @@
                     Emerytowany strażnik więzienny opowiada przyjaciółce o niezwykłym mężczyźnie, którego skazano na śmierć za zabójstwo dwóch 9-letnich dziewczynek.
             </div>
             <div class="col-12">
-                    <button type="button" class="btn btn-danger">Losuj następny</button>
+                    <button (click)="clickRandomNextFilm()"  type="button" class="btn btn-danger" >Losuj następny</button>
             </div>
      </div>
 </div>
