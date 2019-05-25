@@ -38,7 +38,6 @@ export class MovieComponent implements OnInit {
   skippedFilms = {} as Film[];
   filmsList = {} as Film[];
   filterProperty = {} as Filter;
-  trailerID = {} as string;
 
   /*page binds*/
   pageFilmTitle :string;
@@ -49,6 +48,7 @@ export class MovieComponent implements OnInit {
   pageimgURL: string;
   filterReference :FilterComponent;
   /*******/
+  show: boolean = false;
 
   constructor(private router: Router,
               private youtube: YouTubeSearchService) {
@@ -63,9 +63,6 @@ export class MovieComponent implements OnInit {
     this.skippedFilms = this.router.getCurrentNavigation().extras.state.skippedFilms;
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
-    this.trailerID = this.router.getCurrentNavigation().extras.state.filmTrailerId;
-
-    console.log("przychodzi: "+this.router.getCurrentNavigation().extras.state.filmTrailerId);
 
     this.bindVariables(this.choosedFilm);
   }
@@ -78,9 +75,7 @@ export class MovieComponent implements OnInit {
     this.pageFilmCountries = film.countries;
     this.pageimgURL = film.imgURL;
 
-    this.youtube.search(film.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
-
-    console.log("trailer: "+ this.trailerID);
+    this.youtube.search(film.tittle + "zwiastun PL").switch().subscribe(); / load trailer from YT /
   }
 
   clickRandomNextFilm() {   
@@ -98,15 +93,16 @@ export class MovieComponent implements OnInit {
     }else if( filteredFilms.length == 1){
       chooseFilm = filteredFilms[0];
       this.skippedFilms.push(chooseFilm) /* adding to skipped list*/
-
-      // this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }else{
       chooseFilm = this.randomFilm(filteredFilms);
       this.skippedFilms.push(chooseFilm) /* adding to skipped list*/
-
-      // this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }
     this.bindVariables(chooseFilm);
+    
+    /***turn off the trialer*/
+    this.show = false;
+    this.player.stopVideo();
+    /*****/
   }
 
   filterFilms(films,minYar,maxYear, genresTab, countriesTab, minScore) {
@@ -162,6 +158,7 @@ export class MovieComponent implements OnInit {
   }
 
   clickTrailer(){
+    this.show = true;
     this.player.loadVideoById(String(this.youtube.getFilmId()));
   }
 
