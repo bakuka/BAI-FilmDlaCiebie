@@ -27,4 +27,12 @@ export class MainNavComponent {
       .then(() => this.router.navigate(['/register']));
   }
 
+  toFilter() {
+  this.router.navigate(['/filter']);
+  }
+
+  toMovie() {
+    this.router.navigate(['/movie']);
+    }
+
 }

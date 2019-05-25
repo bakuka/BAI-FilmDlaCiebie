@@ -6,7 +6,7 @@ import { FilterComponent } from '../filter/filter.component';
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 
 @Component({
-  selector: 'app-movie',
+  selector: 'movie',
   templateUrl: './movie.component.html',
   styleUrls: ['./movie.component.css']
 })
