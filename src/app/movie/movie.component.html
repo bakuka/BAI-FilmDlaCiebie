@@ -27,7 +27,8 @@
             </div>
      </div>
 
-     <div> 
+     <!-- <div [hidden]="show">  -->
+     <div [style.visibility]="(show) ? 'visible' : 'hidden' ">
         <youtube-player [videoId]="idRadomFIlmYT" 
                         (ready)="savePlayer($event)"
                         (change)="onStateChange($event)">
