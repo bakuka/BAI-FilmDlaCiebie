@@ -1,4 +1,4 @@
-import { Component, OnInit,Output, EventEmitter, ElementRef } from '@angular/core';
+import { Component, OnInit,Output, EventEmitter } from '@angular/core';
 import { FilmService } from '../services/film.service';
 import { Film } from '../models/Films';
 import { FormControl } from '@angular/forms';
@@ -56,13 +56,11 @@ export class FilterComponent implements OnInit {
 
   constructor(private filmService: FilmService,
     private router: Router,
-    private youtube: YouTubeSearchService,
-    private el: ElementRef
-    ) { }
+    private youtube: YouTubeSearchService
+        ) { }
   
   /*YT*/
   player: YT.Player;
-  private idRadomFIlmYT :string;
 
   savePlayer (player){
     this.player = player;
@@ -157,16 +155,10 @@ export class FilterComponent implements OnInit {
       window.alert("brak filmu z podanymi kryteriami");
     }else if( filteredFilms.length == 1){
       chooseFilm = filteredFilms[0];
-
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
-
-      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }else{
       chooseFilm = this.randomFilm(filteredFilms);
-
       this.filteredSkippedFilms.push(chooseFilm) /* adding to skipped list*/
-
-      this.youtube.search(chooseFilm.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
     }
 
     this.filterProperty.countries = movieCountries;
@@ -180,7 +172,8 @@ export class FilterComponent implements OnInit {
     this.router.navigate(['/movie'], { state: { filmObj: chooseFilm,
                                                 filterObj: this.filterProperty,
                                                 skippedFilms: this.filteredSkippedFilms,
-                                                filmsList: this.films
+                                                filmsList: this.films,
+                                                filmTrailerId: this.youtube.getFilmId()
                                               }});
     /*****/
 
@@ -257,11 +250,6 @@ export class FilterComponent implements OnInit {
     }
     return years;
   }
-
-  openTrailer(){
-    this.player.loadVideoById(String(this.youtube.getFilmId()));
-  }
-
 }
 
 

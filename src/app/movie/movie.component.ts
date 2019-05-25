@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Film } from '../models/Films';
 import { Filter } from '../models/Filters';
 import { FilterComponent } from '../filter/filter.component';
+import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 
 @Component({
   selector: 'app-movie',
@@ -21,10 +22,23 @@ import { FilterComponent } from '../filter/filter.component';
 
 export class MovieComponent implements OnInit {
 
+  /*YT*/
+  player: YT.Player;
+
+  savePlayer (player){
+    this.player = player;
+    console.log('player instance', player);
+  }
+
+  onStateChange(event){
+  }
+  /*****/
+
   choosedFilm = {} as Film;
   skippedFilms = {} as Film[];
   filmsList = {} as Film[];
   filterProperty = {} as Filter;
+  trailerID = {} as string;
 
   /*page binds*/
   pageFilmTitle :string;
@@ -36,7 +50,8 @@ export class MovieComponent implements OnInit {
   filterReference :FilterComponent;
   /*******/
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private youtube: YouTubeSearchService) {
                 this.initializePage();
   }
 
@@ -48,6 +63,9 @@ export class MovieComponent implements OnInit {
     this.skippedFilms = this.router.getCurrentNavigation().extras.state.skippedFilms;
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
+    this.trailerID = this.router.getCurrentNavigation().extras.state.filmTrailerId;
+
+    console.log("przychodzi: "+this.router.getCurrentNavigation().extras.state.filmTrailerId);
 
     this.bindVariables(this.choosedFilm);
   }
@@ -59,6 +77,10 @@ export class MovieComponent implements OnInit {
     this.pageFilmGenres = film.genres;
     this.pageFilmCountries = film.countries;
     this.pageimgURL = film.imgURL;
+
+    this.youtube.search(film.tittle + "zwiastun PL").switch().subscribe(); / load trailer in YT /
+
+    console.log("trailer: "+ this.trailerID);
   }
 
   clickRandomNextFilm() {   
@@ -137,6 +159,10 @@ export class MovieComponent implements OnInit {
   randomFilm(films: Film[]) {
     var random = Math.floor(Math.random() * (films.length - 1) + 1);
     return films[random];
+  }
+
+  clickTrailer(){
+    this.player.loadVideoById(String(this.youtube.getFilmId()));
   }
 
 }
