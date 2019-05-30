@@ -1,0 +1,64 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Movie
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+    <div class="container">
+        <div class="row">
+                <div class="col-12 movie-title">
+                        <h2>{{pageFilmTitle}}</h2>
+                </div>
+                <div class="col-6">
+                        <img (click)="clickTrailer()" class="fit-image" [(src)]='pageimgURL'> <!--property binding-->
+    
+                </div>
+                <div class="col-6">
+                        <h1><mat-icon class='mark-star'>star</mat-icon>{{pagefilmScore}}</h1> <!--interpolation-->
+                        <a>Rok produkcji</a>
+                        <strong><p>{{pageFilmYear}}</p></strong> 
+                        <a>Gatunek</a>
+                        <strong><p>{{pageFilmGenres}}</p></strong>
+                        <a>Kraj produkcji</a>
+                        <strong><p>{{pageFilmCountries}}</p></strong>
+                </div>
+        </div>
+        <div class="row">
+                <div class="col-12 movie-description">
+                        Emerytowany strażnik więzienny opowiada przyjaciółce o niezwykłym mężczyźnie, którego skazano na śmierć za zabójstwo dwóch 9-letnich dziewczynek.
+                </div>
+                <div class="col-12">
+                        <button (click)="clickRandomNextFilm()"  type="button" class="btn btn-danger" >Losuj następny</button>
+                </div>
+         </div>
+    
+         <!-- <div [hidden]="show">  -->
+         <div [style.visibility]="(show) ? 'visible' : 'hidden' ">
+            <youtube-player [videoId]="idRadomFIlmYT" 
+                            (ready)="savePlayer($event)"
+                            (change)="onStateChange($event)">
+            </youtube-player> 
+         </div>
+
+         <div>
+            <button full (click)="startMotion()">Start Watching</button>
+            <button full (click)="stopMotion()">Stop Watching</button>
+            <div *ngIf="data">
+                    <div>
+                            <h2>X: {{data.x | number:'1.4-4'}}</h2>
+                            <h2>Y: {{data.y | number:'1.4-4'}}</h2>
+                            <h2>Z: {{data.z | number:'1.4-4'}}</h2>
+                    </div>
+            </div>
+     </div>
+
+    </div>
+
+</ion-content>

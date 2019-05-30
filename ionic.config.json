@@ -1,0 +1,7 @@
+{
+  "name": "FilmDlaCiebie",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
