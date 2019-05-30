@@ -1,97 +1,56 @@
-.menu-toolbar{
-    background-color: #240056;
-  }
-  
-  .text1{
-    margin-bottom:-1%;
-    font-size: 120%;
-  }
-  
-  .text3{
-    margin-left: 45%;
-    font-size: 150%;
-    margin-bottom: -1%;
-  }
-
-  #mainText {
-    width: 50%;
-    height: 200px;
-  }
-  
-  #genresTA {
-    width: 50%;
-    height: 300px;
-  }
-  
-  #countriesTA {
-    width: 50%;
-    height: 300px;
-  }
-  
-  #filterFilmsTA {
-    width: 50%;
-    height: 300px;
-  }
-  
-  .example-h2 {
-    margin: 10px;
-  }
-  
-  .example-section {
-    display: flex;
-    align-content: center;
-    align-items: center;
-    height: 60px;
-  }
-  
-  /* .slider-margin {
-    margin: 10px;
-  } */
-  
-  .mat-slider-horizontal {
-    width: 75%;
-  }
-  
-  .example-full-width {
-    width: 15%;
-  }
-  
-  span{
-    margin:5%;
-  }
-  
-  .random{
-  width: 75%;
-  height: 20%;
-  margin-bottom:5%
-  
-  }
-  
-  .chooseField{
-  width: 75%;
-  height: 10%;
-  /* background: #240056; */
-  margin-bottom:5%;
-  }
-  
-  .yearChoose{
-  width: 30%;
-  height: 10%;
-  /* background: #240056; */
-  margin-bottom:5%;
-  
-  }
-  
-  .icon {
-    font-size: 400%;
-  }
-  
-  ::ng-deep .mat-menu-panel {
+   ::ng-deep .mat-menu-panel {
     max-width: none!important;
     min-width: 300px!important;
   }
-  
-  .bd{
-    background-color: #311B92; 
-    color: white;
+
+  .content {
+    --background: #311B92; 
+    --color: white;
   }
+
+  .container{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
+  }
+
+  .random {
+    margin: 5px;
+    height: 70px;
+    --background:  #E91E63;
+  }
+
+  .footer {
+    --background: #240056;
+    padding: 5%;
+  }
+
+  .slider {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .year-width {
+    width: 95%;
+  }
+
+  .choose-field{
+    width: 97.5%;
+  }
+
+  h6 {
+    color: #DEDEDE;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .filmweb-mark{
+    align-content: center;
+    align-items: center;
+  }
+  

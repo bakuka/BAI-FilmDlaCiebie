@@ -1,11 +1,17 @@
-.container{
-    background-color: #311B92; 
-    padding: 20px;
-    color: white;
-  }
+.content {
+  --background: #311B92; 
+  --color: white;
+}
 
-.movie-title {
-  margin-bottom: 10px;
+.container{
+  padding-top: 5%;
+  padding-bottom: 5%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.movie-subtitle {
+  color: #DEDEDE;
 }
 
 .fit-image {
@@ -14,9 +20,7 @@ object-fit: cover;
 }
 
 .movie-description {
-  font-size: 13px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  font-size: 12px;
 }
 
 .mark-star{
@@ -33,7 +37,23 @@ a {
   font-size: 14px;
 }
 
-button {
-  width: 100%;
+.random {
+  margin: 5px;
   height: 70px;
+  --background:  #E91E63;
+}
+
+.footer {
+  --background: #240056;
+  padding: 5%;
+}
+
+.trailer-btn{
+  width: 100%;
+  margin: 0%;
+  font-size: 10px;
+}
+
+.yt-icon {
+  margin-right: 5px;
 }
