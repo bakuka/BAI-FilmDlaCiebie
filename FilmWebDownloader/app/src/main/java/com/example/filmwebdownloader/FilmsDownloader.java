@@ -15,12 +15,12 @@ public class FilmsDownloader {
     private static final String ALLFILMSLINK = "https://www.filmweb.pl/films/search?orderBy=popularity&descending=true&page=";
 
 
-    public ArrayList<Film> getFilms() throws IOException {
+    public ArrayList<Film> getFilms(int count) throws IOException {
         try {
             ExecutorService exec = Executors.newFixedThreadPool(90);
             ArrayList<Future<ArrayList<Film>>> call_list=  new ArrayList<Future<ArrayList<Film>>>();
-            for(int i =1;i<=90;i++) {
-                call_list.add(exec.submit(new AllFilmsThread(ALLFILMSLINK + i)));
+            for(int i =1;i<=10;i++) {
+                call_list.add(exec.submit(new AllFilmsThread(ALLFILMSLINK + (i*count))));
             }
 
             ArrayList<Film> filmsList = new ArrayList<Film>();
@@ -111,8 +111,13 @@ public class FilmsDownloader {
             try {
                 films.get(i).setScore(films.get(i).getScore().substring(0, 4));
             }catch (NullPointerException e){
+                films.remove(i);
                 e.printStackTrace();
             }catch (NumberFormatException e){
+                films.remove(i);
+                e.printStackTrace();
+            }catch (StringIndexOutOfBoundsException e){
+                films.remove(i);
                 e.printStackTrace();
             }
         }

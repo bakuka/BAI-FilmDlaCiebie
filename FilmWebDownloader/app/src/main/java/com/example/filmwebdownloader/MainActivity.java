@@ -59,19 +59,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickDownloadFilms(View view) throws IOException {
         FilmsDownloader fd = new FilmsDownloader();
-        films = fd.getFilms();
-        films = fd.transformData(films);
+        for (int i=1; i<=100; i++){
+            films = fd.getFilms(i);
+            films = fd.transformData(films);
 
-        Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "liczba filmów: "+films.size(), Toast.LENGTH_LONG);
-        toast.show();
+            Context context = getApplicationContext();
+            Toast toast = Toast.makeText(context, "Załadowano filmy do bazy", Toast.LENGTH_LONG);
+            toast.show();
 
+            onClickAddFilmsToDatabase(view);
+        }
     }
 
     public void onClickAddFilmsToDatabase(View view) {
-        Context context = getApplicationContext();
-        Toast toast = Toast.makeText(context, "liczba filmów w cache: "+films.size(), Toast.LENGTH_LONG);
-        toast.show();
         for(int i=0; i<films.size(); i++){
             String key = mDatabase.child("films").push().getKey();
             Map<String, Object> filmValues = films.get(i).toMap();
