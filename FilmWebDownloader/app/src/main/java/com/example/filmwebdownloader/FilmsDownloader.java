@@ -94,7 +94,13 @@ public class FilmsDownloader {
 
                 filmObject.setUrl("https://www.filmweb.pl" + filmCategory.select(".filmPreview__link").attr("href") + "/discussion?plusMinus=false&page=");
                 filmObject.setImgURL(filmCategory.select(".filmPoster__image").attr("data-src"));
-                filmsList.add(filmObject);
+                try {
+                    if (filmObject.getFilmGenres().size() != 0 || filmObject.getFilmCountries().size() != 0){
+                        filmsList.add(filmObject);
+                    }
+                }catch (Error e){
+                }
+
             }
             return filmsList;
         }catch (Exception e){
@@ -119,6 +125,22 @@ public class FilmsDownloader {
             }catch (StringIndexOutOfBoundsException e){
                 films.remove(i);
                 e.printStackTrace();
+            }
+        }
+        return films;
+    }
+
+    public ArrayList<Film> removeFilmWithEmptyFields(ArrayList<Film> films){
+
+
+        for (int i=0; i<films.size(); i++){
+            if( films.get(i).getImgURL().equals("") || 
+                    films.get(i).getTime().equals("") || films.get(i).getTittle().equals("") ||
+                    films.get(i).getUrl().equals("") || films.get(i).getYear().equals("") ||
+                    films.get(i).getImgURL().equals("") || films.get(i).getFilmGenres().equals("") ||
+                    films.get(i).getFilmCountries().equals("") || films.get(i).getFilmCountries().isEmpty()
+                    || films.get(i).getFilmCountries().size() == 0  ){
+                films.remove(i);
             }
         }
         return films;

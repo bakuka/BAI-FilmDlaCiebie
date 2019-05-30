@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         for (int i=1; i<=100; i++){
             films = fd.getFilms(i);
             films = fd.transformData(films);
+            films = fd.removeFilmWithEmptyFields(films);
 
             Context context = getApplicationContext();
             Toast toast = Toast.makeText(context, "Załadowano filmy do bazy", Toast.LENGTH_LONG);
@@ -69,6 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
             onClickAddFilmsToDatabase(view);
         }
+
+
+
+
     }
 
     public void onClickAddFilmsToDatabase(View view) {
@@ -80,4 +85,12 @@ public class MainActivity extends AppCompatActivity {
             mDatabase.updateChildren(childUpdates);
         }
     }
+
+    public void onDeleteDatabase(View view) {
+        mDatabase.removeValue();
+        Context context = getApplicationContext();
+        Toast toast = Toast.makeText(context, "Usunięto filmy z bazy", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
 }
