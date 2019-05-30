@@ -1,0 +1,97 @@
+body {
+    color: white;
+    background:  url(../../assets/images/background.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .cover-container {
+    color: white;
+    height:100vh;
+    padding-top: 10%;
+    padding-bottom: 10%;
+  }
+
+
+  /* 19327054 */
+
+
+.blue{
+    background: #311B92;
+  }
+  /* Witaj */
+  
+  .register1 {
+    text-align: center;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 64px;
+    line-height: 77px;
+    /* identical to box height */
+    color: #FFFFFF;
+  }
+  
+  .register2 {
+    text-align: center;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #FFFFFF;
+  }
+  
+  .email-field {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.3);
+    width: 249px;
+    height: 46px;
+    margin: auto;
+  }
+  
+  .email-field>* {
+    width: 100%;
+  }
+  
+  .password-field {
+    position: relative;
+    bottom: -3%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.3);
+    width: 249px;
+    height: 46px;
+    margin: auto;
+  }
+  
+  /* .password-field > * {
+      width: 100%;
+    } */
+  
+  .re-password-field {
+    position: relative;
+    bottom: -6%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.3);
+    width: 249px;
+    height: 46px;
+    margin: auto;
+  }
+  
+  .register-field {
+    width: 249px;
+    height: 46px;
+    margin: auto;
+  }
+  
+  .valid-text {
+    position: relative;
+    left: 40.5%
+  }

@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Logowanie
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column text-center ">
+
+        <h1 class="cover-heading login1">Logowanie</h1>
+        <p class="lead login2">Zaloguj się aby uzyskać dostęp do wszystkich funkcji</p>
+        <p class="myemail">
+          <input placeholder="Adres email" id="email" [(ngModel)]="credentials.email" type="email" class="form-control">
+        </p>
+    
+        <p class="mypassword">
+          <input placeholder="Hasło" id="password" [(ngModel)]="credentials.password" type="password" class="form-control">
+          
+        </p>
+        <p class="login4"><label class="text-danger col text-center" id="loginError"></label></p>
+        
+        
+    
+      
+    
+    
+        <p class="loginButton">
+          <button (click)="login()" type="submit" class="btn btn-danger btn-block font-weight-bold">Zaloguj się</button>
+        </p>
+        <p class="login3">
+        <button mat-button (click)="return()">Wróć</button>
+      </p>
+      </div>
+
+</ion-content>

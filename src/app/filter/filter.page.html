@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Filtry
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+
+    
+
+        <div class=" bd text-center">
+          <div class="container">
+            <h3>Wylosuj film na dzisiaj</h3>
+            <P class="h4">Dopasuj swoje filtry</P>
+            <form class="example-form">
+              <p>Ocena Filmweb:</p>
+              <p class="h5">{{valueOfSlider}}-10</p>
+              <mat-slider class="slider-margin" [invert]="false" [max]="10" [min]="1" [step]="0.5" value="5"
+                [(ngModel)]="valueOfSlider" name="valueOfSlider">
+              </mat-slider>
+    
+              <p class="text-center">Lata produkcji:</p>
+    
+    <div class="row">
+      <div class="col">
+              <mat-form-field class="yearChoose">
+                <input  type="text" placeholder="Od roku" aria-label="Number" matInput [formControl]="yearsMinForm"
+                  [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptionsMin | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+    
+              <div class="col">
+                <mat-form-field class="yearChoose">
+                  <input type="text" placeholder="Do roku" aria-label="Number" matInput [formControl]="yearsMaxForm"
+                    [matAutocomplete]="auto">
+                  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of filteredOptionsMax | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
+              </div>
+           
+    
+              <mat-form-field class="chooseField">
+                <mat-label>Wybierz gatunek</mat-label>
+                <mat-select [formControl]="movieGenre" multiple>
+                  <mat-option *ngFor="let movieGenre of movieGenreList" [value]="movieGenre">{{movieGenre}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+    
+              <mat-form-field class="chooseField">
+                <mat-label>Wybierz kraj produkcji</mat-label>
+                <mat-select [formControl]="filmCountry" multiple>
+                  <mat-option *ngFor="let filmCountry of filmCountryList" [value]="filmCountry">{{filmCountry}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p>
+              </p>
+    
+            </form>
+          </div>
+          <div>
+            <button (click)="clickRandomFilm()" mat-raised-button color="warn" class="random">Losuj</button>
+          </div>
+        </div>
+      
+
+</ion-content>

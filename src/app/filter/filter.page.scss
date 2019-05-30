@@ -1,0 +1,97 @@
+.menu-toolbar{
+    background-color: #240056;
+  }
+  
+  .text1{
+    margin-bottom:-1%;
+    font-size: 120%;
+  }
+  
+  .text3{
+    margin-left: 45%;
+    font-size: 150%;
+    margin-bottom: -1%;
+  }
+
+  #mainText {
+    width: 50%;
+    height: 200px;
+  }
+  
+  #genresTA {
+    width: 50%;
+    height: 300px;
+  }
+  
+  #countriesTA {
+    width: 50%;
+    height: 300px;
+  }
+  
+  #filterFilmsTA {
+    width: 50%;
+    height: 300px;
+  }
+  
+  .example-h2 {
+    margin: 10px;
+  }
+  
+  .example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  
+  /* .slider-margin {
+    margin: 10px;
+  } */
+  
+  .mat-slider-horizontal {
+    width: 75%;
+  }
+  
+  .example-full-width {
+    width: 15%;
+  }
+  
+  span{
+    margin:5%;
+  }
+  
+  .random{
+  width: 75%;
+  height: 20%;
+  margin-bottom:5%
+  
+  }
+  
+  .chooseField{
+  width: 75%;
+  height: 10%;
+  /* background: #240056; */
+  margin-bottom:5%;
+  }
+  
+  .yearChoose{
+  width: 30%;
+  height: 10%;
+  /* background: #240056; */
+  margin-bottom:5%;
+  
+  }
+  
+  .icon {
+    font-size: 400%;
+  }
+  
+  ::ng-deep .mat-menu-panel {
+    max-width: none!important;
+    min-width: 300px!important;
+  }
+  
+  .bd{
+    background-color: #311B92; 
+    color: white;
+  }

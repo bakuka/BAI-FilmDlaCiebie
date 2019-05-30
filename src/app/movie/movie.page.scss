@@ -1,0 +1,39 @@
+.container{
+    background-color: #311B92; 
+    padding: 20px;
+    color: white;
+  }
+
+.movie-title {
+  margin-bottom: 10px;
+}
+
+.fit-image {
+  width: 100%;
+object-fit: cover;
+}
+
+.movie-description {
+  font-size: 13px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mark-star{
+  color: #FF9800;
+}
+
+p {
+  margin: 0;
+  font-size: 14px;
+}
+
+a {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  height: 70px;
+}
