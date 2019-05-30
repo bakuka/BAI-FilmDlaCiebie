@@ -38,34 +38,34 @@ export class RegisterComponent {
     private authService: AuthService) {
     this.frmSignup = this.createSignupForm();
   }
-  
+
   googleLogin() {
     this.authService.googleLogin()
       .then((res) => {
-        this.router.navigate(['/filter'])
+        this.router.navigate(['/loggedin'])
       })
       .catch((err) => console.log(err));
   }
 
   facebookLogin() {
     this.authService.facebookLogin()
-    .then((res) =>{    
-      this.router.navigate(['/filter'])
+    .then((res) =>{
+      this.router.navigate(['/loggedin'])
    })
-   .catch((err) => console.log(err));;   
+   .catch((err) => console.log(err));;
   }
 
   errorMessage: string;
 
   register() {
     this.authService.register(this.credentials)
-      .then(() => this.registerInfo = 'ACCOUNT CREATED, PLZ LOGIN IN!')
+      .then(() => this.router.navigate(['/accountcreated']))
       // .catch(err => console.log(err.message))
       .catch(err => {if (err.message=="The email address is already in use by another account."){
         err.message="Ten adres email jest już w użyciu";
         this.errorMessage=err.message;
       }
-      else 
+      else
       this.errorMessage=err.message;
   })}
 
@@ -74,7 +74,7 @@ export class RegisterComponent {
   }
 
   abort(){
-    this.router.navigate(['/filter'])
+    this.router.navigate(['/notlogged'])
   }
 
   createSignupForm(): FormGroup {

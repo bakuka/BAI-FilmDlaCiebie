@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
     email: '',
     password: ''
   };
-  
+
   constructor(
     private router: Router,
     private authService: AuthService
@@ -24,14 +24,14 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.credentials)
-      .then(() => this.router.navigate(['/filter']))
+      .then(() => this.router.navigate(['/loggedin']))
       .catch(err => { if (err.message=="The password is invalid or the user does not have a password.") {
         err.message = "Login lub hasło nieprawidłowe";
         document.getElementById("loginError").innerHTML = err.message;}
        else if (err.message=="The email address is badly formatted."){
           err.message = "Zły format adresu email";
           document.getElementById("loginError").innerHTML = err.message;}
-          else 
+          else
           document.getElementById("loginError").innerHTML = err.message;
         })
   }

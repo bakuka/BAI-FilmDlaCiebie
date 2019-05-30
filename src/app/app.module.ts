@@ -5,6 +5,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth'
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { RouterModule } from '@angular/router';
@@ -76,6 +77,11 @@ import { YouTubeSearchResultComponent } from './youtube-search/youtube-search-re
 import { YouTubeSearchComponent } from './youtube-search/youtube-search.component';
 import { HttpModule } from '@angular/http';
 import {YoutubePlayerModule} from 'ng2-youtube-player';
+import { NotloggedComponent } from './notlogged/notlogged.component';
+import { LoggedoutComponent } from './loggedout/loggedout.component';
+import { LoggedinComponent } from './loggedin/loggedin.component';
+import { AccountcreatedComponent } from './accountcreated/accountcreated.component';
+import { MymoviesComponent } from './mymovies/mymovies.component';
 
 
 
@@ -92,19 +98,25 @@ import {YoutubePlayerModule} from 'ng2-youtube-player';
     LoginComponent,
     MainNavComponent,
     MovieComponent,
-    
 
-    
+
+
 
     YouTubeSearchBoxComponent,
     YouTubeSearchResultComponent,
-    YouTubeSearchComponent   
+    YouTubeSearchComponent,
+    NotloggedComponent,
+    LoggedoutComponent,
+    LoggedinComponent,
+    AccountcreatedComponent,
+    MymoviesComponent
   ],
-  
+
   imports: [
     BrowserModule,
     MatSliderModule,
     AppRoutingModule,
+
     DragDropModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
@@ -113,6 +125,10 @@ import {YoutubePlayerModule} from 'ng2-youtube-player';
     { path: '', redirectTo: 'register', pathMatch: 'full'},
     { path:'register', component: RegisterComponent},
     { path:'movie', component: MovieComponent},
+    { path:'notlogged', component: NotloggedComponent},
+    { path:'loggedin', component: LoggedinComponent},
+    { path:'loggedout', component: LoggedoutComponent},
+    { path:'accountcreated', component: AccountcreatedComponent},
     { path: 'filter' ,component: FilterComponent
     // canActivate: [AuthGuard]
   },
@@ -168,16 +184,16 @@ import {YoutubePlayerModule} from 'ng2-youtube-player';
   LayoutModule,
   YoutubePlayerModule,
   HttpModule
-  
+
   ],
-  
+
 
 
   providers: [AuthService,FilmService,AngularFirestore,youTubeSearchInjectables],
   bootstrap: [AppComponent,FilterComponent],
   entryComponents:[FilterComponent],
- 
-  
+
+
 })
 export class AppModule { }
 // platformBrowserDynamic().bootstrapModule(AppModule);

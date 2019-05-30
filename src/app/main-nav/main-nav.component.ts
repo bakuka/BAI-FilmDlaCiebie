@@ -24,7 +24,7 @@ export class MainNavComponent {
 
   logout() {
     this.authService.logout()
-      .then(() => this.router.navigate(['/register']));
+      .then(() => this.router.navigate(['/loggedout']));
   }
 
   toFilter() {
