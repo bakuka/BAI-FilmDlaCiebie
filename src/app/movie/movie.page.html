@@ -17,11 +17,11 @@
 
                         </ion-col>
                         <ion-col size="12" class="movie-subtitle">
-                                <h6>Movie Subtitle</h6>
+                                <h6>{{pageFilmOriginalTitle}}</h6>
                         </ion-col>
                 </ion-row>
                 <ion-row>
-                        <ion-col size="6"> <img (click)="clickTrailer()" class="fit-image" [(src)]='pageimgURL'>
+                        <ion-col size="6"> <img class="fit-image" [(src)]='pageimgURL'>
                                 <!--property binding-->
                         </ion-col>
                         <ion-col size="6">
@@ -43,7 +43,7 @@
                 </ion-row>
                 <ion-row>
                         <ion-col size="6">
-                                <ion-button class="trailer-btn" color="danger" icon-start>
+                                <ion-button (click)="clickTrailer()" class="trailer-btn" color="danger" icon-start>
                                         <ion-icon name="logo-youtube" class="yt-icon"></ion-icon>
                                         Obejrzyj trailer
                                 </ion-button>

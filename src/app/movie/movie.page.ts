@@ -48,6 +48,7 @@ export class MoviePage implements OnInit {
   pageFilmGenres: string[];
   pageFilmCountries: string[];
   pageimgURL: string;
+  pageFilmOriginalTitle: string;
   filterReference :FilterPage;
   /*******/
   show: boolean = false;
@@ -80,6 +81,8 @@ export class MoviePage implements OnInit {
     this.pageFilmGenres = film.genres;
     this.pageFilmCountries = film.countries;
     this.pageimgURL = film.imgURL;
+    this.pageFilmOriginalTitle = film.originalTittle;
+  
 
     this.youtube.search(film.tittle + "zwiastun PL").switch().subscribe(); / load trailer from YT /
   }
