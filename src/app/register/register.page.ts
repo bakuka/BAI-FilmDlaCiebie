@@ -73,11 +73,11 @@ googleLogin(){
     firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
     .then(suc => {
       alert("Zalogowano pomyślnie");
-      this.router.navigateByUrl('/filter');
+     
     }).catch(ns=>{
       alert("NOT SUCCESS")
     })
-  })
+  }).then(succ=>{this.router.navigateByUrl('/loggedin');})
 }
 
 errorMessage: string;
