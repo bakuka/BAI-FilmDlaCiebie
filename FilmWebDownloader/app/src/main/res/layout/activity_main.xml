@@ -9,21 +9,10 @@
     tools:context=".MainActivity"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:text="@string/title_home"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
         android:id="@+id/bCreateFilm"
-        android:onClick="onClickAddFilm"
-        android:text="Dodaj Film"
+        android:onClick="onDeleteDatabase"
+        android:text="Usuń filmy z bazy"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
         android:layout_height="wrap_content" />
@@ -36,13 +25,7 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/bAddFilmsToDatabase"
-        android:onClick="onClickAddFilmsToDatabase"
-        android:text="Dodaj Filmy do bazy"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content" />
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
