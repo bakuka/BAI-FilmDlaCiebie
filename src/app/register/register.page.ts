@@ -85,9 +85,9 @@ registerInfo: string;
 register() {
   this.auth.register(this.credentials)
      
-    .then(() => 
     
-    this.router.navigateByUrl('/home'))
+    
+    
     // .catch(err => console.log(err.message))
     .catch(err => {if (err.message=="The email address is already in use by another account."){
       err.message="Ten adres email jest już w użyciu";
@@ -95,7 +95,7 @@ register() {
     }
     else 
     this.errorMessage=err.message;
-})}
+}).then(succ=>{this.router.navigateByUrl('/loggedin');})}
 
 logOut(){
   this.auth.logout()
