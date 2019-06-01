@@ -24,6 +24,7 @@ export class MoviePage implements OnInit {
   showYTPlayer: Boolean = false;
   naxtChoosedFilm: Film;
   userFilms: Film[];
+  userAvoidFilms: Film[];
 
   /**motion */
   data: any;
@@ -40,7 +41,7 @@ export class MoviePage implements OnInit {
   skippedFilms = {} as Film[];
   filmsList = {} as Film[];
   filterProperty = {} as Filter;
-  
+
   pageFilmTitle: string;
   pageFilmYear: number;
   pagefilmScore: number;
@@ -67,7 +68,11 @@ export class MoviePage implements OnInit {
           this.filmService.getUserFilms(user.uid).subscribe(films => { /*get user films*/
             this.userFilms = films;
             console.log("liczba filmów zalogowanego użytkownika: " + this.userFilms.length );
-          }); 
+          });
+          this.filmService.getUserAvoidFilms(user.uid).subscribe(films => { /*get user avoid films*/
+            this.userAvoidFilms = films;
+            console.log("liczba filmów pomijanych przez użytkownika: " + this.userAvoidFilms.length );
+          });  
         }
       });
     /*************/
@@ -174,6 +179,16 @@ export class MoviePage implements OnInit {
                                                         }
                                                         /**********/
 
+                                                        /* checking if the film is in user avoid list*/
+                                                        if (this.userUID != null){
+                                                          for (var i = 0; i < this.userAvoidFilms.length; i++){
+                                                            if (this.userAvoidFilms[i].id == filterData.id) {
+                                                              return null;
+                                                            }
+                                                          }
+                                                        }
+                                                        /**********/
+
                                                         /* checking if the film has been choosen before, if yes, it cannot be choosen*/
                                                         for (var i = 0; i < this.skippedFilms.length; i++) {
                                                           if (this.skippedFilms[i].id == filterData.id) {
@@ -253,6 +268,12 @@ export class MoviePage implements OnInit {
   clickUserWatched(){
     this.filmService.addUserFilm(this.userUID, this.naxtChoosedFilm );
     alert("film " + this.naxtChoosedFilm.tittle + " został dodany do twojej listy oglądanych filmów");
+    this.clickRandomNextFilm();
+  }
+
+  clickUserAvoidFilm(){
+    this.filmService.addUserAvoidFilm(this.userUID, this.naxtChoosedFilm );
+    alert("film " + this.naxtChoosedFilm.tittle + " nie bedzie więcej pokazywany");
     this.clickRandomNextFilm();
   }
 }

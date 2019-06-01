@@ -5,9 +5,6 @@ import { Film } from '../models/Films';
 import { AngularFireDatabase } from 'angularfire2/database';
 import {Observable} from 'rxjs';
 
-
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -32,5 +29,16 @@ export class FilmService {
 
   getUserFilms(userId: String){
     return this.afs.list('/usersFilm/'+userId).valueChanges(); 
+  }
+
+  addUserAvoidFilm(userId: String, film: Film){
+    this.afs.database.ref('/usersFilm/'+userId+'/userAvoidFilms').push({
+      id: film.id,
+      tittle: film.tittle
+    })
+  }
+
+  getUserAvoidFilms(userId: String){
+    return this.afs.list('/usersFilm/'+userId+'/userAvoidFilms').valueChanges(); 
   }
 }

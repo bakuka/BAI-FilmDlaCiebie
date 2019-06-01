@@ -57,8 +57,6 @@ export class FilterPage implements OnInit {
   }
   /*****/
 
-  
-
   //START countries LOV initialization
   filmCountry = new FormControl();
   filmCountryList: string[] = [""];
