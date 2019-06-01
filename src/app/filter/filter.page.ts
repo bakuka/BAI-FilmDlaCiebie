@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Filter } from '../models/filters';
 import { map, startWith } from 'rxjs/operators';
 import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -18,6 +19,49 @@ export class FilterPage implements OnInit {
 
   @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() results: EventEmitter<YouTubeSearchResult[]> = new EventEmitter<YouTubeSearchResult[]>();
+
+
+  constructor(private filmService: FilmService,
+    private router: Router,
+    private auth: AuthenticationService
+    ) { }
+
+  ngOnInit() {
+    console.log('ngOnInit run');
+    var date = new Date();
+
+    this.filmService.getFilms().subscribe(films => {
+      this.films = films;
+      console.log('załadowano filmy z bazy: '+ date.getTime());
+      this.movieGenreList = this.getAllGenres();
+      console.log('załadowano LOV z gatunkami: '+ date.getTime());
+      this.filmCountryList = this.getAllCountries();
+      console.log('załadowano LOV z krajami: '+ date.getTime());
+    });   
+
+    this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterMin(value))
+    );  
+
+    this.filteredOptionsMax = this.yearsMaxForm.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterMax(value))
+    );
+
+    this.auth.afAuth.authState
+      .subscribe(
+        user => {
+          if (user) {
+            console.log("test: "+ user.uid);
+            console.log("test: "+ user.displayName);
+            console.log("zalogowany");
+          } else {
+            console.log("niezalogowany");
+          }
+        });
+    console.log('ngOnInit end');
+  }
 
   valueOfSlider=0;
 
@@ -63,35 +107,6 @@ export class FilterPage implements OnInit {
   filmCountry = new FormControl();
   filmCountryList: string[] = [""];
   //End - countries LOV
-
-  constructor(private filmService: FilmService,
-    private router: Router
-    ) { }
-
-  ngOnInit() {
-    console.log('ngOnInit run');
-    var date = new Date();
-
-    this.filmService.getFilms().subscribe(films => {
-      this.films = films;
-      console.log('załadowano filmy z bazy: '+ date.getTime());
-      this.movieGenreList = this.getAllGenres();
-      console.log('załadowano LOV z gatunkami: '+ date.getTime());
-      this.filmCountryList = this.getAllCountries();
-      console.log('załadowano LOV z krajami: '+ date.getTime());
-      console.log('ngOnInit end');
-    });   
-
-    this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterMin(value))
-    );  
-
-    this.filteredOptionsMax = this.yearsMaxForm.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filterMax(value))
-    );
-  }
 
   getAllCountries() {
     var countriesArray: string[];
