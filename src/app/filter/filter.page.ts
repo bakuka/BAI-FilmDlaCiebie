@@ -70,13 +70,15 @@ export class FilterPage implements OnInit {
 
   ngOnInit() {
     console.log('ngOnInit run');
+    var date = new Date();
+
     this.filmService.getFilms().subscribe(films => {
       this.films = films;
-      console.log('załadowano filmy z bazy');
+      console.log('załadowano filmy z bazy: '+ date.getTime());
       this.movieGenreList = this.getAllGenres();
-      console.log('załadowano LOV z gatunkami');
+      console.log('załadowano LOV z gatunkami: '+ date.getTime());
       this.filmCountryList = this.getAllCountries();
-      console.log('załadowano LOV z krajami');
+      console.log('załadowano LOV z krajami: '+ date.getTime());
       console.log('ngOnInit end');
     });   
 
