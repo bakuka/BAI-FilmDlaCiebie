@@ -62,7 +62,7 @@
                 <ion-row>
 
                         <!-- <ion-col [hidden]="show">  -->
-                        <ion-col size="12" [style.visibility]="(show) ? 'visible' : 'hidden' ">
+                        <ion-col size="12" [style.visibility]="(showYTPlayer) ? 'visible' : 'hidden' ">
                                 <youtube-player [videoId]="idRadomFIlmYT" (ready)="savePlayer($event)"
                                         (change)="onStateChange($event)">
                                 </youtube-player>
@@ -70,6 +70,10 @@
                         </ion-col>
 
                 </ion-row>
+
+                <div [style.visibility]="(showUserWatchButton) ? 'visible' : 'hidden' ">>
+                        <button (click)="clickUserWatched()">Oglądałem</button>
+                </div>
 
 
                 <div>

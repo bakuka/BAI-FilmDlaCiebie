@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import {AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Film } from '../models/Films';
 
 import { AngularFireDatabase } from 'angularfire2/database';
-import {Observable, Subject, of, from} from 'rxjs';
+import {Observable} from 'rxjs';
 
 
 
@@ -21,5 +21,16 @@ export class FilmService {
 
   getFilms(){
     return this.films;
+  }
+
+  addUserFilm(userId: String, film: Film){
+    this.afs.database.ref('/usersFilm/'+userId).push({
+      id: film.id,
+      tittle: film.tittle
+    })
+  }
+
+  getUserFilms(userId: String){
+    return this.afs.list('/usersFilm/'+userId).valueChanges(); 
   }
 }

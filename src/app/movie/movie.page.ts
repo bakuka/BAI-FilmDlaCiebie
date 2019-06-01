@@ -8,6 +8,8 @@ import { DeviceMotion, DeviceMotionAccelerationData, DeviceMotionAccelerometerOp
 import { Shake } from '@ionic-native/shake/ngx';
 import { Platform } from 'ionic-angular';
 import { IonContent } from '@ionic/angular';
+import { AuthenticationService } from '../services/authentication.service';
+import { FilmService } from '../services/film.service';
 
 
 @Component({
@@ -16,6 +18,65 @@ import { IonContent } from '@ionic/angular';
   styleUrls: ['./movie.page.scss'],
 })
 export class MoviePage implements OnInit {
+
+  userUID: String = null;
+  showUserWatchButton: Boolean = false;
+  showYTPlayer: Boolean = false;
+  naxtChoosedFilm: Film;
+  userFilms: Film[];
+
+  /**motion */
+  data: any;
+  subscription: any;
+  /*** */
+
+  /*YT*/
+  player: YT.Player;
+  public idRadomFIlmYT: string;
+  /****/
+
+  /*page binds*/
+  choosedFilm = {} as Film;
+  skippedFilms = {} as Film[];
+  filmsList = {} as Film[];
+  filterProperty = {} as Filter;
+  
+  pageFilmTitle: string;
+  pageFilmYear: number;
+  pagefilmScore: number;
+  pageFilmGenres: string[];
+  pageFilmCountries: string[];
+  pageimgURL: string;
+  pageFilmOriginalTitle: string;
+  filterReference: FilterPage;
+  /*******/
+
+  constructor(private router: Router,
+    private youtube: YouTubeSearchService,
+    private platform: Platform,
+    private auth: AuthenticationService,
+    private filmService: FilmService) {
+    this.initializePage();
+
+    /* for logged user */
+    this.auth.afAuth.authState.subscribe(
+      user => {
+        if (user) {
+          this.userUID = user.uid;
+          this.showUserWatchButton = true; /* show button for logged user*/
+          this.filmService.getUserFilms(user.uid).subscribe(films => { /*get user films*/
+            this.userFilms = films;
+            console.log("liczba filmów zalogowanego użytkownika: " + this.userFilms.length );
+          }); 
+        }
+      });
+    /*************/
+  }
+
+
+  ngOnInit() {
+
+  }
 
   // Scrolling to element
   @ViewChild(IonContent) content: IonContent;
@@ -34,17 +95,7 @@ export class MoviePage implements OnInit {
   }
   // end scrolling
 
-  /**motion */
-  data: any;
-  subscription: any;
-  /*** */
-
-
-  /*YT*/
-  player: YT.Player;
-
-  public idRadomFIlmYT: string;
-
+  /***YT */
   savePlayer(player) {
     this.player = player;
     console.log('player instance', player);
@@ -54,40 +105,12 @@ export class MoviePage implements OnInit {
   }
   /*****/
 
-  choosedFilm = {} as Film;
-  skippedFilms = {} as Film[];
-  filmsList = {} as Film[];
-  filterProperty = {} as Filter;
-
-  /*page binds*/
-  pageFilmTitle: string;
-  pageFilmYear: number;
-  pagefilmScore: number;
-  pageFilmGenres: string[];
-  pageFilmCountries: string[];
-  pageimgURL: string;
-  pageFilmOriginalTitle: string;
-  filterReference: FilterPage;
-  /*******/
-  show: boolean = false;
-
-  constructor(private router: Router,
-    private youtube: YouTubeSearchService,
-    private platform: Platform,
-    private shake: Shake) {
-    this.initializePage();
-    this.shakePhone();
-  }
-
-  ngOnInit() {
-
-  }
-
   initializePage() {
     this.choosedFilm = this.router.getCurrentNavigation().extras.state.filmObj;
     this.skippedFilms = this.router.getCurrentNavigation().extras.state.skippedFilms;
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
+    this.naxtChoosedFilm = this.router.getCurrentNavigation().extras.state.filmObj;
 
     this.bindVariables(this.choosedFilm);
   }
@@ -117,6 +140,7 @@ export class MoviePage implements OnInit {
 
     if (filteredFilms.length == 0) {
       window.alert("brak filmu z podanymi kryteriami");
+      return;
     } else if (filteredFilms.length == 1) {
       chooseFilm = filteredFilms[0];
       this.skippedFilms.push(chooseFilm) /* adding to skipped list*/
@@ -125,9 +149,10 @@ export class MoviePage implements OnInit {
       this.skippedFilms.push(chooseFilm) /* adding to skipped list*/
     }
     this.bindVariables(chooseFilm);
+    this.naxtChoosedFilm = chooseFilm;
 
     /***turn off the trialer*/
-    this.show = false;
+    this.showYTPlayer = false;
     this.player.stopVideo();
     /*****/
   }
@@ -138,45 +163,56 @@ export class MoviePage implements OnInit {
     filteredFilms.pop();
 
     return filteredFilms = films.filter(filterData => {
-      if (genresTab != null) {
-        var checkFilmGenre: Boolean = false;
-        for (var i = 0; i < filterData.genres.length; i++) {
-          for (var j = 0; j < genresTab.length; j++) {
-            if (filterData.genres[i] == genresTab[j]) {
-              checkFilmGenre = true;
-            }
-          }
-        }
-        if (checkFilmGenre == false) {
-          return null;
-        }
-      }
-      if (countriesTab != null) {
-        var checkFilmCountries: Boolean = false;
-        for (var i = 0; i < filterData.countries.length; i++) {
-          for (var j = 0; j < countriesTab.length; j++) {
-            if (filterData.countries[i] == countriesTab[j]) {
-              checkFilmCountries = true;
-            }
-          }
-        }
-        if (checkFilmCountries == false) {
-          return null;
-        }
-      }
+                                                        
+                                                        /* checking if the film is in user list*/
+                                                        if (this.userUID != null){
+                                                          for (var i = 0; i < this.userFilms.length; i++){
+                                                            if (this.userFilms[i].id == filterData.id) {
+                                                              return null;
+                                                            }
+                                                          }
+                                                        }
+                                                        /**********/
 
-      /* checking if the film has been choosen before, if yes, it cannot be choosen*/
-      for (var i = 0; i < this.skippedFilms.length; i++) {
-        if (this.skippedFilms[i].id == filterData.id) {
-          return null;
-        }
-      }
-      /********* */
+                                                        /* checking if the film has been choosen before, if yes, it cannot be choosen*/
+                                                        for (var i = 0; i < this.skippedFilms.length; i++) {
+                                                          if (this.skippedFilms[i].id == filterData.id) {
+                                                            return null;
+                                                          }
+                                                        }
+                                                        /********* */
 
-      return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear)
-        && filterData.score >= minScore;
-    }
-    );
+                                                        if (genresTab != null) {
+                                                          var checkFilmGenre: Boolean = false;
+                                                          for (var i = 0; i < filterData.genres.length; i++) {
+                                                            for (var j = 0; j < genresTab.length; j++) {
+                                                              if (filterData.genres[i] == genresTab[j]) {
+                                                                checkFilmGenre = true;
+                                                              }
+                                                            }
+                                                          }
+                                                          if (checkFilmGenre == false) {
+                                                            return null;
+                                                          }
+                                                        }
+                                                        if (countriesTab != null) {
+                                                          var checkFilmCountries: Boolean = false;
+                                                          for (var i = 0; i < filterData.countries.length; i++) {
+                                                            for (var j = 0; j < countriesTab.length; j++) {
+                                                              if (filterData.countries[i] == countriesTab[j]) {
+                                                                checkFilmCountries = true;
+                                                              }
+                                                            }
+                                                          }
+                                                          if (checkFilmCountries == false) {
+                                                            return null;
+                                                          }
+                                                        }
+
+                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear)
+                                                          && filterData.score >= minScore;
+                                                        }
+                                        );
   }
 
   randomFilm(films: Film[]) {
@@ -185,7 +221,7 @@ export class MoviePage implements OnInit {
   }
 
   clickTrailer() {
-    this.show = true;
+    this.showYTPlayer = true;
     this.player.loadVideoById(String(this.youtube.getFilmId()));
   }
 
@@ -214,13 +250,9 @@ export class MoviePage implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  shakePhone() {
-    this.platform.ready().then(() => {
-      this.shake.startWatch().subscribe(data => {
-        window.alert('Shake!');
-        console.log('shake!!');
-      })
-    })
+  clickUserWatched(){
+    this.filmService.addUserFilm(this.userUID, this.naxtChoosedFilm );
+    alert("film " + this.naxtChoosedFilm.tittle + " został dodany do twojej listy oglądanych filmów");
+    this.clickRandomNextFilm();
   }
-
 }
