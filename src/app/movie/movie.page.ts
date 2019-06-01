@@ -5,7 +5,6 @@ import { FilterPage } from '../filter/filter.page';
 import { Router } from '@angular/router';
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 import { DeviceMotion, DeviceMotionAccelerationData, DeviceMotionAccelerometerOptions } from '@ionic-native/device-motion';
-import { Shake } from '@ionic-native/shake/ngx';
 import { Platform } from 'ionic-angular';
 import { IonContent } from '@ionic/angular';
 import { AuthenticationService } from '../services/authentication.service';
@@ -37,7 +36,6 @@ export class MoviePage implements OnInit {
   /****/
 
   /*page binds*/
-  choosedFilm = {} as Film;
   skippedFilms = {} as Film[];
   filmsList = {} as Film[];
   filterProperty = {} as Filter;
@@ -54,11 +52,8 @@ export class MoviePage implements OnInit {
 
   constructor(private router: Router,
     private youtube: YouTubeSearchService,
-    private platform: Platform,
     private auth: AuthenticationService,
     private filmService: FilmService) {
-    this.initializePage();
-
     /* for logged user */
     this.auth.afAuth.authState.subscribe(
       user => {
@@ -76,8 +71,8 @@ export class MoviePage implements OnInit {
         }
       });
     /*************/
+    this.initializePage();
   }
-
 
   ngOnInit() {
 
@@ -111,13 +106,18 @@ export class MoviePage implements OnInit {
   /*****/
 
   initializePage() {
-    this.choosedFilm = this.router.getCurrentNavigation().extras.state.filmObj;
     this.skippedFilms = this.router.getCurrentNavigation().extras.state.skippedFilms;
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
     this.naxtChoosedFilm = this.router.getCurrentNavigation().extras.state.filmObj;
 
-    this.bindVariables(this.choosedFilm);
+    var chooseFilm = this.filterAndRandomFilm(this.filterProperty.minYear, this.filterProperty.maxYear,
+                                              this.filterProperty.genres, this.filterProperty.countries);
+
+    if (chooseFilm != null) {
+      this.bindVariables(chooseFilm);
+      this.naxtChoosedFilm = chooseFilm;
+    }
   }
 
   bindVariables(film: Film) {
@@ -140,22 +140,12 @@ export class MoviePage implements OnInit {
     var movieGenres: string[] = this.filterProperty.genres;
     var movieCountries: string[] = this.filterProperty.countries;
 
-    var filteredFilms: Film[] = [];
-    filteredFilms = this.filterFilms(this.filmsList, minYearFilter, maxYearFilter, movieGenres, movieCountries, this.filterProperty.score);
+    chooseFilm = this.filterAndRandomFilm(minYearFilter, maxYearFilter, movieGenres, movieCountries);
 
-    if (filteredFilms.length == 0) {
-      window.alert("brak filmu z podanymi kryteriami");
-      return;
-    } else if (filteredFilms.length == 1) {
-      chooseFilm = filteredFilms[0];
-      this.skippedFilms.push(chooseFilm) /* adding to skipped list*/
-    } else {
-      chooseFilm = this.randomFilm(filteredFilms);
-      this.skippedFilms.push(chooseFilm) /* adding to skipped list*/
+    if (chooseFilm != null) {
+      this.bindVariables(chooseFilm);
+      this.naxtChoosedFilm = chooseFilm;
     }
-    this.bindVariables(chooseFilm);
-    this.naxtChoosedFilm = chooseFilm;
-
     /***turn off the trialer*/
     this.showYTPlayer = false;
     this.player.stopVideo();
@@ -163,8 +153,7 @@ export class MoviePage implements OnInit {
   }
 
   filterFilms(films, minYar, maxYear, genresTab, countriesTab, minScore) {
-    var filteredFilms: Film[];
-    filteredFilms = [];
+    var filteredFilms: Film[] = [];
     filteredFilms.pop();
 
     return filteredFilms = films.filter(filterData => {
@@ -233,6 +222,23 @@ export class MoviePage implements OnInit {
   randomFilm(films: Film[]) {
     var random = Math.floor(Math.random() * (films.length - 1) + 1);
     return films[random];
+  }
+
+  filterAndRandomFilm(minYearFilter, maxYearFilter, movieGenres, movieCountries){
+    var filteredFilms: Film[] = [];
+    filteredFilms = this.filterFilms(this.filmsList, minYearFilter, maxYearFilter, movieGenres, movieCountries, this.filterProperty.score);
+
+    if (filteredFilms.length == 0) {
+      window.alert("brak filmu z podanymi kryteriami");
+      return;
+    } else if (filteredFilms.length == 1) {
+      this.skippedFilms.push(filteredFilms[0]) /* adding to skipped list*/
+      return filteredFilms[0];
+    } else {
+      var film: Film = this.randomFilm(filteredFilms);
+      this.skippedFilms.push(film) /* adding to skipped list*/
+      return film;
+    }
   }
 
   clickTrailer() {
