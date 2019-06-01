@@ -72,8 +72,12 @@ export class FilterPage implements OnInit {
     console.log('ngOnInit run');
     this.filmService.getFilms().subscribe(films => {
       this.films = films;
+      console.log('załadowano filmy z bazy');
       this.movieGenreList = this.getAllGenres();
+      console.log('załadowano LOV z gatunkami');
       this.filmCountryList = this.getAllCountries();
+      console.log('załadowano LOV z krajami');
+      console.log('ngOnInit end');
     });   
 
     this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
