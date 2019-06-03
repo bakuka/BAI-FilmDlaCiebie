@@ -258,14 +258,22 @@ export class MoviePage implements OnInit {
   }
 
   clickUserWatched(){
-    this.filmService.addUserFilm(this.userUID, this.choosedFilm );
-    alert("film " + this.choosedFilm.tittle + " został dodany do twojej listy oglądanych filmów");
-    this.clickRandomNextFilm();
+    if (this.userUID != null){
+      this.filmService.addUserFilm(this.userUID, this.choosedFilm );
+      alert("film " + this.choosedFilm.tittle + " został dodany do twojej listy oglądanych filmów");
+      this.clickRandomNextFilm();
+    }else{
+      alert("Użytkownik nie zalogowany, prosze się zalogować");
+    }
   }
 
   clickUserAvoidFilm(){
-    this.filmService.addUserAvoidFilm(this.userUID, this.choosedFilm );
-    alert("film " + this.choosedFilm.tittle + " nie bedzie więcej pokazywany");
-    this.clickRandomNextFilm();
+    if (this.userUID != null){
+      this.filmService.addUserAvoidFilm(this.userUID, this.choosedFilm );
+      alert("film " + this.choosedFilm.tittle + " nie bedzie więcej pokazywany");
+      this.clickRandomNextFilm();
+    }else{
+      alert("Użytkownik nie zalogowany, prosze się zalogować");
+    }
   }
 }
