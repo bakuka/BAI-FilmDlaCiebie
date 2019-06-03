@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
    }
 
   login() {
-    (this.auth.login(this.credentials))
+    this.auth.login(this.credentials)
       
       .catch(err => { if (err.message=="The password is invalid or the user does not have a password.") {
         err.message = "Login lub hasło nieprawidłowe";
@@ -34,10 +34,19 @@ export class LoginPage implements OnInit {
           document.getElementById("loginError").innerHTML = err.message;}
           else 
           document.getElementById("loginError").innerHTML = err.message;
-        }).then(succ=>{this.router.navigateByUrl('/loggedin');})
-  }
+        });
+        
+          setTimeout(() => 
+          {
+            
+              
+          },
+          5000);
+          this.router.navigate(['/loggedin']);}
+        
+  
 
-
+  
   return(){
     this.router.navigate(['/register'])
   }
