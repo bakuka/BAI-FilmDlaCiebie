@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickDownloadFilms(View view) throws IOException {
         FilmsDownloader fd = new FilmsDownloader();
-        for (int i=1; i<=100; i++){
+        for (int i=1; i<=10; i++){
             films = fd.getFilms(i);
             films = fd.transformData(films);
             films = fd.removeFilmWithEmptyFields(films);
@@ -70,10 +70,6 @@ public class MainActivity extends AppCompatActivity {
 
             onClickAddFilmsToDatabase(view);
         }
-
-
-
-
     }
 
     public void onClickAddFilmsToDatabase(View view) {
@@ -92,5 +88,4 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, "Usunięto filmy z bazy", Toast.LENGTH_LONG);
         toast.show();
     }
-
 }

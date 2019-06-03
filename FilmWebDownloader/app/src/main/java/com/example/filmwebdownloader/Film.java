@@ -7,8 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Film {
-    private String tittle, url, score, time, originalTittle, year, id, imgURL;
+    private String tittle, url, score, time, originalTittle, year, id, imgURL, description;
     private ArrayList<String> filmGenres, filmCountries, filmDirector, filmActors;
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public void setImgURL(String imgURL) {
         this.imgURL = imgURL;
@@ -105,23 +113,6 @@ public class Film {
 
     }
 
-    public Film(String id, String tittle, String originalTittle, String score, String time, String year, ArrayList<String> genres, ArrayList<String> countries,
-                String imgURL) {
-        this.id = id;
-        this.tittle = tittle;
-        this.originalTittle = originalTittle;
-        this.score = score;
-        this.time = time;
-        this.year = year;
-        this.filmGenres = genres;
-        this.filmCountries = countries;
-        this.imgURL = imgURL;
-    }
-
-    public String getId() {
-        return id;
-    }
-
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
@@ -134,6 +125,7 @@ public class Film {
         result.put("genres", filmGenres);
         result.put("countries", filmCountries);
         result.put("imgURL", imgURL);
+        result.put("description", description);
 
         return result;
     }
