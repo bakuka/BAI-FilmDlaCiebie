@@ -45,7 +45,7 @@ export class MoviePage implements OnInit {
   pageFilmCountries: string[];
   pageimgURL: string;
   pageFilmOriginalTitle: string;
-  filterReference: FilterPage;
+  pageFilmDescription: string;
   /*******/
 
   constructor(private router: Router,
@@ -113,6 +113,7 @@ export class MoviePage implements OnInit {
     this.pageFilmCountries = film.countries;
     this.pageimgURL = film.imgURL;
     this.pageFilmOriginalTitle = film.originalTittle;
+    this.pageFilmDescription = film.description;
 
 
     this.youtube.search(film.tittle + "zwiastun PL").switch().subscribe(); / load trailer from YT /
