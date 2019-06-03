@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import * as firebase  from 'firebase';
 import { GooglePlus} from '@ionic-native/google-plus/ngx';
 import { AuthenticationService } from '../services/authentication.service';
-import { AlertController } from 'ionic-angular';
+
 
 
 
@@ -34,7 +34,7 @@ export class RegisterPage  {
     private router: Router,
     public googleplus: GooglePlus,
     private auth: AuthenticationService,
-    private alertCtrl: AlertController,
+
     
 
   ) {
@@ -47,23 +47,7 @@ export class RegisterPage  {
 
 // }
 
-loginAlert() {
-  let alert = this.alertCtrl.create({
-    title: 'Zalogowano pomyślnie',
-    subTitle: 'Zostaniesz przekierowany na stronę filtrów',
-    buttons: ['OK']
-  });
-  alert.present();
-}
 
-registerAlert() {
-  let alert = this.alertCtrl.create({
-    title: 'Zarejestrowano pomyślnie',
-    subTitle: 'Zostaniesz przekierowany na stronę filtrów',
-    buttons: ['OK']
-  });
-  alert.present();
-}
 
 googleLogin(){
   this.googleplus.login({
@@ -71,22 +55,29 @@ googleLogin(){
     'offline': true
   }).then(res=>{
     firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-    .then(suc => {
-      alert("Zalogowano pomyślnie");
-     
-    }).catch(ns=>{
+.catch(ns=>{
       alert("NOT SUCCESS")
     })
-  }).then(succ=>{this.router.navigateByUrl('/loggedin');})
-}
+  }).then(succ=>{      this.auth.afAuth.authState
+    .subscribe(
+      user => {
+        if (user) {
+    this.router.navigate(['/loggedin']);}
+  })})}
 
 errorMessage: string;
-registerInfo: string;
+
 
 register() {
-  (this.auth.register(this.credentials))   
-  .then(succ=>{this.router.navigateByUrl('/accountcreated');})
-    // .catch(err => console.log(err.message))
+  this.auth.register(this.credentials) 
+  .then(suc=>{
+    this.auth.afAuth.authState
+    .subscribe(
+      user => {
+        if (user) {
+
+    this.router.navigate(['/accountcreated']);}
+  })})
     .catch(err => {if (err.message=="The email address is already in use by another account."){
       err.message="Ten adres email jest już w użyciu";
       this.errorMessage=err.message;
@@ -100,17 +91,14 @@ logOut(){
 }
 
 abort(){
-  this.router.navigateByUrl('/filter');
+  this.router.navigateByUrl('/notlogged');
 }
 
 haveAccount(){
   this.router.navigateByUrl('/login');
 }
 
-submit() {
-  // do signup or something
-  console.log(this.frmSignup.value);
-}
+
 
 createSignupForm(): FormGroup {
   return this.fb.group(

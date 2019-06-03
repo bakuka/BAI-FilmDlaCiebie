@@ -18,7 +18,7 @@
       <h1 class="cover-heading">Witaj</h1>
       <p class="lead">Utwórz konto za darmo</p>
 
-      <form [formGroup]="frmSignup" (submit)="submit()">
+      <form [formGroup]="frmSignup">
         <div class="form-group ">
 
           <input placeholder="Adres email" id="email" [(ngModel)]="credentials.email" formControlName="email"

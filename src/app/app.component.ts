@@ -73,7 +73,7 @@ export class AppComponent {
             this.router.navigate(['/filter']);
             this.islogged = "Wyloguj";
           } else {
-            this.router.navigate(['']);
+            this.router.navigate(['/register']);
             this.islogged = "Zaloguj";
           }
         },
@@ -101,9 +101,7 @@ else{
 }
 
 
-  // this.router.navigateByUrl('/loggedout');
-  // this.auth.logout()
-  // .then(suc=>{this.router.navigateByUrl('/loggedout');})
+
 }
 
 goToFilterPage(){

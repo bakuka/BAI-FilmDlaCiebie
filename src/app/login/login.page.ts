@@ -30,12 +30,6 @@ export class LoginPage implements OnInit {
       .subscribe(
         user => {
           if (user) {
-      setTimeout(() => 
-      {
-        
-          
-      },
-      5000);
       this.router.navigate(['/loggedin']);}
     })})
       
