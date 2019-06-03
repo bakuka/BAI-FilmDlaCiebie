@@ -60,15 +60,12 @@
                         </ion-col>
                 </ion-row>
                 <ion-row>
-
-                        <!-- <ion-col [hidden]="show">  -->
                         <ion-col size="12" [style.visibility]="(showYTPlayer) ? 'visible' : 'hidden' ">
                                 <youtube-player [videoId]="idRadomFIlmYT" (ready)="savePlayer($event)"
                                         (change)="onStateChange($event)">
                                 </youtube-player>
 
                         </ion-col>
-
                 </ion-row>
 
 
@@ -95,7 +92,7 @@
                                 </ion-button>
                         </ion-col>
                 </ion-row>
-                <ion-row [style.visibility]="(showUserWatchButton) ? 'visible' : 'hidden' ">
+                <ion-row *ngIf="(showUserWatchButton)">
                         <ion-col size="5" class="user-col">
                                 <ion-button (click)="clickUserWatched()" class="user-button" icon-start>
                                         <ion-icon name="star-outline" class="personal-icon"></ion-icon>
@@ -109,8 +106,5 @@
                                 </ion-button>
                         </ion-col>
                 </ion-row>
-
-
-
         </ion-toolbar>
 </ion-footer>
