@@ -20,19 +20,19 @@ export class FilterPage implements OnInit {
   @Output() loading: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() results: EventEmitter<YouTubeSearchResult[]> = new EventEmitter<YouTubeSearchResult[]>();
 
-  valueOfSlider=0;
+  valueOfSlider = 0;
 
   films: Film[];
   filteredOptionsMin: Observable<string[]>;
   filteredOptionsMax: Observable<string[]>;
-  genresTab :string[];
+  genresTab: string[];
   userFilms: Film[];
   userAvoidFilms: Film[];
   userUID: String = null;
-  
+
   filterProperty = {} as Filter;
 
-  getGenres(){
+  getGenres() {
     return this.genresTab;
   }
 
@@ -46,18 +46,18 @@ export class FilterPage implements OnInit {
 
   //START genres LOV initialization
   movieGenre = new FormControl();
-  movieGenreList: string[] = [""]; 
+  movieGenreList: string[] = [""];
   //END genres LOV
 
   /*YT*/
   player: YT.Player;
 
-  savePlayer (player){
+  savePlayer(player) {
     this.player = player;
     console.log('player instance', player);
   }
 
-  onStateChange(event){
+  onStateChange(event) {
   }
   /*****/
 
@@ -69,19 +69,19 @@ export class FilterPage implements OnInit {
   constructor(private filmService: FilmService,
     private router: Router,
     private auth: AuthenticationService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.filmService.getFilms().subscribe(films => {
       this.films = films;
       this.movieGenreList = this.getAllGenres();
       this.filmCountryList = this.getAllCountries();
-    });   
+    });
 
     this.filteredOptionsMin = this.yearsMinForm.valueChanges.pipe(
       startWith(''),
       map(value => this._filterMin(value))
-    );  
+    );
 
     this.filteredOptionsMax = this.yearsMaxForm.valueChanges.pipe(
       startWith(''),
@@ -95,12 +95,12 @@ export class FilterPage implements OnInit {
           this.userUID = user.uid;
           this.filmService.getUserFilms(user.uid).subscribe(films => { /*get user films*/
             this.userFilms = films;
-            console.log("liczba filmów zalogowanego użytkownika: " + this.userFilms.length );
+            console.log("liczba filmów zalogowanego użytkownika: " + this.userFilms.length);
           });
           this.filmService.getUserAvoidFilms(user.uid).subscribe(films => { /*get user avoid films*/
             this.userAvoidFilms = films;
-            console.log("liczba filmów pomijanych przez użytkownika: " + this.userAvoidFilms.length );
-          });  
+            console.log("liczba filmów pomijanych przez użytkownika: " + this.userAvoidFilms.length);
+          });
         }
       });
     /*************/
@@ -124,7 +124,7 @@ export class FilterPage implements OnInit {
     return countriesArray;
   }
 
-  getAllGenres() :string[] {
+  getAllGenres(): string[] {
     var genresArray: string[];
     genresArray = [""];
     genresArray.pop();
@@ -143,22 +143,22 @@ export class FilterPage implements OnInit {
   }
 
   clickRandomFilm() {
-    var minYearFilter :string = this.yearsMinForm.value;
-    var maxYearFilter :string = this.yearsMaxForm.value;
-    var movieGenres :string[] = this.movieGenre.value;
-    var movieCountries :string[] = this.filmCountry.value;
-    
+    var minYearFilter: string = this.yearsMinForm.value;
+    var maxYearFilter: string = this.yearsMaxForm.value;
+    var movieGenres: string[] = this.movieGenre.value;
+    var movieCountries: string[] = this.filmCountry.value;
+
     /* if fields are null, this is the support of it*/
-    if (minYearFilter == null || minYearFilter == ""){
+    if (minYearFilter == null || minYearFilter == "") {
       minYearFilter = "1850";
     }
-    if (maxYearFilter == null || minYearFilter == ""){
+    if (maxYearFilter == null || minYearFilter == "") {
       maxYearFilter = "2050";
-    }   
-    if (this.movieGenre.value == ""){
+    }
+    if (this.movieGenre.value == "") {
       movieGenres = null;
     }
-    if (this.filmCountry.value == ""){
+    if (this.filmCountry.value == "") {
       movieCountries = null;
     }
     /*****/
@@ -171,12 +171,15 @@ export class FilterPage implements OnInit {
 
 
     /*open new site with film parameters*/
-    this.router.navigate(['/movie'], { state: { filterObj: this.filterProperty,
-                                                filmsList: this.films,
-                                                filmsUserList: this.userFilms,
-                                                filmsuserAvoidList: this.userAvoidFilms,
-                                                userUID: this.userUID
-                                              }});
+    this.router.navigate(['/movie'], {
+      state: {
+        filterObj: this.filterProperty,
+        filmsList: this.films,
+        filmsUserList: this.userFilms,
+        filmsuserAvoidList: this.userAvoidFilms,
+        userUID: this.userUID
+      }
+    });
     /*****/
 
   }
@@ -193,8 +196,8 @@ export class FilterPage implements OnInit {
     return this.yearsMaxTable.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  getYears() :string[] {
-    var years :string[] = [];
+  getYears(): string[] {
+    var years: string[] = [];
     for (var i = 2020; i > 1950; i--) {
       years.push(i.toString());
     }

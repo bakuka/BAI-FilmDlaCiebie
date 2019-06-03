@@ -1,6 +1,8 @@
 .content {
     --background: #311B92; 
-    --color: white;
+    --color: white; 
+
+
   }
   
   .container{
@@ -9,51 +11,79 @@
     padding-left: 5%;
     padding-right: 5%;
   }
-  
-  .movie-subtitle {
-    color: #DEDEDE;
+
+  .image1{
+    position: absolute;
+    top: 12%;
+    left: 10%;
+    display: inline-block;
+    width: 30%;
+    height: 30%;
+
+    
+    padding: 5px;
+
   }
+
+    .image2{
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    right: 20%;
+    bottom: 20%;
+    display: inline-block;
+    height: 30%;
+    width: 30%;
+    padding: 5px;
+}
   
-  .fit-image {
-    width: 100%;
-  object-fit: cover;
-  }
-  
-  .movie-description {
-    font-size: 12px;
-  }
-  
-  .mark-star{
-    color: #FF9800;
-  }
-  
-  p {
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  a {
-    margin-top: 20px;
-    font-size: 14px;
-  }
-  
-  .random {
-    margin: 5px;
-    height: 70px;
-    --background:  #E91E63;
-  }
-  
-  .footer {
-    --background: #240056;
+
+  .text{
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    border-left: 5%;
+    top: 1%;
     padding: 5%;
+    
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 130%;
+    line-height: 17px;
+    text-align: center;
+    
+    color: #E6E6E6;
   }
-  
-  .trailer-btn{
-    width: 100%;
-    margin: 0%;
-    font-size: 10px;
-  }
-  
-  .yt-icon {
-    margin-right: 5px;
-  }
+
+ .title1 {
+    position: absolute;
+    width: 200px;
+    height: 50px;
+    top: 40%;
+    left: 10%;
+    padding: 5%;
+    
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 130%;
+    line-height: 17px;
+    
+ }
+
+ .title2{
+    position: absolute;
+    
+    width: 200px;
+    height: 50px;
+    top: 40%;
+    left: 50%;
+    padding: 5%;
+    
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 130%;
+    line-height: 17px;
+ }

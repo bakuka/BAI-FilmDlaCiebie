@@ -22,18 +22,11 @@ export class MymoviesPage implements OnInit {
   userFilms: Film[];
   userAvoidFilms: Film[];
 
-  constructor(private router: Router, private filmService: FilmService) {this.initializePage(); }
+  constructor(private router: Router, private filmService: FilmService) {}
 
+  
+  
 
-  initializePage() {
-    this.userUID = this.router.getCurrentNavigation().extras.state.userUID;
-  }
-
-  displayFilms(){
-    this.filmService.getUserFilms(this.userUID).subscribe(films => { 
-      this.userFilms = films;
-  })
-}
 
 ngOnInit() {
 }
