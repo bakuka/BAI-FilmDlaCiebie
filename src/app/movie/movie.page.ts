@@ -5,9 +5,7 @@ import { FilterPage } from '../filter/filter.page';
 import { Router } from '@angular/router';
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 import { DeviceMotion, DeviceMotionAccelerationData, DeviceMotionAccelerometerOptions } from '@ionic-native/device-motion';
-import { Platform } from 'ionic-angular';
 import { IonContent } from '@ionic/angular';
-import { AuthenticationService } from '../services/authentication.service';
 import { FilmService } from '../services/film.service';
 
 
@@ -21,7 +19,7 @@ export class MoviePage implements OnInit {
   userUID: String = null;
   showUserWatchButton: Boolean = false;
   showYTPlayer: Boolean = false;
-  naxtChoosedFilm: Film;
+  choosedFilm: Film;
   userFilms: Film[];
   userAvoidFilms: Film[];
 
@@ -52,25 +50,7 @@ export class MoviePage implements OnInit {
 
   constructor(private router: Router,
     private youtube: YouTubeSearchService,
-    private auth: AuthenticationService,
     private filmService: FilmService) {
-    /* for logged user */
-    this.auth.afAuth.authState.subscribe(
-      user => {
-        if (user) {
-          this.userUID = user.uid;
-          this.showUserWatchButton = true; /* show button for logged user*/
-          this.filmService.getUserFilms(user.uid).subscribe(films => { /*get user films*/
-            this.userFilms = films;
-            console.log("liczba filmów zalogowanego użytkownika: " + this.userFilms.length );
-          });
-          this.filmService.getUserAvoidFilms(user.uid).subscribe(films => { /*get user avoid films*/
-            this.userAvoidFilms = films;
-            console.log("liczba filmów pomijanych przez użytkownika: " + this.userAvoidFilms.length );
-          });  
-        }
-      });
-    /*************/
     this.initializePage();
   }
 
@@ -106,17 +86,22 @@ export class MoviePage implements OnInit {
   /*****/
 
   initializePage() {
-    this.skippedFilms = this.router.getCurrentNavigation().extras.state.skippedFilms;
+    this.skippedFilms = [];
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
-    this.naxtChoosedFilm = this.router.getCurrentNavigation().extras.state.filmObj;
-
+    this.userFilms = this.router.getCurrentNavigation().extras.state.filmsUserList;
+    this.userAvoidFilms = this.router.getCurrentNavigation().extras.state.filmsuserAvoidList;
+    this.userUID = this.router.getCurrentNavigation().extras.state.userUID;
+    if (this.userUID != null){
+      this.showUserWatchButton = true; /* show button for logged user*/
+    }
+    
     var chooseFilm = this.filterAndRandomFilm(this.filterProperty.minYear, this.filterProperty.maxYear,
                                               this.filterProperty.genres, this.filterProperty.countries);
 
     if (chooseFilm != null) {
       this.bindVariables(chooseFilm);
-      this.naxtChoosedFilm = chooseFilm;
+      this.choosedFilm = chooseFilm;
     }
   }
 
@@ -144,7 +129,7 @@ export class MoviePage implements OnInit {
 
     if (chooseFilm != null) {
       this.bindVariables(chooseFilm);
-      this.naxtChoosedFilm = chooseFilm;
+      this.choosedFilm = chooseFilm;
     }
     /***turn off the trialer*/
     this.showYTPlayer = false;
@@ -272,14 +257,14 @@ export class MoviePage implements OnInit {
   }
 
   clickUserWatched(){
-    this.filmService.addUserFilm(this.userUID, this.naxtChoosedFilm );
-    alert("film " + this.naxtChoosedFilm.tittle + " został dodany do twojej listy oglądanych filmów");
+    this.filmService.addUserFilm(this.userUID, this.choosedFilm );
+    alert("film " + this.choosedFilm.tittle + " został dodany do twojej listy oglądanych filmów");
     this.clickRandomNextFilm();
   }
 
   clickUserAvoidFilm(){
-    this.filmService.addUserAvoidFilm(this.userUID, this.naxtChoosedFilm );
-    alert("film " + this.naxtChoosedFilm.tittle + " nie bedzie więcej pokazywany");
+    this.filmService.addUserAvoidFilm(this.userUID, this.choosedFilm );
+    alert("film " + this.choosedFilm.tittle + " nie bedzie więcej pokazywany");
     this.clickRandomNextFilm();
   }
 }

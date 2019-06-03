@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Filter } from '../models/filters';
 import { map, startWith } from 'rxjs/operators';
 import { YouTubeSearchResult } from '../youtube-search/youtube-search-result';
-import { MoviePage } from '../movie/movie.page';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Component({
@@ -23,10 +23,13 @@ export class FilterPage implements OnInit {
   valueOfSlider=0;
 
   films: Film[];
-  filteredSkippedFilms: Film[] = []; /*the list of film after filtering, which has been skipped by user*/
   filteredOptionsMin: Observable<string[]>;
   filteredOptionsMax: Observable<string[]>;
   genresTab :string[];
+  userFilms: Film[];
+  userAvoidFilms: Film[];
+  userUID: String = null;
+  
   filterProperty = {} as Filter;
 
   getGenres(){
@@ -64,11 +67,11 @@ export class FilterPage implements OnInit {
   //End - countries LOV
 
   constructor(private filmService: FilmService,
-    private router: Router
+    private router: Router,
+    private auth: AuthenticationService
     ) { }
 
   ngOnInit() {
-    console.log('ngOnInit run');
     this.filmService.getFilms().subscribe(films => {
       this.films = films;
       this.movieGenreList = this.getAllGenres();
@@ -84,6 +87,23 @@ export class FilterPage implements OnInit {
       startWith(''),
       map(value => this._filterMax(value))
     );
+
+    /* for logged user */
+    this.auth.afAuth.authState.subscribe(
+      user => {
+        if (user) {
+          this.userUID = user.uid;
+          this.filmService.getUserFilms(user.uid).subscribe(films => { /*get user films*/
+            this.userFilms = films;
+            console.log("liczba filmów zalogowanego użytkownika: " + this.userFilms.length );
+          });
+          this.filmService.getUserAvoidFilms(user.uid).subscribe(films => { /*get user avoid films*/
+            this.userAvoidFilms = films;
+            console.log("liczba filmów pomijanych przez użytkownika: " + this.userAvoidFilms.length );
+          });  
+        }
+      });
+    /*************/
   }
 
   getAllCountries() {
@@ -152,8 +172,10 @@ export class FilterPage implements OnInit {
 
     /*open new site with film parameters*/
     this.router.navigate(['/movie'], { state: { filterObj: this.filterProperty,
-                                                skippedFilms: this.filteredSkippedFilms,
-                                                filmsList: this.films
+                                                filmsList: this.films,
+                                                filmsUserList: this.userFilms,
+                                                filmsuserAvoidList: this.userAvoidFilms,
+                                                userUID: this.userUID
                                               }});
     /*****/
 
