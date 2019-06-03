@@ -95,7 +95,7 @@
                                 </ion-button>
                         </ion-col>
                 </ion-row>
-                <ion-row [style.visibility]="(showUserWatchButton) ? 'visible' : 'hidden' ">
+                <ion-row *ngIf="(showUserWatchButton)">
                         <ion-col size="5" class="user-col">
                                 <ion-button (click)="clickUserWatched()" class="user-button" icon-start>
                                         <ion-icon name="star-outline" class="personal-icon"></ion-icon>
