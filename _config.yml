@@ -1,5 +1,0 @@
-theme: jekyll-theme-architect
-gem "github-pages", group: :jekyll_plugins
-title: [Film Dla Ciebie]
-description: [test]
-show_downloads: [true]
