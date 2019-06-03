@@ -97,7 +97,7 @@ public class FilmsDownloader {
                 /***** adding descritpion for film*////
                 Document docDesc = Jsoup.connect(filmObject.getUrl()).get();
                 Elements descElement = docDesc.getElementsByClass("filmPlot");
-                filmObject.setDescription(descElement.select(".text").html());
+                filmObject.setDescription(descElement.select(".text").text());
                 /********/
                 try {
                     if (filmObject.getFilmGenres().size() != 0 || filmObject.getFilmCountries().size() != 0){

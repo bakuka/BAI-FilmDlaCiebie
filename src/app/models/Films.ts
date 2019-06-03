@@ -8,4 +8,5 @@ export interface Film {
     year?:number;
     genres?:string[];
     countries?:string[];
+    description?:string;
   }
