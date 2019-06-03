@@ -1,6 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonContent } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Film } from '../models/Films';
+import { FilmService } from '../services/film.service';
+import { Filter } from '../models/filters';
+import { FilterPage } from '../filter/filter.page';
+import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
+
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-mymovies',
@@ -9,9 +18,24 @@ import { Router } from '@angular/router';
 })
 export class MymoviesPage implements OnInit {
 
-  constructor() { }
+  userUID: String = null;
+  userFilms: Film[];
+  userAvoidFilms: Film[];
 
-  ngOnInit() {
+  constructor(private router: Router, private filmService: FilmService) {this.initializePage(); }
+
+
+  initializePage() {
+    this.userUID = this.router.getCurrentNavigation().extras.state.userUID;
   }
+
+  displayFilms(){
+    this.filmService.getUserFilms(this.userUID).subscribe(films => { 
+      this.userFilms = films;
+  })
+}
+
+ngOnInit() {
+}
 
 }
