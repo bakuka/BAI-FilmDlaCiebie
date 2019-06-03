@@ -64,10 +64,10 @@ export class AppComponent {
       .subscribe(
         user => {
           if (user) {
-            this.router.navigateByUrl('/filter');
+            this.router.navigate(['/filter']);
             this.islogged = "Wyloguj";
           } else {
-            this.router.navigateByUrl('/register');
+            this.router.navigate(['']);
             this.islogged = "Zaloguj";
           }
         },
@@ -77,11 +77,21 @@ export class AppComponent {
       );
     });
 
-
+  
 }
 logOut(){
-  this.auth.logout()
-  .then(() => this.router.navigateByUrl('/register'));
+  this.router.navigate(['/loggedout']);
+  setTimeout(() => 
+{
+    this.auth.logout()
+    
+},
+2000);
+
+
+  // this.router.navigateByUrl('/loggedout');
+  // this.auth.logout()
+  // .then(suc=>{this.router.navigateByUrl('/loggedout');})
 }
 
 goToFilterPage(){
