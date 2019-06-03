@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   islogged : string;
+  userUID: String = null;
+  
 
   rootPage;
   public appPages = [
@@ -55,7 +57,10 @@ export class AppComponent {
     private router: Router,
   ) {
     this.initializeApp();
+
   }
+
+
 
 	initializeApp() {
     this.platform.ready().then(() => {
@@ -64,6 +69,7 @@ export class AppComponent {
       .subscribe(
         user => {
           if (user) {
+            this.userUID = user.uid;
             this.router.navigate(['/filter']);
             this.islogged = "Wyloguj";
           } else {
@@ -80,13 +86,19 @@ export class AppComponent {
   
 }
 logOut(){
+
+  if (this.userUID != null){
   this.router.navigate(['/loggedout']);
   setTimeout(() => 
 {
-    this.auth.logout()
+    this.auth.logout();
+     this.userUID=null;
     
 },
-2000);
+2000);}
+else{
+  this.router.navigate(['/register']);
+}
 
 
   // this.router.navigateByUrl('/loggedout');
