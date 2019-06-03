@@ -5,7 +5,7 @@
 
 .container{
   padding-top: 5%;
-  padding-bottom: 5%;
+  padding-bottom: 2%;
   padding-left: 5%;
   padding-right: 5%;
 }
@@ -45,7 +45,10 @@ a {
 
 .footer {
   --background: #240056;
-  padding: 5%;
+  padding-left: 2%;
+  padding-right: 2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
 }
 
 .trailer-btn{
@@ -57,3 +60,24 @@ a {
 .yt-icon {
   margin-right: 5px;
 }
+
+.user-button {
+    padding: 0 !important;
+    width: 100%;
+    margin: 0%;
+    font-size: 10px;
+    color: #D1C4E9;
+    --background:#240056;
+    text-align: center;
+    
+  }
+
+  .user-col{
+    padding: 0;
+    margin: 0;
+  }
+
+  .personal-icon {
+    margin-right: 6px;
+    font-size: 1.2rem;
+  }
