@@ -9,10 +9,8 @@
         </ion-toolbar>
 </ion-header>
 
-<ion-content class="content" [scrollEvents]="true"
-(ionScrollStart)="logScrollStart()"
-(ionScroll)="logScrolling($event)"
-(ionScrollEnd)="logScrollEnd()">
+<ion-content class="content" [scrollEvents]="true" (ionScrollStart)="logScrollStart()"
+        (ionScroll)="logScrolling($event)" (ionScrollEnd)="logScrollEnd()">
         <ion-grid class="container">
                 <ion-row>
                         <ion-col size="12">
@@ -28,7 +26,10 @@
                                 <!--property binding-->
                         </ion-col>
                         <ion-col size="6">
-                                        <h1><mat-icon class='mark-star'>star</mat-icon>{{pagefilmScore}}</h1> <!--interpolation-->
+                                <h1>
+                                        <mat-icon class='mark-star'>star</mat-icon>{{pagefilmScore}}
+                                </h1>
+                                <!--interpolation-->
                                 <a>Rok produkcji</a>
                                 <strong>
                                         <p>{{pageFilmYear}}</p>
@@ -46,7 +47,8 @@
                 </ion-row>
                 <ion-row>
                         <ion-col size="6">
-                                <ion-button (click)="clickTrailer()" (click)="ScrollToBottom()" class="trailer-btn" color="danger" icon-start>
+                                <ion-button (click)="clickTrailer()" (click)="ScrollToBottom()" class="trailer-btn"
+                                        color="danger" icon-start>
                                         <ion-icon name="logo-youtube" class="yt-icon"></ion-icon>
                                         Obejrzyj trailer
                                 </ion-button>
@@ -71,11 +73,6 @@
 
                 </ion-row>
 
-                <div [style.visibility]="(showUserWatchButton) ? 'visible' : 'hidden' ">>
-                        <button (click)="clickUserWatched()">Oglądałem</button>
-                        <button (click)="clickUserAvoidFilm()">Nie pokazuj więcej</button>
-                </div>
-
 
                 <div>
                         <button full (click)="startMotion()">Start Watching</button>
@@ -93,7 +90,29 @@
 </ion-content>
 <ion-footer>
         <ion-toolbar class="footer">
-                <ion-button (click)="clickRandomNextFilm()" (click)="ScrollToTop()" expand="block" size="large" class="random">Losuj następny
-                </ion-button>
+                <ion-row>
+                        <ion-col size="12" class="user-col">
+                                <ion-button (click)="clickRandomNextFilm()" (click)="ScrollToTop()" expand="block"
+                                        size="large" class="random">Losuj następny
+                                </ion-button>
+                        </ion-col>
+                </ion-row>
+                <ion-row [style.visibility]="(showUserWatchButton) ? 'visible' : 'hidden' ">
+                        <ion-col size="5" class="user-col">
+                                <ion-button (click)="clickUserWatched()" class="user-button" icon-start>
+                                        <ion-icon name="star-outline" class="personal-icon"></ion-icon>
+                                        Oglądałem
+                                </ion-button>
+                        </ion-col>
+                        <ion-col size="7" class="user-col">
+                                <ion-button (click)="clickUserAvoidFilm()" class="user-button" icon-start>
+                                        <ion-icon name="sad" class="personal-icon"></ion-icon>
+                                        Nie pokazuj więcej
+                                </ion-button>
+                        </ion-col>
+                </ion-row>
+
+
+
         </ion-toolbar>
 </ion-footer>
