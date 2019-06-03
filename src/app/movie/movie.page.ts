@@ -41,8 +41,8 @@ export class MoviePage implements OnInit {
   pageFilmTitle: string;
   pageFilmYear: number;
   pagefilmScore: number;
-  pageFilmGenres: string[];
-  pageFilmCountries: string[];
+  pageFilmGenres: string;
+  pageFilmCountries: string;
   pageimgURL: string;
   pageFilmOriginalTitle: string;
   pageFilmDescription: string;
@@ -106,11 +106,19 @@ export class MoviePage implements OnInit {
   }
 
   bindVariables(film: Film) {
+    var tempGenres = "";
+    var tempCountries= "";
     this.pageFilmTitle = film.tittle;
     this.pageFilmYear = film.year;
     this.pagefilmScore = film.score;
-    this.pageFilmGenres = film.genres;
-    this.pageFilmCountries = film.countries;
+    for (var i = 0; i < film.genres.length; i++){
+      tempGenres = tempGenres+  film.genres[i] + ", " ;
+    }
+    this.pageFilmGenres = tempGenres.slice(0,-2);
+    for (var i = 0; i < film.countries.length; i++){
+      tempCountries = tempCountries + film.countries[i] + ", ";
+    }
+    this.pageFilmCountries = tempCountries.slice(0,-2);
     this.pageimgURL = film.imgURL;
     this.pageFilmOriginalTitle = film.originalTittle;
     this.pageFilmDescription = film.description;
