@@ -92,8 +92,13 @@ public class FilmsDownloader {
                 }
                 filmObject.setFilmActors(filmsActors); //film actors
 
-                filmObject.setUrl("https://www.filmweb.pl" + filmCategory.select(".filmPreview__link").attr("href") + "/discussion?plusMinus=false&page=");
+                filmObject.setUrl("https://www.filmweb.pl" + filmCategory.select(".filmPreview__link").attr("href") );
                 filmObject.setImgURL(filmCategory.select(".filmPoster__image").attr("data-src"));
+                /***** adding descritpion for film*////
+                Document docDesc = Jsoup.connect(filmObject.getUrl()).get();
+                Elements descElement = docDesc.getElementsByClass("filmPlot");
+                filmObject.setDescription(descElement.select(".text").html());
+                /********/
                 try {
                     if (filmObject.getFilmGenres().size() != 0 || filmObject.getFilmCountries().size() != 0){
                         filmsList.add(filmObject);
@@ -139,7 +144,7 @@ public class FilmsDownloader {
                     films.get(i).getUrl().equals("") || films.get(i).getYear().equals("") ||
                     films.get(i).getImgURL().equals("") || films.get(i).getFilmGenres().equals("") ||
                     films.get(i).getFilmCountries().equals("") || films.get(i).getFilmCountries().isEmpty()
-                    || films.get(i).getFilmCountries().size() == 0  ){
+                    || films.get(i).getFilmCountries().size() == 0  || films.get(i).getDescription().equals("")){
                 films.remove(i);
             }
         }
