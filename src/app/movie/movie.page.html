@@ -30,15 +30,15 @@
                                         <mat-icon class='mark-star'>star</mat-icon>{{pagefilmScore}}
                                 </h1>
                                 <!--interpolation-->
-                                <a>Rok produkcji</a>
+                                <a class="parameter-header">Rok produkcji</a>
                                 <strong>
                                         <p>{{pageFilmYear}}</p>
                                 </strong>
-                                <a>Gatunek</a>
+                                <a class="parameter-header">Gatunek</a>
                                 <strong>
                                         <p>{{pageFilmGenres}}</p>
                                 </strong>
-                                <a>Kraj produkcji</a>
+                                <a class="parameter-header">Kraj produkcji</a>
                                 <strong>
                                         <p>{{pageFilmCountries}}</p>
                                 </strong>
@@ -59,16 +59,13 @@
                                 </div>
                         </ion-col>
                 </ion-row>
-                <ion-row>
+        </ion-grid>
+        <ion-grid class="iframe">
                         <ion-col size="12" [style.visibility]="(showYTPlayer) ? 'visible' : 'hidden' ">
                                 <youtube-player [videoId]="idRadomFIlmYT" (ready)="savePlayer($event)"
                                         (change)="onStateChange($event)">
                                 </youtube-player>
-
                         </ion-col>
-                </ion-row>
-
-
                 <div>
                         <button full (click)="startMotion()">Start Watching</button>
                         <button full (click)="stopMotion()">Stop Watching</button>
