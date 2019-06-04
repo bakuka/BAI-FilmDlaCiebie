@@ -73,7 +73,7 @@ export class AppComponent {
             this.router.navigate(['/filter']);
             this.islogged = "Wyloguj";
           } else {
-            this.router.navigate(['/register']);
+            this.router.navigate(['']);
             this.islogged = "Zaloguj";
           }
         },
@@ -108,6 +108,9 @@ goToFilterPage(){
 this.router.navigateByUrl('/filter');
 }
 
+goToMoviesPage(){
+  this.router.navigateByUrl('/mymovies');
+  }
 
 }
   

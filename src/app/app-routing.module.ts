@@ -21,7 +21,8 @@ const routes: Routes = [
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },  { path: 'loggedin', loadChildren: './loggedin/loggedin.module#LoggedinPageModule' },
   { path: 'loggedout', loadChildren: './loggedout/loggedout.module#LoggedoutPageModule' },
   { path: 'accountcreated', loadChildren: './accountcreated/accountcreated.module#AccountcreatedPageModule' },
-  { path: 'notlogged', loadChildren: './notlogged/notlogged.module#NotloggedPageModule' }
+  { path: 'notlogged', loadChildren: './notlogged/notlogged.module#NotloggedPageModule' },
+  { path: 'mymovies', loadChildren: './mymovies/mymovies.module#MymoviesPageModule' }
 
 ];
 
