@@ -7,6 +7,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { RegisterPage} from './register/register.page';
 import { FilterPage} from './filter/filter.page';
 import { Router } from '@angular/router';
+import { Film } from './models/Films';
+import { FilmService } from './services/film.service';
 
 
 @Component({
@@ -16,6 +18,7 @@ import { Router } from '@angular/router';
 export class AppComponent {
   islogged : string;
   userUID: String = null;
+  userFilms: Film[];
   
 
   rootPage;
@@ -55,6 +58,7 @@ export class AppComponent {
     private statusBar: StatusBar,
     private auth: AuthenticationService,
     private router: Router,
+    private filmService: FilmService,
   ) {
     this.initializeApp();
 
@@ -72,6 +76,12 @@ export class AppComponent {
             this.userUID = user.uid;
             this.router.navigate(['/filter']);
             this.islogged = "Wyloguj";
+
+            /***initialize user films */
+            this.filmService.getUserFilms(user.uid).subscribe(films => { /*get user films*/
+            this.userFilms = films;
+            });
+            /***** */
           } else {
             this.router.navigate(['']);
             this.islogged = "Zaloguj";
@@ -109,7 +119,8 @@ this.router.navigateByUrl('/filter');
 }
 
 goToMoviesPage(){
-  this.router.navigateByUrl('/mymovies');
+  this.router.navigate(['/mymovies'] , { state: { filmsUserList: this.userFilms
+                      }});
   }
 
 }

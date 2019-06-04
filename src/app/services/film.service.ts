@@ -23,7 +23,8 @@ export class FilmService {
   addUserFilm(userId: String, film: Film){
     this.afs.database.ref('/usersFilm/'+userId).push({
       id: film.id,
-      tittle: film.tittle
+      tittle: film.tittle,
+      imgURL: film.imgURL
     })
   }
 
@@ -32,13 +33,14 @@ export class FilmService {
   }
 
   addUserAvoidFilm(userId: String, film: Film){
-    this.afs.database.ref('/usersFilm/'+userId+'/userAvoidFilms').push({
+    this.afs.database.ref('/userAvoidFilms/'+userId).push({
       id: film.id,
-      tittle: film.tittle
+      tittle: film.tittle,
+      imgURL: film.imgURL
     })
   }
 
   getUserAvoidFilms(userId: String){
-    return this.afs.list('/usersFilm/'+userId+'/userAvoidFilms').valueChanges(); 
+    return this.afs.list('/userAvoidFilms/'+userId).valueChanges(); 
   }
 }

@@ -10,14 +10,24 @@
 </ion-header>
 
 <ion-content class="content">
-  <h1 class='text'>Moje Filmy:</h1>
-  <div>
+  <!-- <div>
+        <h1 class='text'>Moje Filmy:</h1>
+  </div>   -->
+  <!-- <div>
       <img class='image1' src="..\assets\images\image1.jpg" >
       <h4 class='title1'>title1</h4>
   </div>
   <div>
       <img class='image2' src="..\assets\images\image2.jpg" >
       <h4 class='title2'>title2</h4>
+  </div> -->
+  <div>
+        <ul>
+                <li *ngFor="let userFilm of userFilms">
+                        <img  [src]="userFilm.imgURL"/>
+                        <h4>{{ userFilm.tittle }} </h4>
+                </li>
+        </ul>
   </div>
 
 </ion-content>

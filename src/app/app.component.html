@@ -16,7 +16,7 @@
               </ion-label>
             </ion-item>
             <!-- only if user is logged in -->
-            <ion-item (click)='goToMoviesPage()'>
+            <ion-item *ngIf="(userUID) != null" (click)='goToMoviesPage()'>
                 <ion-icon slot="start" name="film"></ion-icon>
                 <ion-label>
                   Moje filmy
