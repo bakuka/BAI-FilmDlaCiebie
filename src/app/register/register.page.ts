@@ -54,69 +54,30 @@ export class RegisterPage {
 
   // }
 
-  async facebookLogin(){
-		const loading = await this.loadingController.create({
-			message: 'Please wait...'
-		});
-		this.presentLoading(loading);
-		let permissions = new Array<string>();
 
-		//the permissions your facebook app needs from the user
-     permissions = ["public_profile", "email"];
-
-		this.facebook.login(permissions)
-		.then(response =>{
-			let userId = response.authResponse.userID;
-
-			//Getting name and gender properties
-			this.facebook.api("/me?fields=name,email", permissions)
-			.then(user =>{
-				user.picture = "https://graph.facebook.com/" + userId + "/picture?type=large";
-				//now we have the users info, let's save it in the NativeStorage
-				this.nativeStorage.setItem('facebook_user',
-				{
-					name: user.name,
-					email: user.email,
-					picture: user.picture
-				})
-				.then(() =>{
-					this.router.navigate(["/loggedin"]);
-					loading.dismiss();
-				}, error =>{
-					console.log(error);
-					loading.dismiss();
-				})
-			})
-		}, error =>{
-			console.log(error);
-			loading.dismiss();
-		});
-  }
   
-  // facebookLogin(){
-  //   this.facebook.login(['email']).then(res=>{
-  // const fc=firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken)
-  // firebase.auth().signInWithCredential(fc).then(fs=>{
+  facebookLogin(){
+    this.facebook.login(['email']).then(res=>{
+  const fc=firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken)
+  firebase.auth().signInWithCredential(fc).then(fs=>{
     
-  // }).catch(ferr=>{
-  //   alert("firebase NOK")
-  // })
-  //   }).catch(err=>{
-  //     alert(JSON.stringify(err))
-  //   }).then(succ => {
-  //     this.auth.afAuth.authState
-  //       .subscribe(
-  //         user => {
-  //           if (user) {
-  //             this.router.navigate(['/loggedin']);
-  //           }
-  //         })
-  //   })
-  // }
-
-	async presentLoading(loading) {
-		return await loading.present();
+  }).catch(ferr=>{
+    alert("firebase NOK")
+  })
+    }).catch(err=>{
+      alert(JSON.stringify(err))
+    }).then(succ => {
+      this.auth.afAuth.authState
+        .subscribe(
+          user => {
+            if (user) {
+              this.router.navigate(['/loggedin']);
+            }
+          })
+    })
   }
+
+
 
 
 
