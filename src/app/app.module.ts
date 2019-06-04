@@ -29,6 +29,9 @@ import { Shake } from '@ionic-native/shake/ngx';
 import { Platform } from 'ionic-angular';
 import 'hammerjs';
 import { GestureConfig } from '@angular/material';
+import {Facebook} from '@ionic-native/facebook/ngx'
+import { NativeStorage } from '@ionic-native/native-storage/ngx';
+
 
 
 
@@ -53,6 +56,7 @@ firebase.initializeApp(environment.firebase)
     AngularFireAuthModule,
     YoutubePlayerModule,
     HttpModule,
+  
  
   ],
   providers: [
@@ -60,7 +64,8 @@ firebase.initializeApp(environment.firebase)
     SplashScreen,
     FilmService,AngularFirestore,
     youTubeSearchInjectables,
- 
+    Facebook,
+ NativeStorage,
  
     
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy
