@@ -6,7 +6,7 @@ body{
   position: absolute;
   left: 15.28%;
   right: 17.5%;
-  top: 10%;
+  top: 5%;
   bottom: 80%;
   
   
@@ -38,3 +38,7 @@ body{
   
   }
   
+  .content {
+    --background: #311B92; 
+    --color: white;
+  }

@@ -18,7 +18,7 @@ body{
   }
   
   .random{
-    width: 75%;
+    width: 100%;
     height: 20%;
     margin-bottom:5%;
     margin-top: 13.5%;
@@ -32,9 +32,13 @@ body{
       height: auto;
       margin-bottom: auto;
       margin-right: auto;
-      margin-top: 50%;
+      margin-top: 45%;
       margin-left: auto;
       display: block;
   
   }
   
+  .content {
+    --background: #311B92; 
+    --color: white;
+  }
