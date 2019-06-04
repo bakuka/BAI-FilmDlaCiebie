@@ -9,14 +9,14 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false">
-              <ion-item (click)="goToFilterPage()" >
-                  <ion-icon slot="start" name="list"></ion-icon>
-                  <ion-label>
-                    Filtry
-                  </ion-label>
-                </ion-item>
-            <ion-item (click)="logOut()" >
-              <ion-icon slot="start" name="list"></ion-icon>
+            <ion-item (click)="goToFilterPage()">
+              <ion-icon slot="start" name="list-box"></ion-icon>
+              <ion-label>
+                Filtry
+              </ion-label>
+            </ion-item>
+            <ion-item (click)="logOut()">
+              <ion-icon slot="start" name="person" class="menu-icons"></ion-icon>
               <ion-label>
                 {{islogged}}
               </ion-label>
