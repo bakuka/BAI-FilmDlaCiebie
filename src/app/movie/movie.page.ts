@@ -22,6 +22,7 @@ export class MoviePage implements OnInit {
   choosedFilm: Film;
   userFilms: Film[];
   userAvoidFilms: Film[];
+  currentDisplayedFilm: Film;
 
   /**motion */
   data: any;
@@ -124,6 +125,8 @@ export class MoviePage implements OnInit {
     this.pageFilmOriginalTitle = film.originalTittle;
     this.pageFilmDescription = film.description;
 
+    this.currentDisplayedFilm = film; /**remember current dispayed film. Needed for showing previous films*/
+
 
     this.youtube.search(film.tittle + "zwiastun PL").switch().subscribe(); / load trailer from YT /
   }
@@ -153,65 +156,65 @@ export class MoviePage implements OnInit {
 
     return filteredFilms = films.filter(filterData => {
 
-      /* checking if the film is in user list*/
-      if (this.userUID != null) {
-        for (var i = 0; i < this.userFilms.length; i++) {
-          if (this.userFilms[i].id == filterData.id) {
-            return null;
-          }
-        }
-      }
-      /**********/
+                                                        /* checking if the film is in user list*/
+                                                        if (this.userUID != null) {
+                                                          for (var i = 0; i < this.userFilms.length; i++) {
+                                                            if (this.userFilms[i].id == filterData.id) {
+                                                              return null;
+                                                            }
+                                                          }
+                                                        }
+                                                        /**********/
 
-      /* checking if the film is in user avoid list*/
-      if (this.userUID != null) {
-        for (var i = 0; i < this.userAvoidFilms.length; i++) {
-          if (this.userAvoidFilms[i].id == filterData.id) {
-            return null;
-          }
-        }
-      }
-      /**********/
+                                                        /* checking if the film is in user avoid list*/
+                                                        if (this.userUID != null) {
+                                                          for (var i = 0; i < this.userAvoidFilms.length; i++) {
+                                                            if (this.userAvoidFilms[i].id == filterData.id) {
+                                                              return null;
+                                                            }
+                                                          }
+                                                        }
+                                                        /**********/
 
-      /* checking if the film has been choosen before, if yes, it cannot be choosen*/
-      for (var i = 0; i < this.skippedFilms.length; i++) {
-        if (this.skippedFilms[i].id == filterData.id) {
-          return null;
-        }
-      }
-      /********* */
+                                                        /* checking if the film has been choosen before, if yes, it cannot be choosen*/
+                                                        for (var i = 0; i < this.skippedFilms.length; i++) {
+                                                          if (this.skippedFilms[i].id == filterData.id) {
+                                                            return null;
+                                                          }
+                                                        }
+                                                        /********* */
 
-      if (genresTab != null) {
-        var checkFilmGenre: Boolean = false;
-        for (var i = 0; i < filterData.genres.length; i++) {
-          for (var j = 0; j < genresTab.length; j++) {
-            if (filterData.genres[i] == genresTab[j]) {
-              checkFilmGenre = true;
-            }
-          }
-        }
-        if (checkFilmGenre == false) {
-          return null;
-        }
-      }
-      if (countriesTab != null) {
-        var checkFilmCountries: Boolean = false;
-        for (var i = 0; i < filterData.countries.length; i++) {
-          for (var j = 0; j < countriesTab.length; j++) {
-            if (filterData.countries[i] == countriesTab[j]) {
-              checkFilmCountries = true;
-            }
-          }
-        }
-        if (checkFilmCountries == false) {
-          return null;
-        }
-      }
+                                                        if (genresTab != null) {
+                                                          var checkFilmGenre: Boolean = false;
+                                                          for (var i = 0; i < filterData.genres.length; i++) {
+                                                            for (var j = 0; j < genresTab.length; j++) {
+                                                              if (filterData.genres[i] == genresTab[j]) {
+                                                                checkFilmGenre = true;
+                                                              }
+                                                            }
+                                                          }
+                                                          if (checkFilmGenre == false) {
+                                                            return null;
+                                                          }
+                                                        }
+                                                        if (countriesTab != null) {
+                                                          var checkFilmCountries: Boolean = false;
+                                                          for (var i = 0; i < filterData.countries.length; i++) {
+                                                            for (var j = 0; j < countriesTab.length; j++) {
+                                                              if (filterData.countries[i] == countriesTab[j]) {
+                                                                checkFilmCountries = true;
+                                                              }
+                                                            }
+                                                          }
+                                                          if (checkFilmCountries == false) {
+                                                            return null;
+                                                          }
+                                                        }
 
-      return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear)
-        && filterData.score >= minScore;
-    }
-    );
+                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear)
+                                                          && filterData.score >= minScore;
+                                                      }
+                                      );
   }
 
   randomFilm(films: Film[]) {
@@ -242,6 +245,28 @@ export class MoviePage implements OnInit {
     this.player.loadVideoById(String(this.youtube.getFilmId()));
   }
 
+  // startMotion() {
+  //   var previousValueX = 0;
+  //   var previousValueY = 0;
+  //   var previousValueZ = 0;
+
+  //   var options: DeviceMotionAccelerometerOptions = {
+  //     frequency: 500
+  //   };
+
+  //   this.subscription = DeviceMotion.watchAcceleration(options).subscribe((acceleration: DeviceMotionAccelerationData) => {
+  //     this.data = acceleration;
+
+  //     if (acceleration.x - previousValueX > 5 || acceleration.y - previousValueY > 5 || acceleration.z - previousValueZ > 5) {
+  //       this.clickRandomNextFilm();
+  //     }
+  //     previousValueX = acceleration.x;
+  //     previousValueY = acceleration.y;
+  //     previousValueZ = acceleration.z;
+  //   })
+  // }
+
+
   startMotion() {
     var previousValueX = 0;
     var previousValueY = 0;
@@ -254,12 +279,12 @@ export class MoviePage implements OnInit {
     this.subscription = DeviceMotion.watchAcceleration(options).subscribe((acceleration: DeviceMotionAccelerationData) => {
       this.data = acceleration;
 
-      if (acceleration.x - previousValueX > 5 || acceleration.y - previousValueY > 5 || acceleration.z - previousValueZ > 5) {
+      if (acceleration.x - previousValueX > 5) {
         this.clickRandomNextFilm();
+      }else if (acceleration.x - previousValueX < -5 ){
+        this.clickPreviousButton();
       }
       previousValueX = acceleration.x;
-      previousValueY = acceleration.y;
-      previousValueZ = acceleration.z;
     })
   }
 
@@ -315,6 +340,14 @@ export class MoviePage implements OnInit {
       mode: 'ios'
     });
     await alert.present();
+  }
+
+  clickPreviousButton(){
+    for (var i = 0; i < this.skippedFilms.length; i++) {
+      if (this.skippedFilms[i].id == this.currentDisplayedFilm.id && i>0) {
+        this.bindVariables(this.skippedFilms[i-1]);
+      }
+    }    
   }
 
 }
