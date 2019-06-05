@@ -224,6 +224,7 @@ export class MoviePage implements OnInit {
 
     if (filteredFilms.length == 0) {
       window.alert("brak filmu z podanymi kryteriami");
+      this.router.navigate(['/filter']);
       return;
     } else if (filteredFilms.length == 1) {
       this.skippedFilms.push(filteredFilms[0]) /* adding to skipped list*/
