@@ -1,13 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators, FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
+import { Component } from '@angular/core';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { CustomValidators } from './custom-validators';
-import { NavController } from 'ionic-angular';
-import { FilterPage } from '../filter/filter.page';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { AuthenticationService } from '../services/authentication.service';
-import {Facebook} from '@ionic-native/facebook/ngx'
+import { Facebook } from '@ionic-native/facebook/ngx'
 import { NativeStorage } from '@ionic-native/native-storage/ngx';
 import { LoadingController } from '@ionic/angular';
 
@@ -22,8 +20,6 @@ import { LoadingController } from '@ionic/angular';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
-  APP_ID: number = 437719640393686;
-
 
   credentials = {
     email: '',
@@ -33,7 +29,6 @@ export class RegisterPage {
   public frmSignup: FormGroup;
 
   constructor(
-
     private fb: FormBuilder,
     private router: Router,
     public googleplus: GooglePlus,
@@ -41,30 +36,23 @@ export class RegisterPage {
     private facebook: Facebook,
     private nativeStorage: NativeStorage,
     public loadingController: LoadingController
-    
-
 
   ) {
 
     this.frmSignup = this.createSignupForm();
   }
 
-  //   ngOnInit() {
-  //   }
+  //   ngOnInit() {}}
 
-  // }
+  facebookLogin() {
+    this.facebook.login(['email']).then(res => {
+      const fc = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken)
+      firebase.auth().signInWithCredential(fc).then(fs => {
 
-
-  
-  facebookLogin(){
-    this.facebook.login(['email']).then(res=>{
-  const fc=firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken)
-  firebase.auth().signInWithCredential(fc).then(fs=>{
-    
-  }).catch(ferr=>{
-    alert("firebase NOK")
-  })
-    }).catch(err=>{
+      }).catch(ferr => {
+        alert("firebase NOK")
+      })
+    }).catch(err => {
       alert(JSON.stringify(err))
     }).then(succ => {
       this.auth.afAuth.authState
@@ -76,14 +64,6 @@ export class RegisterPage {
           })
     })
   }
-
-
-
-
-
-
-
-
 
 
   googleLogin() {
@@ -107,7 +87,6 @@ export class RegisterPage {
   }
 
   errorMessage: string;
-
 
   register() {
     this.auth.register(this.credentials)
@@ -137,19 +116,16 @@ export class RegisterPage {
 
   abort() {
     this.router.navigateByUrl('/notlogged');
-    setTimeout(() => 
-    {
+    setTimeout(() => {
 
       this.router.navigateByUrl('/filter');
     },
-    1500);}
-  
+      1500);
+  }
 
   haveAccount() {
     this.router.navigateByUrl('/login');
   }
-
-
 
   createSignupForm(): FormGroup {
     return this.fb.group(
@@ -170,17 +146,6 @@ export class RegisterPage {
             CustomValidators.patternValidator(/[A-Z]/, {
               hasCapitalCase: true
             }),
-            // check whether the entered password has a lower case letter
-            // CustomValidators.patternValidator(/[a-z]/, {
-            //   hasSmallCase: true
-            // }),
-            // check whether the entered password has a special character
-            // CustomValidators.patternValidator(
-            //   /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/,
-            //   {
-            //     hasSpecialCharacters: true
-            //   }
-            // ),
             Validators.minLength(6)
           ])
         ],

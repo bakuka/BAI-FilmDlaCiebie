@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Film } from '../models/Films';
 import { Filter } from '../models/filters';
-import { FilterPage } from '../filter/filter.page';
 import { Router } from '@angular/router';
 import { YouTubeSearchService } from '../youtube-search/youtube-search.service';
 import { DeviceMotion, DeviceMotionAccelerationData, DeviceMotionAccelerometerOptions } from '@ionic-native/device-motion';
 import { IonContent } from '@ionic/angular';
 import { FilmService } from '../services/film.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -50,6 +50,7 @@ export class MoviePage implements OnInit {
 
   constructor(private router: Router,
     private youtube: YouTubeSearchService,
+    public alertController: AlertController,
     private filmService: FilmService) {
     this.initializePage();
   }
@@ -92,12 +93,12 @@ export class MoviePage implements OnInit {
     this.userFilms = this.router.getCurrentNavigation().extras.state.filmsUserList;
     this.userAvoidFilms = this.router.getCurrentNavigation().extras.state.filmsuserAvoidList;
     this.userUID = this.router.getCurrentNavigation().extras.state.userUID;
-    if (this.userUID != null){
+    if (this.userUID != null) {
       this.showUserWatchButton = true; /* show button for logged user*/
     }
-    
+
     var chooseFilm = this.filterAndRandomFilm(this.filterProperty.minYear, this.filterProperty.maxYear,
-                                              this.filterProperty.genres, this.filterProperty.countries);
+      this.filterProperty.genres, this.filterProperty.countries);
 
     if (chooseFilm != null) {
       this.bindVariables(chooseFilm);
@@ -107,18 +108,18 @@ export class MoviePage implements OnInit {
 
   bindVariables(film: Film) {
     var tempGenres = "";
-    var tempCountries= "";
+    var tempCountries = "";
     this.pageFilmTitle = film.tittle;
     this.pageFilmYear = film.year;
     this.pagefilmScore = film.score;
-    for (var i = 0; i < film.genres.length; i++){
-      tempGenres = tempGenres+  film.genres[i] + ", " ;
+    for (var i = 0; i < film.genres.length; i++) {
+      tempGenres = tempGenres + film.genres[i] + ", ";
     }
-    this.pageFilmGenres = tempGenres.slice(0,-2);
-    for (var i = 0; i < film.countries.length; i++){
+    this.pageFilmGenres = tempGenres.slice(0, -2);
+    for (var i = 0; i < film.countries.length; i++) {
       tempCountries = tempCountries + film.countries[i] + ", ";
     }
-    this.pageFilmCountries = tempCountries.slice(0,-2);
+    this.pageFilmCountries = tempCountries.slice(0, -2);
     this.pageimgURL = film.imgURL;
     this.pageFilmOriginalTitle = film.originalTittle;
     this.pageFilmDescription = film.description;
@@ -151,66 +152,66 @@ export class MoviePage implements OnInit {
     filteredFilms.pop();
 
     return filteredFilms = films.filter(filterData => {
-                                                        
-                                                        /* checking if the film is in user list*/
-                                                        if (this.userUID != null){
-                                                          for (var i = 0; i < this.userFilms.length; i++){
-                                                            if (this.userFilms[i].id == filterData.id) {
-                                                              return null;
-                                                            }
-                                                          }
-                                                        }
-                                                        /**********/
 
-                                                        /* checking if the film is in user avoid list*/
-                                                        if (this.userUID != null){
-                                                          for (var i = 0; i < this.userAvoidFilms.length; i++){
-                                                            if (this.userAvoidFilms[i].id == filterData.id) {
-                                                              return null;
-                                                            }
-                                                          }
-                                                        }
-                                                        /**********/
+      /* checking if the film is in user list*/
+      if (this.userUID != null) {
+        for (var i = 0; i < this.userFilms.length; i++) {
+          if (this.userFilms[i].id == filterData.id) {
+            return null;
+          }
+        }
+      }
+      /**********/
 
-                                                        /* checking if the film has been choosen before, if yes, it cannot be choosen*/
-                                                        for (var i = 0; i < this.skippedFilms.length; i++) {
-                                                          if (this.skippedFilms[i].id == filterData.id) {
-                                                            return null;
-                                                          }
-                                                        }
-                                                        /********* */
+      /* checking if the film is in user avoid list*/
+      if (this.userUID != null) {
+        for (var i = 0; i < this.userAvoidFilms.length; i++) {
+          if (this.userAvoidFilms[i].id == filterData.id) {
+            return null;
+          }
+        }
+      }
+      /**********/
 
-                                                        if (genresTab != null) {
-                                                          var checkFilmGenre: Boolean = false;
-                                                          for (var i = 0; i < filterData.genres.length; i++) {
-                                                            for (var j = 0; j < genresTab.length; j++) {
-                                                              if (filterData.genres[i] == genresTab[j]) {
-                                                                checkFilmGenre = true;
-                                                              }
-                                                            }
-                                                          }
-                                                          if (checkFilmGenre == false) {
-                                                            return null;
-                                                          }
-                                                        }
-                                                        if (countriesTab != null) {
-                                                          var checkFilmCountries: Boolean = false;
-                                                          for (var i = 0; i < filterData.countries.length; i++) {
-                                                            for (var j = 0; j < countriesTab.length; j++) {
-                                                              if (filterData.countries[i] == countriesTab[j]) {
-                                                                checkFilmCountries = true;
-                                                              }
-                                                            }
-                                                          }
-                                                          if (checkFilmCountries == false) {
-                                                            return null;
-                                                          }
-                                                        }
+      /* checking if the film has been choosen before, if yes, it cannot be choosen*/
+      for (var i = 0; i < this.skippedFilms.length; i++) {
+        if (this.skippedFilms[i].id == filterData.id) {
+          return null;
+        }
+      }
+      /********* */
 
-                                                        return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear)
-                                                          && filterData.score >= minScore;
-                                                        }
-                                        );
+      if (genresTab != null) {
+        var checkFilmGenre: Boolean = false;
+        for (var i = 0; i < filterData.genres.length; i++) {
+          for (var j = 0; j < genresTab.length; j++) {
+            if (filterData.genres[i] == genresTab[j]) {
+              checkFilmGenre = true;
+            }
+          }
+        }
+        if (checkFilmGenre == false) {
+          return null;
+        }
+      }
+      if (countriesTab != null) {
+        var checkFilmCountries: Boolean = false;
+        for (var i = 0; i < filterData.countries.length; i++) {
+          for (var j = 0; j < countriesTab.length; j++) {
+            if (filterData.countries[i] == countriesTab[j]) {
+              checkFilmCountries = true;
+            }
+          }
+        }
+        if (checkFilmCountries == false) {
+          return null;
+        }
+      }
+
+      return filterData.year >= Number.parseFloat(minYar) && filterData.year <= Number.parseFloat(maxYear)
+        && filterData.score >= minScore;
+    }
+    );
   }
 
   randomFilm(films: Film[]) {
@@ -218,12 +219,12 @@ export class MoviePage implements OnInit {
     return films[random];
   }
 
-  filterAndRandomFilm(minYearFilter, maxYearFilter, movieGenres, movieCountries){
+  filterAndRandomFilm(minYearFilter, maxYearFilter, movieGenres, movieCountries) {
     var filteredFilms: Film[] = [];
     filteredFilms = this.filterFilms(this.filmsList, minYearFilter, maxYearFilter, movieGenres, movieCountries, this.filterProperty.score);
 
     if (filteredFilms.length == 0) {
-      window.alert("brak filmu z podanymi kryteriami");
+      this.noFilmsAlert();
       this.router.navigate(['/filter']);
       return;
     } else if (filteredFilms.length == 1) {
@@ -266,23 +267,54 @@ export class MoviePage implements OnInit {
     this.subscription.unsubscribe();
   }
 
-  clickUserWatched(){
-    if (this.userUID != null){
-      this.filmService.addUserFilm(this.userUID, this.choosedFilm );
-      alert("film " + this.choosedFilm.tittle + " został dodany do twojej listy oglądanych filmów");
+  clickUserWatched() {
+    if (this.userUID != null) {
+      this.filmService.addUserFilm(this.userUID, this.choosedFilm);
+      this.viewedAlert();
       this.clickRandomNextFilm();
-    }else{
+    } else {
       alert("Użytkownik nie zalogowany, prosze się zalogować");
     }
   }
 
-  clickUserAvoidFilm(){
-    if (this.userUID != null){
-      this.filmService.addUserAvoidFilm(this.userUID, this.choosedFilm );
-      alert("film " + this.choosedFilm.tittle + " nie bedzie więcej pokazywany");
+  clickUserAvoidFilm() {
+    if (this.userUID != null) {
+      this.filmService.addUserAvoidFilm(this.userUID, this.choosedFilm);
+      this.noShowAlert();
       this.clickRandomNextFilm();
-    }else{
+    } else {
       alert("Użytkownik nie zalogowany, prosze się zalogować");
     }
   }
+
+  async noFilmsAlert() {
+    const alert = await this.alertController.create({
+      header: 'Uwaga',
+      subHeader: 'Brak filmów z podanymi kryteriami',
+      buttons: ['OK'],
+      mode: 'ios'
+    });
+    await alert.present();
+  }
+
+  async noShowAlert() {
+    const alert = await this.alertController.create({
+      header: 'Uwaga',
+      subHeader: 'Film "' + this.choosedFilm.tittle + '" nie będzie więcej pokazywany.',
+      buttons: ['OK'],
+      mode: 'ios'
+    });
+    await alert.present();
+  }
+
+  async viewedAlert() {
+    const alert = await this.alertController.create({
+      // header: 'Film Dla Ciebie',
+      subHeader: 'Film "' + this.choosedFilm.tittle + '" został dodany do twojej listy obejrzanych.',
+      buttons: ['OK'],
+      mode: 'ios'
+    });
+    await alert.present();
+  }
+
 }

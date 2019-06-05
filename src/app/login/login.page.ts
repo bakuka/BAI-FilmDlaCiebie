@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-login',
@@ -49,15 +48,9 @@ export class LoginPage implements OnInit {
       });
   }
 
-
-
-
-
   return() {
     this.router.navigate(['/register'])
   }
-
-
 
   ngOnInit() {
   }
