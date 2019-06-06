@@ -132,6 +132,8 @@ export class MoviePage implements OnInit {
   }
 
   clickRandomNextFilm() {
+    var date = new Date();
+    console.log(date.getTime());
     var chooseFilm: Film;
     var minYearFilter: number = this.filterProperty.minYear;
     var maxYearFilter: number = this.filterProperty.maxYear;
@@ -269,8 +271,8 @@ export class MoviePage implements OnInit {
 
   startMotion() {
     var previousValueX = 0;
-    var previousValueY = 0;
-    var previousValueZ = 0;
+    var datePrevious = new Date();
+    var previousDate = datePrevious.getTime();
 
     var options: DeviceMotionAccelerometerOptions = {
       frequency: 500
@@ -279,10 +281,16 @@ export class MoviePage implements OnInit {
     this.subscription = DeviceMotion.watchAcceleration(options).subscribe((acceleration: DeviceMotionAccelerationData) => {
       this.data = acceleration;
 
-      if (acceleration.x - previousValueX > 5) {
+      var date = new Date();
+      var actualDate = date.getTime();
+
+
+      if (acceleration.x - previousValueX > 5 && actualDate - previousDate > 1000 ) {
         this.clickRandomNextFilm();
-      }else if (acceleration.x - previousValueX < -5 ){
+        previousDate = date.getTime();
+      }else if (acceleration.x - previousValueX < -5 && actualDate - previousDate > 1000 ){
         this.clickPreviousButton();
+        previousDate = date.getTime();
       }
       previousValueX = acceleration.x;
     })
