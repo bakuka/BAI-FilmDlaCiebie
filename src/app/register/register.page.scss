@@ -1,97 +1,46 @@
-body {
-    color: white;
-    background:  url(../../assets/images/background.jpg);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-  }
-
-  .cover-container {
-    color: white;
-    height:100vh;
-    padding-top: 10%;
-    padding-bottom: 10%;
-  }
-
-
-  /* 19327054 */
-
-
-.blue{
-    background: #311B92;
-  }
-  /* Witaj */
-  
-  .register1 {
-    text-align: center;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 64px;
-    line-height: 77px;
-    /* identical to box height */
-    color: #FFFFFF;
+  .content {
+    --background: #311B92; 
+    --background: linear-gradient(158.34deg, #240056 14.39%, #6B3CAC 56.46%, #E91E63 98.53%);
+    --color: white;
+    --ion-grid-padding: 0;
   }
   
-  .register2 {
-    text-align: center;
-    font-family: Lato;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 18px;
-    line-height: 22px;
-    /* identical to box height */
-    color: #FFFFFF;
+  .container{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    padding-left: 10%;
+    padding-right: 10%;
   }
-  
-  .email-field {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.3);
-    width: 249px;
-    height: 46px;
-    margin: auto;
-  }
-  
-  .email-field>* {
+
+  .facebook-button {
+    font-size: 10px;
     width: 100%;
+    --background: #4267b2;
   }
-  
-  .password-field {
-    position: relative;
-    bottom: -3%;
-    display: flex;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.3);
-    width: 249px;
-    height: 46px;
-    margin: auto;
+  .google-button {
+    font-size: 10px;
+    width: 100%;
+    --background: #4285f4;
   }
-  
-  /* .password-field > * {
-      width: 100%;
-    } */
-  
-  .re-password-field {
-    position: relative;
-    bottom: -6%;
-    display: flex;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.3);
-    width: 249px;
-    height: 46px;
-    margin: auto;
+
+
+  .form-group {
+    font-size: 12px;
   }
-  
-  .register-field {
-    width: 249px;
-    height: 46px;
-    margin: auto;
+
+  .user-col {
+    font-size: 14px;
+    color: whitesmoke;
+    margin-top: 20px;
   }
-  
-  .valid-text {
-    position: relative;
-    left: 40.5%
+
+  .form-control {
+    font-size: 12px;
+    height: 40px;
   }
+
+  .social-icon {
+    margin-right: 5px;
+  }
+
+ 

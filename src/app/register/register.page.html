@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -10,94 +9,96 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-<body>
-  <div class="text-center">
-  <div class="cover-container">
-    <main role="main" class="inner cover">
-      <h1 class="cover-heading">Witaj</h1>
-      <p class="lead">Utwórz konto za darmo</p>
+<ion-content class="content">
+  <ion-grid class="container">
+    <ion-row class="ion-text-center">
+      <ion-col size="12">
+        <h1 class="cover-heading">Witaj</h1>
+        <p class="lead">Utwórz konto za darmo</p>
 
-      <form [formGroup]="frmSignup">
-        <div class="form-group ">
+        <form [formGroup]="frmSignup">
+          <div class="form-group ">
 
-          <input placeholder="Adres email" id="email" [(ngModel)]="credentials.email" formControlName="email"
-            type="email" class="form-control register-field"
-            [ngClass]="frmSignup.controls['email'].invalid ? 'is-invalid' : ''">
+            <input placeholder="Adres email" id="email" [(ngModel)]="credentials.email" formControlName="email"
+              type="email" class="form-control register-field"
+              [ngClass]="frmSignup.controls['email'].invalid ? 'is-invalid' : ''">
 
-          <label class="text-danger col text-center"
-            *ngIf="frmSignup.controls['email'].hasError('required') && frmSignup.controls['email'].touched">
-            Email jest wymagany!
-          </label>
+            <label class="text-danger col text-center"
+              *ngIf="frmSignup.controls['email'].hasError('required') && frmSignup.controls['email'].touched">
+              Email jest wymagany!
+            </label>
 
-          <label class="text-danger col text-center" *ngIf="frmSignup.controls['email'].hasError('email')">
-            Wpisz poprawny adres email!
-          </label>
-          <label class="text-danger col text-center">
-            {{errorMessage}}
-          </label>
-        </div>
-        <div class="form-group">
+            <label class="text-danger col text-center" *ngIf="frmSignup.controls['email'].hasError('email')">
+              Wpisz poprawny adres email!
+            </label>
+            <label class="text-danger col text-center">
+              {{errorMessage}}
+            </label>
+          </div>
+          <div class="form-group">
 
-          <input placeholder="Hasło" id="password" [(ngModel)]="credentials.password" formControlName="password"
-            type="password" class="form-control register-field"
-            [ngClass]="frmSignup.controls['password'].invalid ? 'is-invalid' : ''">
-          <label class="text-danger col text-center"
-            *ngIf="frmSignup.controls['password'].hasError('required') && frmSignup.controls['password'].touched">
-            Hasło jest wymagane!
-          </label>
-          <label class="text-danger col text-center"
-            *ngIf="frmSignup.controls['password'].touched && frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('minlength')  ? 'is-invalid' : '' ">
-            Hasło musi mieć co najmniej 6 znaków!
-          </label>
-          <label class="text-danger col text-center"
-            *ngIf="frmSignup.controls['password'].touched && frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasNumber')  ? 'is-invalid' : ''">
-            Musi zawierać przynajmniej jedną liczbę!
-          </label>
-          <label class="text-danger col text-center"
-            *ngIf="frmSignup.controls['password'].touched && frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasCapitalCase')  ? 'is-invalid' : ''">
-            Musi zawierać przynajmniej jedną wielką literę!
-          </label>
-        </div>
-        <div class="form-group">
+            <input placeholder="Hasło" id="password" [(ngModel)]="credentials.password" formControlName="password"
+              type="password" class="form-control register-field"
+              [ngClass]="frmSignup.controls['password'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger col text-center"
+              *ngIf="frmSignup.controls['password'].hasError('required') && frmSignup.controls['password'].touched">
+              Hasło jest wymagane!
+            </label>
+            <label class="text-danger col text-center"
+              *ngIf="frmSignup.controls['password'].touched && frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('minlength')  ? 'is-invalid' : '' ">
+              Hasło musi mieć co najmniej 6 znaków!
+            </label>
+            <label class="text-danger col text-center"
+              *ngIf="frmSignup.controls['password'].touched && frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasNumber')  ? 'is-invalid' : ''">
+              Musi zawierać przynajmniej jedną liczbę!
+            </label>
+            <label class="text-danger col text-center"
+              *ngIf="frmSignup.controls['password'].touched && frmSignup.controls['password'].hasError('required') || frmSignup.controls['password'].hasError('hasCapitalCase')  ? 'is-invalid' : ''">
+              Musi zawierać przynajmniej jedną wielką literę!
+            </label>
+          </div>
+          <div class="form-group">
 
-          <input placeholder="Potwierdź hasło" id="confirmPassword" formControlName="confirmPassword" type="password"
-            class="form-control register-field"
-            [ngClass]="frmSignup.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
-          <label class="text-danger col text-center"
-            *ngIf="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].hasError('required')">
-            Pole wymagane!
-          </label>
-          <label class="text-danger col text-center"
-            *ngIf="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].hasError('NoPassswordMatch')">
-            Wprowadzone hasła się różnią!
-          </label>
-        </div>
-        <div class="form-group">
-          <button [disabled]="frmSignup.invalid" (click)="register()" type="submit"
-            class="btn btn-danger btn-block font-weight-bold register-field">Zarejestruj się</button>
-        </div>
-      </form>
+            <input placeholder="Potwierdź hasło" id="confirmPassword" formControlName="confirmPassword" type="password"
+              class="form-control register-field"
+              [ngClass]="frmSignup.controls['confirmPassword'].invalid ? 'is-invalid' : ''">
+            <label class="text-danger col text-center"
+              *ngIf="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].hasError('required')">
+              Pole wymagane!
+            </label>
+            <label class="text-danger col text-center"
+              *ngIf="frmSignup.controls['confirmPassword'].touched && frmSignup.controls['confirmPassword'].hasError('NoPassswordMatch')">
+              Wprowadzone hasła się różnią!
+            </label>
+          </div>
+          <div class="form-group">
+            <button [disabled]="frmSignup.invalid" (click)="register()" type="submit"
+              class="btn btn-danger btn-block font-weight-bold register-field">Zarejestruj się</button>
+          </div>
+        </form>
+      </ion-col>
 
-      <div class="form-group register-field">
-          <button  type="button" class="btn btn-primary btn-block" (click)="googleLogin()">
-            <i class="fa fa-google" aria-hidden="true"></i>
-            Login with Google
-          </button>
-        </div>
+      <ion-col size="12">
+        <ion-button icon-start (click)="facebookLogin()" class="facebook-button">
+          <ion-icon name="logo-facebook" class="social-icon"></ion-icon>
+          Zaloguj się za pomocą facebooka
+        </ion-button>
+        <ion-button icon-start (click)="googleLogin()" class="google-button">
+          <ion-icon name="logo-google" class="social-icon"></ion-icon>
+          Zaloguj się za pomocą google
+        </ion-button>
+      </ion-col>
+      <ion-col size="6" class="user-col">
+        <a (click)="haveAccount()" class="user-button">
+          Mam już konto
+        </a>
+      </ion-col>
+      <ion-col size="6" class="user-col">
+        <a (click)="abort()" class="user-button">
+          Pomiń </a>
+      </ion-col>
+    </ion-row>
 
-        <div class="form-group register-field">
-          <button  type="button" class="btn btn-primary btn-block" (click)="facebookLogin()">
-            <i class="fa fa-google" aria-hidden="true"></i>
-            Login with Facebook
-          </button>
-        </div>
-        <button type="button" class="btn btn-link" (click)="haveAccount()">Mam już konto</button>
-        <button type="button" class="btn btn-link" (click)="abort()">Pomiń</button>
-        
+  </ion-grid>
 
-      </main>
-  </div>
-</div>
-</body>
 </ion-content>
