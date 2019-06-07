@@ -25,7 +25,6 @@ export class MoviePage implements OnInit {
   currentDisplayedFilm: Film;
 
   /**motion */
-  data: any;
   subscription: any;
   /*** */
 
@@ -88,6 +87,7 @@ export class MoviePage implements OnInit {
   /*****/
 
   initializePage() {
+    console.log("wlazlo w inicjalizacje");
     this.skippedFilms = [];
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
@@ -260,12 +260,11 @@ export class MoviePage implements OnInit {
     };
 
     this.subscription = DeviceMotion.watchAcceleration(options).subscribe((acceleration: DeviceMotionAccelerationData) => {
-      this.data = acceleration;
 
       var date = new Date();
       var actualDate = date.getTime();
 
-      if ( actualDate - previousDate > 1000 && (acceleration.x - previousValueX > 5 || acceleration.y - previousValueY > 5 || acceleration.z - previousValueZ > 5)) {
+      if ( actualDate - previousDate > 1000 && (acceleration.x - previousValueX > 10 || acceleration.y - previousValueY > 10 || acceleration.z - previousValueZ > 10)) {
         this.clickRandomNextFilm();
         previousDate = date.getTime();
       }
