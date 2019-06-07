@@ -79,7 +79,6 @@ export class MoviePage implements OnInit {
   /***YT */
   savePlayer(player) {
     this.player = player;
-    console.log('player instance', player);
   }
 
   onStateChange(event) {
@@ -87,7 +86,6 @@ export class MoviePage implements OnInit {
   /*****/
 
   initializePage() {
-    console.log("wlazlo w inicjalizacje");
     this.startMotion();
     this.skippedFilms = [];
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
@@ -127,7 +125,6 @@ export class MoviePage implements OnInit {
     this.pageFilmDescription = film.description;
 
     this.currentDisplayedFilm = film; /**remember current dispayed film. Needed for showing previous films*/
-
 
     this.youtube.search(film.tittle + "zwiastun PL").switch().subscribe(); / load trailer from YT /
   }
@@ -334,5 +331,4 @@ export class MoviePage implements OnInit {
       }
     }    
   }
-
 }
