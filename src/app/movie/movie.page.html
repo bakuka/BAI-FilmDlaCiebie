@@ -61,15 +61,11 @@
                 </ion-row>
         </ion-grid>
         <ion-grid class="iframe">
-                        <ion-col size="12" [style.visibility]="(showYTPlayer) ? 'visible' : 'hidden' ">
-                                <youtube-player [videoId]="idRadomFIlmYT" (ready)="savePlayer($event)"
-                                        (change)="onStateChange($event)">
-                                </youtube-player>
-                        </ion-col>
-                <div>
-                        <button full (click)="startMotion()">Start Watching</button>
-                        <button full (click)="stopMotion()">Stop Watching</button>
-                </div>
+                <ion-col size="12" [style.visibility]="(showYTPlayer) ? 'visible' : 'hidden' ">
+                        <youtube-player [videoId]="idRadomFIlmYT" (ready)="savePlayer($event)"
+                                (change)="onStateChange($event)">
+                        </youtube-player>
+                </ion-col>
         </ion-grid>
 
 </ion-content>

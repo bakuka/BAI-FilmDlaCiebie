@@ -88,6 +88,7 @@ export class MoviePage implements OnInit {
 
   initializePage() {
     console.log("wlazlo w inicjalizacje");
+    this.startMotion();
     this.skippedFilms = [];
     this.filterProperty = this.router.getCurrentNavigation().extras.state.filterObj;
     this.filmsList = this.router.getCurrentNavigation().extras.state.filmsList;
@@ -132,8 +133,6 @@ export class MoviePage implements OnInit {
   }
 
   clickRandomNextFilm() {
-    var date = new Date();
-    console.log(date.getTime());
     var chooseFilm: Film;
     var minYearFilter: number = this.filterProperty.minYear;
     var maxYearFilter: number = this.filterProperty.maxYear;
