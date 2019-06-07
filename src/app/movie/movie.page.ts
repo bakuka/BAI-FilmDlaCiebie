@@ -247,30 +247,11 @@ export class MoviePage implements OnInit {
     this.player.loadVideoById(String(this.youtube.getFilmId()));
   }
 
-  // startMotion() {
-  //   var previousValueX = 0;
-  //   var previousValueY = 0;
-  //   var previousValueZ = 0;
-
-  //   var options: DeviceMotionAccelerometerOptions = {
-  //     frequency: 500
-  //   };
-
-  //   this.subscription = DeviceMotion.watchAcceleration(options).subscribe((acceleration: DeviceMotionAccelerationData) => {
-  //     this.data = acceleration;
-
-  //     if (acceleration.x - previousValueX > 5 || acceleration.y - previousValueY > 5 || acceleration.z - previousValueZ > 5) {
-  //       this.clickRandomNextFilm();
-  //     }
-  //     previousValueX = acceleration.x;
-  //     previousValueY = acceleration.y;
-  //     previousValueZ = acceleration.z;
-  //   })
-  // }
-
-
   startMotion() {
     var previousValueX = 0;
+    var previousValueY = 0;
+    var previousValueZ = 0;
+
     var datePrevious = new Date();
     var previousDate = datePrevious.getTime();
 
@@ -284,15 +265,13 @@ export class MoviePage implements OnInit {
       var date = new Date();
       var actualDate = date.getTime();
 
-
-      if (acceleration.x - previousValueX > 5 && actualDate - previousDate > 1000 ) {
+      if ( actualDate - previousDate > 1000 && (acceleration.x - previousValueX > 5 || acceleration.y - previousValueY > 5 || acceleration.z - previousValueZ > 5)) {
         this.clickRandomNextFilm();
-        previousDate = date.getTime();
-      }else if (acceleration.x - previousValueX < -5 && actualDate - previousDate > 1000 ){
-        this.clickPreviousButton();
         previousDate = date.getTime();
       }
       previousValueX = acceleration.x;
+      previousValueY = acceleration.y;
+      previousValueZ = acceleration.z;
     })
   }
 
